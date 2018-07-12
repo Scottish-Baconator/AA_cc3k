@@ -11,11 +11,11 @@ coord chamber::random(){
 	return coords[r];
 }
 
-void chamber::include(coord a){
+void chamber::addCoord(coord a){
 	coords.emplace_back(a);
 }
 
-bool chamber::is(coord a){
+bool chamber::containsCoord(coord a){
 	for(auto it = coords.begin(); it != coords.end(); ++i){
 		if(a == *it){
 			return true;
