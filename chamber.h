@@ -7,7 +7,7 @@
 
 #ifndef CHAMBER_H_
 #define CHAMBER_H_
-#include <stdlib.h>
+#include <stdlib.h>//remove .h for g++
 #include "coord.h"
 
 class chamber{
