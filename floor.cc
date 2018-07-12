@@ -83,3 +83,11 @@ bool level::move(coord f, coord t){
 	return false;
 }
 
+char level::render(coord c){
+	if(grd[c.x][c.y] == nullptr){
+		return td->render(c);
+	}else{
+		return grd[c.x][c.y]->render();
+	}
+}
+

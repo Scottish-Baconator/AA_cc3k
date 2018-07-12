@@ -7,16 +7,20 @@
 #include "textdisplay.h"
 
 textDisplay::textDisplay(std::string file){
-		std::ifstream in;
-		in.open(file);
-		for(int i = 0;i < 30;i++){
-			for(int j = 0;j < 79;j++){
-				map[j][i] << in.peek();
-				in.ignore();
-			}
+	std::ifstream in;
+	in.open(file);
+	for(int i = 0;i < 30;i++){
+		for(int j = 0;j < 79;j++){
+			map[j][i] << in.peek();
 			in.ignore();
 		}
+		in.ignore();
 	}
+}
+
+char textDisplay::render(coord c){
+	return map[c.x][c.y];
+}
 
 void textDisplay::chambFrom(coord c, chamber *ch){
 	if(map[c.x][c.y] != '.'){

@@ -8,6 +8,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 #include "floor.h"
+#include <iostream>
 
 class game{
 	level f;
@@ -20,6 +21,7 @@ public:
 	bool attack(enum dir d);
 	void stop();
 	void restart();
+	void render(std::iostream &out);
 	void race(char r);
 	~game();
 };

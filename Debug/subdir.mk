@@ -8,6 +8,7 @@ CC_SRCS += \
 ../character.cc \
 ../enemy.cc \
 ../floor.cc \
+../game.cc \
 ../human.cc \
 ../main.cc \
 ../textdisplay.cc 
@@ -17,6 +18,7 @@ CC_DEPS += \
 ./character.d \
 ./enemy.d \
 ./floor.d \
+./game.d \
 ./human.d \
 ./main.d \
 ./textdisplay.d 
@@ -26,6 +28,7 @@ OBJS += \
 ./character.o \
 ./enemy.o \
 ./floor.o \
+./game.o \
 ./human.o \
 ./main.o \
 ./textdisplay.o 

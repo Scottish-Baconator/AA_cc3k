@@ -16,6 +16,7 @@ class textDisplay {
 public:
 	textDisplay(std::string file);
 	~textDisplay(){}
+	char render(coord c);
 	void chambFrom(coord c, chamber *ch);
 	char get(coord c){return map[c.x][c.y];}
 };

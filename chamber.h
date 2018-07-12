@@ -14,8 +14,7 @@
 class chamber{
 	std::vector<coord> coords;
 public:
-
-
+	//returns a random coordinate in the chamber
 	coord random();
 	
 	//Adds coordinate to chamber

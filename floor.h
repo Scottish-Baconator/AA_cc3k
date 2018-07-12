@@ -28,7 +28,7 @@ public:
 	~level();
 
 	void add(obj* toAdd, coord pos);
-	void render();
+	char render(coord);
 	void step();
 	obj *getObj(coord c){return grd[c.x][c.y];}
 	bool move(coord from, coord to);

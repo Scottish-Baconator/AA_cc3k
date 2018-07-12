@@ -28,6 +28,7 @@ public:
 	
 	void step(level *f) override; //Player triggers step so empty implementation
 	void merchantKiller(); //Called when the player attacks a merchant
+	//Al: I feel like this should be implemented in game.
 };
 
 

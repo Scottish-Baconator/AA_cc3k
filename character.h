@@ -29,15 +29,16 @@ public:
 	int getAtk(){return atk;}
 	int getDef(){return def;}
 	
-	//Drain goes here since it's called by atkEffect (so enemies can have a drain effect if we want)
-	virtual int drain() { return 5; }
-	
 	//By default, enemies never dodge
-		//Al: Why not return a chance of dodging, so that if subj and this have an effect they can deal with it.
 	virtual int dodgeChance(){
 		return 0;
 	}
-	
+
+
+	//Special Effects:
+	//Drain returns the health drain of a vamp
+		//Overriden by dwarf to -5
+	virtual int drain() { return 5; }
 	
 };
 
