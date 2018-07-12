@@ -7,7 +7,7 @@
 #include "chamber.h"
 
 coord chamber::random(){
-	int r = rand() % coord.size();
+	int r = rand() % coords.size();
 	return coords[r];
 }
 
@@ -16,11 +16,9 @@ void chamber::include(coord a){
 }
 
 bool chamber::is(coord a){
-	bool found = false;
-	
 	for(auto it = coords.begin(); it != coords.end(); ++i){
 		if(a == *it){
-			return found;
+			return true;
 		}
 	}
 	return false;
