@@ -11,6 +11,7 @@
 
 class item: public obj{
 public:
+	virtual ~item()=0; //Virtual dtor just so item becomes abstract
 
 };
 

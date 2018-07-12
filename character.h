@@ -12,17 +12,18 @@
 
 class character: public obj{
 	int hp, atk, def;
+	
 public:
-	virtual ~character(coord pos, int h, int a, int d): obj(pos){
-		hp = h;
-		atk = a;
-		def = d;
+	virtual ~character(coord pos, int hp, int atk, int def): obj(pos),hp{hp},atk{atk},def{def}{
 	};
-	virtual void attack(character subj){};
+	virtual void attack(character *subj){};
+	virtual void atkEffect(character *subj); //both players and enemies can have an atkEffect (vampire; elf)
 	virtual void chngHP(int);
-	virtual int getHP(){return hp;}
-	virtual int getAtk(){return atk;}
-	virtual int getDef(){return def;}
+	virtual void die(); //Called by chngHP if HP<0 (or is it 1)
+	int getHP(){return hp;}
+	int getAtk(){return atk;}
+	int getDef(){return def;}
+	void chngHP(int p);
 };
 
 

@@ -16,7 +16,7 @@ public:
 	virtual obj(coord);
 	virtual ~obj(){};
 	virtual void step();
-	virtual char render();
+	virtual char render()=0;
 };
 
 

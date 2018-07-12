@@ -11,13 +11,20 @@
 #include "floor.h"
 
 class enemy: public character{
+	
+protected:
+	bool isHostile;
+	bool isStationary;
+	virtual void drop(level *f); //drop is only called by die so it can be protected
+	
 public:
-	enemy(int a, int d, int h);
+	enemy(int hp, int atk, int def, bool hostile, bool stationary);
+	
+	//Player and enemy attacks can be generalized. Enemy miss chance can be an atkEffect that all enemies have?
+	
 	virtual ~enemy();
-	virtual void atkEffect(character *toAtk);
-	void attack(character *toAtk);
-	void step(level *f);
-	void drop(level *f);
+	void die() override;
+	void step(level *f) override;
 };
 
 

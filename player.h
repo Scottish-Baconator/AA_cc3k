@@ -10,16 +10,19 @@
 #include "character.h"
 
 class player: public character{
-	int MHP;
-	int Atk, Def;
+	int mhp;
+	int atk, def;
+	bool merchantFriend=true;
+	
 public:
-	player(int h, int a, int d, coord pos);
+	player(coord pos, int hp, int atk, int def);
+	
 	char render(){
 		return '@';
 	}
-	void chngHP(int p);
-	int getAtk(){return Atk;}
-	int getDef(){return Def;}
+	
+	void step(level *f) override; //Player triggers step so empty implementation
+	void merchantKiller(); //Called when the player attacks a merchant
 };
 
 

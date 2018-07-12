@@ -7,17 +7,19 @@
 
 #ifndef CHAMBER_H_
 #define CHAMBER_H_
-#include <stdlib.h>//remove .h for g++
+#include <vector>
 #include "coord.h"
 
 class chamber{
-	int mSize = 0;
-	int size  = 0;
-	coord coords[] = nullptr;
+	vector<coord> coords;
 public:
 	coord random();
-	void include(coord a);
-	bool is(coord a);
+	
+	//Adds coordinate to chamber
+	void addCoord(coord a);
+	
+	//Checks if the given coordinate is in this chamber
+	bool containsCoord(coord a);
 };
 
 

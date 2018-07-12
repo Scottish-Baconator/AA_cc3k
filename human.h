@@ -11,11 +11,12 @@
 #include "gold.h"
 
 class human: public enemy{
+protected:
+	void drop(level *f) override;//drop 2 gold
 public:
-	human();
-	char render();
-	void drop(level *f);//drop 2 gold
-	void step(level *f);//
+	human(); //calls enemy constructor with required params
+	char render() override;
+	void step(level *f) override;//
 };
 
 

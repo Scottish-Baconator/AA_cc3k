@@ -79,9 +79,9 @@ void move(level *f, coord pos){
 }
 
 void enemy::step(level *f){
-	if(closePC(f, pos)){
+	if(closePC(f, pos) && isHostile){
 		attack(getPC(f));
-	}else{
+	}else if(!isStationary){
 		move(f, pos);
 	}
 }
