@@ -8,12 +8,14 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 #include "obj.h"
+#include "floor.h"
 
 class character: public obj{
 public:
 	virtual ~character(){};
 	virtual void attack(character subj){};
-	virtual void step();
+	virtual void step(floor &f);
+
 };
 
 

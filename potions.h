@@ -10,19 +10,19 @@
 #include "potion.h"
 
 class BA: public potion{
-	int getAtk(){
+	int getAtk() override{
 		return plaer->getAtk() + 5;
 	}
 };
 
 class BD: public potion{
-	int getDef(){
+	int getDef() override{
 		return plaer->getDef() + 5;
 	}
 };
 
 class WA: public potion{
-	int getAtk(){
+	int getAtk() override{
 		if(plaer->getDef() > 5){
 			return plaer->getDef() - 5;
 		}
@@ -31,7 +31,7 @@ class WA: public potion{
 };
 
 class WD: public potion{
-	int getDef(){
+	int getDef() override{
 		if(plaer->getDef() > 5){
 			return plaer->getDef() - 5;
 		}

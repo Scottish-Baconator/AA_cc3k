@@ -24,6 +24,9 @@ public:
 	~floor();
 
 	void render();
+	void step();
+	obj *getObj(coord c){return grd[c.x][c.y];}
+	void move(coord from, coord to);
 };
 
 
