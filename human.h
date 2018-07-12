@@ -12,11 +12,11 @@
 
 class human: public enemy{
 protected:
-	void drop(level *f) override;//drop 2 gold
 public:
 	human(); //calls enemy constructor with required params
 	char render() override;
 	void step(level *f) override;//
+	void drop(level *f) override;//drop 2 gold
 };
 
 
