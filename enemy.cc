@@ -34,14 +34,6 @@ character* getPC(level *f){
 
 }
 
-void enemy::attack(character *toAtk){
-	if(rand()%2 == 0){
-		return;
-	}
-	this->atkEffect(toAtk);
-	toAtk->chngHP(-ceil((100/(100+toAtk->getDef()))*(this->getAtk())));
-}
-
 void move(level *f, coord pos){
 	coord to(pos);
 	bool done = false;
@@ -79,9 +71,9 @@ void move(level *f, coord pos){
 }
 
 void enemy::step(level *f){
-	if(closePC(f, pos)){
+	if(closePC(f, pos) && isHostile){
 		attack(getPC(f));
-	}else{
+	}else if(!isStationary){
 		move(f, pos);
 	}
 }

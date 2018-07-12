@@ -7,33 +7,17 @@
 #include "chamber.h"
 
 coord chamber::random(){
-	int r = rand() % size;
+	int r = rand() % coords.size();
 	return coords[r];
 }
 
-void chamber::include(coord a){
-	if(size == 0){
-		mSize = 5;
-		coords = new coord[5];
-	}
-	else if(size == mSize){
-		coord temp[mSize];
-		for(int i = 0;i < mSize;i++){
-			temp[i] = coords[i];
-		}
-		delete coords;
-		coords = new coord[mSize*2];
-		for(int i = 0;i < mSize;i++){
-			coords[i] = temp[i];
-		}
-		mSize *= 2;
-	}
-	coords[size++] = a;
+void chamber::addCoord(coord a){
+	coords.emplace_back(a);
 }
 
-bool chamber::is(coord a){
-	for(int i = 0;i < size;i++){
-		if(a == coords[i]){
+bool chamber::containsCoord(coord a){
+	for(auto it = coords.begin(); it != coords.end(); ++i){
+		if(a == *it){
 			return true;
 		}
 	}
