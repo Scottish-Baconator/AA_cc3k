@@ -6,14 +6,14 @@
  */
 #include "human.h"
 
-human::human(){
-	enemy(20, 20, 140);
-}
+human::human(coord pos): enemy(pos, 20, 20, 140, true, false){}
 
 char human::render(){
 	return 'H';
 }
 
 void human::drop(level *f){
-	f->add(new gold(4), pos);
+	coord tA = pos;
+	tA.x++;
+	f->add(new gold(tA, 4), tA);
 }

@@ -16,8 +16,8 @@ void chamber::addCoord(coord a){
 }
 
 bool chamber::containsCoord(coord a){
-	for(auto it = coords.begin(); it != coords.end(); ++i){
-		if(a == *it){
+	for(size_t i = 0;i < coords.size();i++){
+		if(a.eq(&coords[i])){
 			return true;
 		}
 	}

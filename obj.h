@@ -13,10 +13,12 @@ class obj{
 protected:
 	coord pos;
 public:
-	virtual obj(coord);
+	obj(coord c): pos(c){}
 	virtual ~obj(){};
-	virtual void step();
-	virtual char render()=0;
+	virtual void step(){}
+	virtual char render(){
+		return 'O';
+	};
 };
 
 

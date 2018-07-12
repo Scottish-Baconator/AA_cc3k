@@ -12,13 +12,11 @@
 #include <fstream>
 
 class textDisplay {
-	char **map = nullptr;
+	char map[79][30];
 public:
 	textDisplay(std::string file);
-	~textDisplay(){
-		delete map;
-	}
-	void chambFrom(coord c, chamber &ch);
+	~textDisplay(){}
+	void chambFrom(coord c, chamber *ch);
 	char get(coord c){return map[c.x][c.y];}
 };
 

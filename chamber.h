@@ -8,11 +8,14 @@
 #ifndef CHAMBER_H_
 #define CHAMBER_H_
 #include <vector>
+#include <cstdlib>
 #include "coord.h"
 
 class chamber{
-	vector<coord> coords;
+	std::vector<coord> coords;
 public:
+
+
 	coord random();
 	
 	//Adds coordinate to chamber

@@ -4,13 +4,31 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CC_SRCS += \
-../main.cc 
+../chamber.cc \
+../character.cc \
+../enemy.cc \
+../floor.cc \
+../human.cc \
+../main.cc \
+../textdisplay.cc 
 
 CC_DEPS += \
-./main.d 
+./chamber.d \
+./character.d \
+./enemy.d \
+./floor.d \
+./human.d \
+./main.d \
+./textdisplay.d 
 
 OBJS += \
-./main.o 
+./chamber.o \
+./character.o \
+./enemy.o \
+./floor.o \
+./human.o \
+./main.o \
+./textdisplay.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes

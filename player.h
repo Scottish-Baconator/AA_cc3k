@@ -22,8 +22,8 @@ public:
 	}
 	
 	//Player dodges half the time
-	bool dodge() override{
-		return rand()%2 == 0;
+	bool dodgeChance() override{
+		return 50;
 	}
 	
 	void step(level *f) override; //Player triggers step so empty implementation
