@@ -8,6 +8,7 @@
 #ifndef FLOOR_H_
 #define FLOOR_H_
 #include "obj.h"
+#include "chamber.h"
 #include "textDisplay.h"
 
 class level{
@@ -15,6 +16,7 @@ class level{
 	textDisplay *td = nullptr;
 	Walk can[][] = nullptr;
 	obj* grd[][] = nullptr;
+	chamber *chmbrs = nullptr;
 public:
 	level(std::string);
 

@@ -31,4 +31,11 @@ void chamber::include(coord a){
 	coords[size++] = a;
 }
 
-
+bool chamber::is(coord a){
+	for(int i = 0;i < size;i++){
+		if(a == coords[i]){
+			return true;
+		}
+	}
+	return false;
+}

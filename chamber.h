@@ -17,6 +17,7 @@ class chamber{
 public:
 	coord random();
 	void include(coord a);
+	bool is(coord a);
 };
 
 
