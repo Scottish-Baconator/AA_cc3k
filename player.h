@@ -21,6 +21,11 @@ public:
 		return '@';
 	}
 	
+	//Player dodges half the time
+	bool dodge() override{
+		return rand()%2 == 0;
+	}
+	
 	void step(level *f) override; //Player triggers step so empty implementation
 	void merchantKiller(); //Called when the player attacks a merchant
 };

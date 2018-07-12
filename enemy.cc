@@ -34,14 +34,6 @@ character* getPC(level *f){
 
 }
 
-void enemy::attack(character *toAtk){
-	if(rand()%2 == 0){
-		return;
-	}
-	this->atkEffect(toAtk);
-	toAtk->chngHP(-ceil((100/(100+toAtk->getDef()))*(this->getAtk())));
-}
-
 void move(level *f, coord pos){
 	coord to(pos);
 	bool done = false;
