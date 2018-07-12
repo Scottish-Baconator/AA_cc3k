@@ -19,6 +19,7 @@ public:
 		delete map;
 	}
 	void chambFrom(coord c, chamber &ch);
+	char get(coord c){return map[c.x][c.y];}
 };
 
 

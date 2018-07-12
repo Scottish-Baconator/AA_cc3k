@@ -10,23 +10,25 @@
 #include "obj.h"
 #include "textDisplay.h"
 
-class floor{
+class level{
 	enum Walk {All, PC, No};
 	textDisplay *td = nullptr;
 	Walk can[][] = nullptr;
 	obj* grd[][] = nullptr;
 public:
-	floor();
+	level(std::string);
 
-	//floor(std::string file);
+	//floor(std::string file, bool);
 	//For later implementation
 
-	~floor();
+	~level();
 
+	void add(obj* toAdd, coord pos);
 	void render();
 	void step();
 	obj *getObj(coord c){return grd[c.x][c.y];}
 	void move(coord from, coord to);
+	Walk canWalk(coord c){return can[c.x][c.y];}
 };
 
 

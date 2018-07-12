@@ -10,7 +10,7 @@
 #include "player.h"
 
 class shade: public player{
-	shade();
+	shade(coord pos);
 	void attack(character tAtk);
 	void step(floor &f);
 };

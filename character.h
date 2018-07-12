@@ -11,11 +11,18 @@
 #include "floor.h"
 
 class character: public obj{
+	int hp, atk, def;
 public:
-	virtual ~character(){};
+	virtual ~character(coord pos, int h, int a, int d): obj(pos){
+		hp = h;
+		atk = a;
+		def = d;
+	};
 	virtual void attack(character subj){};
-	virtual void step(floor &f);
-
+	virtual void chngHP(int);
+	virtual int getHP(){return hp;}
+	virtual int getAtk(){return atk;}
+	virtual int getDef(){return def;}
 };
 
 

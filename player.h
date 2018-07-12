@@ -10,15 +10,14 @@
 #include "character.h"
 
 class player: public character{
-	int HP, MHP;
+	int MHP;
 	int Atk, Def;
 public:
-	player(int h, int a, int d);
+	player(int h, int a, int d, coord pos);
 	char render(){
 		return '@';
 	}
 	void chngHP(int p);
-	int getHP()	{return HP;}
 	int getAtk(){return Atk;}
 	int getDef(){return Def;}
 };

@@ -9,19 +9,19 @@
 #define POTIONS_H_
 #include "potion.h"
 
-class BA: public potion{
+class BAtk: public pPlayer{
 	int getAtk() override{
 		return plaer->getAtk() + 5;
 	}
 };
 
-class BD: public potion{
+class BDef: public pPlayer{
 	int getDef() override{
 		return plaer->getDef() + 5;
 	}
 };
 
-class WA: public potion{
+class WAtk: public pPlayer{
 	int getAtk() override{
 		if(plaer->getDef() > 5){
 			return plaer->getDef() - 5;
@@ -30,7 +30,7 @@ class WA: public potion{
 	}
 };
 
-class WD: public potion{
+class WDef: public pPlayer{
 	int getDef() override{
 		if(plaer->getDef() > 5){
 			return plaer->getDef() - 5;

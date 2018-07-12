@@ -10,9 +10,10 @@
 #include "floor.h"
 
 class game{
-	floor f;
+	level f;
 public:
-	game();
+	game(bool);
+	game(std::string, bool);
 	enum dir {no, so, ea, we, ne, nw, se, sw};
 	bool move(enum dir d);
 	bool use(enum dir d);

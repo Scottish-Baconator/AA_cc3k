@@ -8,14 +8,14 @@
 
 textDisplay::textDisplay(std::string file){
 		map = new char[79][30];
-		ifstream in;
-		in.open(file);
+		//ifstream in;
+		//in.open(file);
 		for(int i = 0;i < 30;i++){
 			for(int j = 0;j < 79;j++){
-				map[j][i] << in.peek();
-				in.ignore();
+		//		map[j][i] << in.peek();
+		//		in.ignore();
 			}
-			in.ignore();
+		//	in.ignore();
 		}
 	}
 

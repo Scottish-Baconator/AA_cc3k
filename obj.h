@@ -7,9 +7,13 @@
 
 #ifndef OBJ_H_
 #define OBJ_H_
+#include "coord.h"
 
 class obj{
-	public:
+protected:
+	coord pos;
+public:
+	virtual obj(coord);
 	virtual ~obj(){};
 	virtual char render();
 };

@@ -8,11 +8,16 @@
 #ifndef ENEMY_H_
 #define ENEMY_H_
 #include "character.h"
+#include "floor.h"
 
 class enemy: public character{
 public:
-	void drop(floor &f);
-	void step(floor &f);
+	enemy(int a, int d, int h);
+	virtual ~enemy();
+	virtual void atkEffect(character *toAtk);
+	void attack(character *toAtk);
+	void step(level *f);
+	void drop(level *f);
 };
 
 
