@@ -51,3 +51,13 @@ level::level(std::string file){
 	}
 }
 
+void level::step(){
+	for(int i = 0;i < 79;i++){
+			for(int j = 0;j < 30;j++){
+				if(grd[j][i] != nullptr){
+					grd[j][i]->step();
+				}
+			}
+		}
+}
+
