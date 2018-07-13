@@ -11,8 +11,8 @@
 
 class shade: public player{
 	shade(coord pos);
-	void attack(character tAtk);
-	void step(floor &f);
+
+	//Shade has no notable functions of its own
 };
 
 

@@ -11,10 +11,11 @@ textDisplay::textDisplay(std::string file){
 	in.open(file);
 	for(int i = 0;i < 30;i++){
 		for(int j = 0;j < 79;j++){
-			map[j][i] << in.peek();
-			in.ignore();
+			in >> map[j][i];
+			//map[j][i] << in.peek();
+			//in.ignore();
 		}
-		in.ignore();
+	//	in.ignore();
 	}
 }
 

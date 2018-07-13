@@ -7,7 +7,9 @@
 #include "game.h"
 
 int main(int argc, char *argv[]){
-
+	//temporary ignore
+	(void)argc;
+	(void)argv;
 }
 
 

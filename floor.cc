@@ -6,6 +6,7 @@
  */
 #include "floor.h"
 
+//Checks if a chamber contains coordinate
 bool is(chamber** chmbrs, coord c){
 	for(int i = 0;i < 5;i++){
 		if((chmbrs[i] != nullptr)&&(chmbrs[i]->containsCoord(c))){
@@ -15,6 +16,7 @@ bool is(chamber** chmbrs, coord c){
 	return false;
 }
 
+//Reads map from file and determines the level layout
 level::level(std::string file){
 	td = new textDisplay(file);
 	
@@ -56,6 +58,7 @@ level::level(std::string file){
 	}
 }
 
+//Notifies all objects on level to run their step
 void level::step(){
 	for(int i = 0;i < 79;i++){
 			for(int j = 0;j < 30;j++){
@@ -83,6 +86,7 @@ bool level::move(coord f, coord t){
 	return false;
 }
 
+//Gets the character of the object at coordinate c
 char level::render(coord c){
 	if(grd[c.x][c.y] == nullptr){
 		return td->render(c);

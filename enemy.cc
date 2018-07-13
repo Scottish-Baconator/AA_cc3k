@@ -7,9 +7,10 @@
 #include "enemy.h"
 #include <cmath>
 
-int abs(int a){
+//abs already included somewhere else (cmath?)
+/*int abs(int a){
 	return (a < 0 ? -a : a);
-}
+}*/
 
 //Determines if the player is on a neighbouring tile
 bool closePC(level *f, coord c){
@@ -77,11 +78,18 @@ enemy::enemy(coord pos, int hp, int atk, int def, bool hostile, bool stationary)
 
 {}
 
-//Takes the enemy's turn
+enemy::~enemy(){}
+
+//Runs enemy action.
 void enemy::step(level *f){
 	if(closePC(f, pos) && isHostile){
 		attack(getPC(f));
 	}else if(!isStationary){
 		move(f, pos);
 	}
+}
+
+//By default, enemies dont drop anything
+void enemy::drop(level *f){
+	(void)f;
 }

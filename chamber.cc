@@ -5,6 +5,7 @@
  *      Author: alicy
  */
 #include "chamber.h"
+#include <cstdlib>
 
 coord chamber::random(){
 	int r = rand() % coords.size();
@@ -17,7 +18,7 @@ void chamber::addCoord(coord a){
 
 bool chamber::containsCoord(coord a){
 	for(size_t i = 0;i < coords.size();i++){
-		if(a.eq(&coords[i])){
+		if(a.eq(coords[i])){
 			return true;
 		}
 	}

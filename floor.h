@@ -9,7 +9,7 @@
 #define FLOOR_H_
 #include "obj.h"
 #include "chamber.h"
-#include "textDisplay.h"
+#include "textdisplay.h"
 
 class level{
 	textDisplay *td = nullptr;

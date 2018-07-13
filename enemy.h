@@ -19,7 +19,8 @@ protected:
 public:
 	enemy(coord pos, int hp, int atk, int def, bool hostile, bool stationary);
 	
-	//Player and enemy attacks can be generalized. Enemy miss chance can be an atkEffect that all enemies have?
+	//NOTE::: ENEMY IS CURRENTLY NOT ABSTRACT
+	//I don't think we can just make the dtor abstract though can we???
 	
 	virtual void drop(level *f); 
 	virtual ~enemy();
