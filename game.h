@@ -10,22 +10,29 @@
 #include "floor.h"
 #include <iostream>
 #include <string>
+#include "potion.h"
+#include "shade.h"
+#include "enemy.h"
 
 class game{
 	level f;
-
+	player *p = nullptr;
+	player *pp = nullptr;//potioned player
+	coord pC = coord(0,0);
+	int gold;
+	bool paused;
 public:
-	game(bool);
+	game(std::string);
 	game(std::string, bool);
 	enum dir {no, so, ea, we, ne, nw, se, sw};
 	bool move(enum dir d);
 	bool use(enum dir d);
 	bool attack(enum dir d);
 	void stop();
-	void restart();
-	void render(std::iostream &out);
+	void step();
+	void render(std::ostream &out);
 	void race(char r);
-	~game();
+	~game(){};
 };
 
 

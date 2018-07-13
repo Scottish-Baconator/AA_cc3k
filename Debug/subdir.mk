@@ -13,6 +13,8 @@ CC_SRCS += \
 ../main.cc \
 ../obj.cc \
 ../player.cc \
+../potion.cc \
+../potions.cc \
 ../shade.cc \
 ../textdisplay.cc 
 
@@ -26,6 +28,8 @@ CC_DEPS += \
 ./main.d \
 ./obj.d \
 ./player.d \
+./potion.d \
+./potions.d \
 ./shade.d \
 ./textdisplay.d 
 
@@ -39,6 +43,8 @@ OBJS += \
 ./main.o \
 ./obj.o \
 ./player.o \
+./potion.o \
+./potions.o \
 ./shade.o \
 ./textdisplay.o 
 

@@ -1,5 +1,6 @@
 game.o: ../game.cc ../game.h ../floor.h ../obj.h ../coord.h ../chamber.h \
- ../textDisplay.h
+ ../textdisplay.h ../potion.h ../item.h ../player.h ../character.h \
+ ../potions.h ../shade.h ../enemy.h
 
 ../game.h:
 
@@ -11,4 +12,18 @@ game.o: ../game.cc ../game.h ../floor.h ../obj.h ../coord.h ../chamber.h \
 
 ../chamber.h:
 
-../textDisplay.h:
+../textdisplay.h:
+
+../potion.h:
+
+../item.h:
+
+../player.h:
+
+../character.h:
+
+../potions.h:
+
+../shade.h:
+
+../enemy.h:

@@ -10,7 +10,9 @@
 #include "player.h"
 
 player::player(coord pos, int hp, int atk, int def):character{pos,hp,atk,def}
-{}
+{
+	maxHP = hp;
+}
 
 char player::render(){
 	return '@';
@@ -21,8 +23,9 @@ int player::dodgeChance(){
 	return 50;
 }
 
-void player::step() {
+coord player::step() {
 	chngHP(regen());
+	return pos;
 }
 
 void player::merchantKiller(){} //Called when the player attacks a merchant

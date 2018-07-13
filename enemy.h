@@ -24,7 +24,7 @@ public:
 	
 	virtual void drop(level *f); 
 	virtual ~enemy();
-	void step(level *f);
+	coord step(level *f);
 };
 
 

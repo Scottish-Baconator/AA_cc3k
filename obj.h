@@ -15,7 +15,10 @@ protected:
 public:
 	obj(coord c): pos(c){}
 	virtual ~obj(){};
-	virtual void step(){}
+	virtual coord step(){
+		return pos;
+	}
+	coord getPos(){return pos;}
 	virtual char render(){
 		return 'O';
 	};

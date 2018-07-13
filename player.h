@@ -10,8 +10,7 @@
 #include "character.h"
 
 class player: public character{
-	bool merchantFriend=true;
-	
+	int maxHP;
 public:
 	player(coord pos, int hp, int atk, int def);
 	
@@ -20,7 +19,7 @@ public:
 	//Player dodges half the time
 	int dodgeChance() override;
 	
-	void step() override;
+	coord step() override;
 	void merchantKiller(); //Called when the player attacks a merchant
 	//Al: I feel like this should be implemented in game.
 	//An: ok that makes sense

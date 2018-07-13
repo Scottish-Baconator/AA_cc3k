@@ -6,7 +6,31 @@
  */
 #include "game.h"
 
-void game::render(std::iostream &out){
+bool one(char c, char a[], int l){
+	for(int i = 0;i < l;i++){
+		if(c == a[i]){
+			return false;
+		}
+	}
+	return false;
+}
+
+game::game(std::string s): f(s){
+	pC = f.getChmbr(2)->random();
+	p = new shade(pC);
+	pp = p;
+	gold = 0;
+	f.add(pp, pC);
+	paused = false;
+}
+
+void game::step(){
+	if(!paused){
+		f.step();
+	}
+}
+
+void game::render(std::ostream &out){
 	coord c = coord(0,0);
 	for(;c.y < 30;c.y++){
 		for(;c.x < 79;c.x++){
@@ -17,4 +41,74 @@ void game::render(std::iostream &out){
 	}
 }
 
+coord getCoord(enum game::dir d, coord pC){
+	coord tr = pC;
+	switch (d){
+		case game::no:
+			tr.y--;
+			break;
+		case game::so:
+			tr.y++;
+			break;
+		case game::we:
+			tr.x--;
+			break;
+		case game::ea:
+			tr.x++;
+			break;
+		case game::ne:
+			tr.y--;tr.x++;
+			break;
+		case game::nw:
+			tr.y--;tr.x--;
+			break;
+		case game::se:
+			tr.y++;tr.x++;
+			break;
+		case game::sw:
+			tr.y++;tr.x--;
+			break;
+		}
+	return tr;
+}
+
+bool game::move(enum dir d){
+	coord temp = getCoord(d, pC);
+	if(f.canWalk(temp) == level::All){
+		f.move(pC, temp);
+		pC = temp;
+		return true;
+	}
+	return false;
+}
+
+bool game::use(enum dir d){
+	coord temp = getCoord(d, pC);
+	if(f.getObj(temp)->render() == 'P'){
+		f.remove(pC);
+		pp = ((potion *) f.getObj(temp))->effect(pp);
+		f.add(pp, pC);
+		return true;
+	}
+	return false;
+}
+
+bool game::attack(enum dir d){
+	char enemies[] = {'H','W','E','O','M','D','L'};
+	coord temp = getCoord(d, pC);
+	if(one(f.getObj(temp)->render(), enemies, 7)){
+		enemy* tAtk = (enemy*)f.getObj(temp);
+		pp->attack(tAtk);
+		if(tAtk->getHP() < 0){
+			tAtk->drop(&f);
+			f.remove(temp);
+		}
+		return true;
+	}
+	return false;
+}
+
+void game::stop(){
+	paused = !paused;
+}
 
