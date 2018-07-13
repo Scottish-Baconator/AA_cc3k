@@ -11,6 +11,8 @@
 #include "player.h"
 #include "potions.h"
 
+//"Decorator" Class
+//Player gets decorated with potions to track buffs/debuffs
 class pPlayer: public player{
 protected:
 	player *plaer;

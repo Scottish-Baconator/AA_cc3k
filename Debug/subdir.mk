@@ -11,6 +11,9 @@ CC_SRCS += \
 ../game.cc \
 ../human.cc \
 ../main.cc \
+../obj.cc \
+../player.cc \
+../shade.cc \
 ../textdisplay.cc 
 
 CC_DEPS += \
@@ -21,6 +24,9 @@ CC_DEPS += \
 ./game.d \
 ./human.d \
 ./main.d \
+./obj.d \
+./player.d \
+./shade.d \
 ./textdisplay.d 
 
 OBJS += \
@@ -31,6 +37,9 @@ OBJS += \
 ./game.o \
 ./human.o \
 ./main.o \
+./obj.o \
+./player.o \
+./shade.o \
 ./textdisplay.o 
 
 

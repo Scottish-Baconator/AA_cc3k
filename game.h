@@ -9,9 +9,11 @@
 #define GAME_H_
 #include "floor.h"
 #include <iostream>
+#include <string>
 
 class game{
 	level f;
+
 public:
 	game(bool);
 	game(std::string, bool);
