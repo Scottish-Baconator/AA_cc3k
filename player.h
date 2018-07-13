@@ -10,8 +10,7 @@
 #include "character.h"
 
 class player: public character{
-	bool merchantFriend=true;
-	
+	int maxHP;
 public:
 	player(coord pos, int hp, int atk, int def);
 	

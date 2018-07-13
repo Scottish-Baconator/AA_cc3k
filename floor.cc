@@ -95,3 +95,25 @@ char level::render(coord c){
 	}
 }
 
+level::~level(){
+	delete td;
+	for(int j = 0;j < 30;j++){
+		for(int i = 0;i < 79;i++){
+			if(grd[i][j] != nullptr){
+				delete grd[i][j];
+			}
+
+		}
+	}
+	for(int i = 0;i < 5;i++){
+		delete chmbrs[i];
+	}
+}
+
+level::Walk level::canWalk(coord c){
+	if(grd[c.x][c.y] == nullptr){
+		return can[c.x][c.y];
+	}
+	return No;
+}
+
