@@ -60,13 +60,20 @@ level::level(std::string file){
 
 //Notifies all objects on level to run their step
 void level::step(){
+	bool ignore[30][79];
 	for(int i = 0;i < 79;i++){
-			for(int j = 0;j < 30;j++){
-				if(grd[j][i] != nullptr){
-					grd[j][i]->step();
-				}
+		for(int j = 0;j < 30;j++){
+			ignore[j][i] = false;
+		}
+	}
+	for(int i = 0;i < 79;i++){
+		for(int j = 0;j < 30;j++){
+			if((!ignore[j][i])&&(grd[j][i] != nullptr)){
+				coord t = grd[j][i]->step();
+				ignore[t.x][t.y] = true;
 			}
 		}
+	}
 }
 
 void level::add(obj* toAdd, coord pos){

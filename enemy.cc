@@ -38,7 +38,7 @@ character* getPC(level *f){
 }
 
 //Move to a random neighbouring tile
-void move(level *f, coord pos){
+coord move(level *f, coord pos){
 	coord to(pos);
 	int count = 0;
 	do{
@@ -71,6 +71,7 @@ void move(level *f, coord pos){
 
 	}while((!(f->canWalk(to) == level::All))||(count > 20));
 	f->move(pos, to);
+	return to;
 }
 
 enemy::enemy(coord pos, int hp, int atk, int def, bool hostile, bool stationary):
@@ -81,12 +82,13 @@ enemy::enemy(coord pos, int hp, int atk, int def, bool hostile, bool stationary)
 enemy::~enemy(){}
 
 //Runs enemy action.
-void enemy::step(level *f){
+coord enemy::step(level *f){
 	if(closePC(f, pos) && isHostile){
 		attack(getPC(f));
 	}else if(!isStationary){
-		move(f, pos);
+		pos = move(f, pos);
 	}
+	return pos;
 }
 
 //By default, enemies dont drop anything
