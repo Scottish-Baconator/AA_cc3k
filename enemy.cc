@@ -25,8 +25,8 @@ bool closePC(level *f, coord c){
 character* getPC(level *f){
 	for(int i = 0;i < 30;i++){
 		for(int j = 0;j < 79;j++){
-				if(f->getObj(coord(j, i))->render() == '@'){
-					return f->getObj(coord(j,i));
+			if(f->getObj(coord(j, i))->render() == '@'){
+				return (character*) f->getObj(coord(j,i));
 			}
 		}
 	}
@@ -36,7 +36,6 @@ character* getPC(level *f){
 
 void move(level *f, coord pos){
 	coord to(pos);
-	bool done = false;
 	int count = 0;
 	do{
 		to = pos;
@@ -69,6 +68,12 @@ void move(level *f, coord pos){
 	}while((!(f->canWalk(to) == level::All))||(count > 20));
 	f->move(pos, to);
 }
+
+enemy::enemy(coord pos, int hp, int atk, int def, bool hostile, bool stationary): character(pos, hp, atk, def){
+	isHostile = hostile;
+	isStationary = stationary;
+}
+
 
 void enemy::step(level *f){
 	if(closePC(f, pos) && isHostile){

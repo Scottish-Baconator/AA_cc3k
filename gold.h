@@ -12,7 +12,7 @@
 class gold: public item{
 	int val;
 public:
-	gold(int v): val(v){};
+	gold(coord pos, int v): item(pos), val(v){};
 	char render(){
 		return 'G';
 	}

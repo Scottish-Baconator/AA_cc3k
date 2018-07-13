@@ -12,11 +12,13 @@
 #include "textDisplay.h"
 
 class level{
-	enum Walk {All, PC, No};
 	textDisplay *td = nullptr;
-	Walk can[][] = nullptr;
-	obj* grd[][] = nullptr;
-	chamber *chmbrs = nullptr;
+	obj* grd[30][79];
+	chamber *chmbrs[5];
+public:
+	enum Walk {All, PC, No};
+private:
+	Walk can[30][79];
 public:
 	level(std::string);
 
@@ -26,10 +28,10 @@ public:
 	~level();
 
 	void add(obj* toAdd, coord pos);
-	void render();
+	char render(coord);
 	void step();
 	obj *getObj(coord c){return grd[c.x][c.y];}
-	void move(coord from, coord to);
+	bool move(coord from, coord to);
 	Walk canWalk(coord c){return can[c.x][c.y];}
 };
 

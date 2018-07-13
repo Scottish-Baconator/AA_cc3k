@@ -11,6 +11,10 @@
 
 struct coord{
 	int x, y;
+	coord(int a, int b): x(a), y(b){}
+	bool eq(coord *a){
+		return (a->x = this->x && a->y == this->y);
+	}
 };
 
 

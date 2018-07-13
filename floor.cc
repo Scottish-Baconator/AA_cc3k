@@ -6,9 +6,9 @@
  */
 #include "floor.h"
 
-bool is(chamber* chmbrs, coord c){
+bool is(chamber** chmbrs, coord c){
 	for(int i = 0;i < 5;i++){
-		if((chmbrs[i] != nullptr)&&(chmbrs[i].containsCoord(c))){
+		if((chmbrs[i] != nullptr)&&(chmbrs[i]->containsCoord(c))){
 			return true;
 		}
 	}
@@ -17,9 +17,6 @@ bool is(chamber* chmbrs, coord c){
 
 level::level(std::string file){
 	td = new textDisplay(file);
-	grd = new obj[30][79];
-	can = new Walk[30][79];
-	chmbrs = new chamber[5];
 	
 	for(int i = 0;i < 30;i++){//rows
 		for(int j = 0;j < 79;j++){//cols
@@ -67,5 +64,30 @@ void level::step(){
 				}
 			}
 		}
+}
+
+void level::add(obj* toAdd, coord pos){
+	if(grd[pos.x][pos.y] == nullptr){
+		grd[pos.x][pos.y] = toAdd;
+	}else{
+		delete toAdd;
+	}
+}
+
+bool level::move(coord f, coord t){
+	if(grd[t.x][t.y] == nullptr){
+		grd[t.x][t.y] = grd[f.x][f.y];
+		grd[f.x][f.y] = nullptr;
+		return true;
+	}
+	return false;
+}
+
+char level::render(coord c){
+	if(grd[c.x][c.y] == nullptr){
+		return td->render(c);
+	}else{
+		return grd[c.x][c.y]->render();
+	}
 }
 
