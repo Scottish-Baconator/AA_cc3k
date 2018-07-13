@@ -22,17 +22,19 @@ private:
 public:
 	level(std::string);
 
-	//floor(std::string file, bool);
+	//level(std::string file, bool);
 	//For later implementation
 
 	~level();
 
+	chamber* getChmbr(int a){return chmbrs[a];}
 	void add(obj* toAdd, coord pos);
 	char render(coord);
 	void step();
 	obj *getObj(coord c){return grd[c.x][c.y];}
 	bool move(coord from, coord to);
-	Walk canWalk(coord c){return can[c.x][c.y];}
+	Walk canWalk(coord c);
+	void remove(coord c);
 };
 
 
