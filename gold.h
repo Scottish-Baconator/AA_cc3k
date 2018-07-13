@@ -11,12 +11,19 @@
 
 class gold: public item{
 	int val;
+protected:
+	bool canPick;
 public:
 	gold(coord pos, int v): item(pos), val(v){};
 	char render(){
 		return 'G';
 	}
-	int getVal(){return val;}
+	int getVal(){
+		return val;
+	}
+	bool getPick(){
+		return canPick;
+	}
 };
 
 

@@ -9,5 +9,5 @@
 #include "player.h"
 #include "shade.h"
 
-shade::shade(coord pos) : player{pos,125,25,24} {}
+shade::shade(coord pos) : player{pos,125,25,25} {}
 

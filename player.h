@@ -20,9 +20,6 @@ public:
 	int dodgeChance() override;
 	
 	coord step() override;
-	void merchantKiller(); //Called when the player attacks a merchant
-	//Al: I feel like this should be implemented in game.
-	//An: ok that makes sense
 };
 
 

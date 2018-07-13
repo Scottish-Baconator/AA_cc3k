@@ -24,6 +24,8 @@ public:
 	virtual int atkEffect(character *subj, int dmg); //both players and enemies can have an atkEffect (vampire; elf)
 	
 	void chngHP(int change);
+	virtual void attacked();
+
 	
 	int getHP();
 	int getAtk();
@@ -38,6 +40,10 @@ public:
 	//Drain returns the health drain of a vamp
 		//Overriden by dwarf to -5
 	virtual int drain();
+	virtual int doubleAttack();
+	virtual int smallKiller();
+
+	virtual double potionMulti();
 
 	//Allows vampire to not have max hp. This flag lets us generalize
 	virtual bool ignoreMHP();
@@ -51,8 +57,8 @@ public:
 	//Used by drow to double-attack most player races
 	virtual bool canDouble();
 
-	//Used by orcs do deal extra damage to goblins
-	virtual bool orcWeakness();
+	//Used by orcs do deal extra damage to goblins (small creatures)
+	virtual bool smallWeakness();
 
 
 };
