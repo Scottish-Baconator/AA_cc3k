@@ -14,7 +14,7 @@ class gold: public item{
 protected:
 	bool canPick;
 public:
-	gold(coord pos, int v): item(pos), val(v){};
+	gold(coord pos, int v, bool cP): canPick(cP), item(pos), val(v){};
 	char render(){
 		return 'G';
 	}

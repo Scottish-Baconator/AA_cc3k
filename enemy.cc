@@ -24,7 +24,7 @@ bool closePC(level *f, coord c){
 	return false;
 }
 
-//Finds the player character object
+//Returns the player character object
 character* getPC(level *f){
 	for(int i = 0;i < 30;i++){
 		for(int j = 0;j < 79;j++){
