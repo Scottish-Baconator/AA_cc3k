@@ -35,6 +35,13 @@ void character::chngHP(int change){
 	}else if(hp<0){
 		hp = 0;
 	}
+
+	if(change<0){
+		attacked();
+	}
+}
+
+void character::attacked(){
 }
 
 int character::getHP(){
@@ -64,14 +71,18 @@ bool character::ignoreMHP(){
 	return false;
 }
 
+double character::potionMulti(){
+	return 1;
+}
+
 //Allows troll to regenerate HP
 int character::regen(){
 	return 0;
 }
 
-//Allows goblin to steal items
+//Allows goblin to steal gold. Default is 5
 int character::steal(){
-	return 0;
+	return 5;
 }
 
 //Used by drow to double-attack most player races

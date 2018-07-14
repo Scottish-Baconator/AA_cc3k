@@ -91,7 +91,8 @@ coord enemy::step(level *f){
 	return pos;
 }
 
-//By default, enemies dont drop anything
+//By default, enemies drop small or normal gold
 void enemy::drop(level *f){
 	(void)f;
+	//DROP SMALL OR NORMAL GOLD RANDOMLY
 }
