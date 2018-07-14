@@ -16,6 +16,8 @@ public:
 	
 	char render();
 	
+	void chngHP(int p);
+
 	//Player dodges half the time
 	int dodgeChance() override;
 	
