@@ -43,8 +43,11 @@ int main(int argc, char *argv[]){
 	}else{
 		file = std::string(argv[1]);
 	}
+
 	game g = game(file);
+
 	std::string s;
+
 	while(std::cin >> s){
 		if(s[0] == 'u'){
 			g.use(convert(s.substr(2, 2)));

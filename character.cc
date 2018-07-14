@@ -66,6 +66,14 @@ int character::drain(){
 	return 5;
 }
 
+bool character::doubleAttack(){
+	return false;
+}
+
+bool character::smallKiller(){
+	return false;
+}
+
 //Allows vampire to not have max hp. This flag lets us generalize
 bool character::ignoreMHP(){
 	return false;
@@ -91,7 +99,7 @@ bool character::canDouble(){
 }
 
 //Used by orcs do deal extra damage to goblins
-bool character::orcWeakness(){
+bool character::smallWeakness(){
 	return false;
 }
 

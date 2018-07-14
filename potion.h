@@ -9,7 +9,6 @@
 #define POTION_H_
 #include "item.h"
 #include "player.h"
-#include "potions.h"
 
 //"Decorator" Class
 //Player gets decorated with potions to track buffs/debuffs

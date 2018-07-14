@@ -5,6 +5,8 @@
  *      Author: alicy
  */
 #include "enemy.h"
+#include "floor.h"
+#include "gold.h"
 #include <cmath>
 
 //abs already included somewhere else (cmath?)
@@ -123,7 +125,7 @@ coord spawn(level *f, coord pos, int val){
 		}
 
 	}while((!(f->canWalk(to) == level::All))||(count > 20));
-	f->add(new gold(to, val, true),to);
+	f->add(new gold(to, val),to);
 	return to;
 }
 
