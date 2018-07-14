@@ -11,6 +11,7 @@
 
 class gold: public item{
 	int val;
+protected:
 	bool canPick;
 public:
 	gold(coord pos, int v, bool cP): item(pos){
