@@ -9,7 +9,7 @@
 //Checks if a chamber contains coordinate
 bool is(chamber** chmbrs, coord c){
 	for(int i = 0;i < 5;i++){
-		if((chmbrs[i] != nullptr)&&(chmbrs[i]->containsCoord(c))){
+		if(chmbrs[i]->containsCoord(c)){
 			return true;
 		}
 	}
@@ -21,10 +21,10 @@ level::level(std::string file){
 
 	td = new textDisplay(file);
 
-	for(int i = 0;i < 30;i++){//rows
-		for(int j = 0;j < 79;j++){//cols
+	for(int i = 0;i < 79;i++){//rows
+		for(int j = 0;j < 30;j++){//cols
 			grd[i][j] = nullptr;
-			switch(td->get(coord(j, i))){
+			switch(td->get(coord(i, j))){
 			case '.':
 				can[i][j] = All;
 				break;
@@ -46,13 +46,25 @@ level::level(std::string file){
 			}
 		}
 	}
+
+	for(int i = 0;i < 79;i++){
+		for(int j = 0;j < 30;j++){
+			grd[i][j]=nullptr;
+		}
+	}
+	for(int i=0;i<5;++i){
+		chmbrs[i] = new chamber();
+	}
+
 	int cur = 0;
-	
+
+
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
 			if(td->get(coord(i, j)) == '.'){
 				if(!is(chmbrs, coord(i, j))){
-					td->chambFrom(coord(i,j), chmbrs[cur++]);
+					td->chambFrom(coord(i,j), chmbrs[cur]);
+					cur+=1;
 				}
 			}
 		}
@@ -64,13 +76,13 @@ void level::step(){
 	bool ignore[30][79];
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
-			ignore[j][i] = false;
+			ignore[i][j] = false;
 		}
 	}
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
-			if((!ignore[j][i])&&(grd[j][i] != nullptr)){
-				coord t = grd[j][i]->step();
+			if((!ignore[i][j])&&(grd[i][j] != nullptr)){
+				coord t = grd[i][j]->step();
 				ignore[t.x][t.y] = true;
 			}
 		}

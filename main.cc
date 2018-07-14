@@ -39,15 +39,14 @@ int main(int argc, char *argv[]){
 	if(argc < 2){
 		//std::cerr<<"2 arguments required.";
 		//return 1;
-		file = "./cc3kfloor.txt";
+		file = "./cc3kblankfloor.txt";
 	}else{
 		file = std::string(argv[1]);
 	}
 
-	game g = game(file);
-
-
-	//g.render(std::cout);
+	game *g = new game{file};
+	(void)g;
+	g->render(std::cout);
 	/*
 	std::string s;
 

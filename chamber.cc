@@ -6,6 +6,8 @@
  */
 #include "chamber.h"
 #include <cstdlib>
+#include <iostream>
+#include <vector>
 
 coord chamber::random(){
 	int r = rand() % coords.size();
@@ -17,10 +19,21 @@ void chamber::addCoord(coord a){
 }
 
 bool chamber::containsCoord(coord a){
-	for(size_t i = 0;i < coords.size();i++){
+	bool result=false;
+	/*
+	for(size_t i=0; i<coords.size(); ++i){
 		if(a.eq(coords[i])){
-			return true;
+			result=true;
+			break;
+		}
+	}*/
+
+	for(auto it = coords.begin(); it != coords.end(); it++){
+		if(a.eq(*it)){
+			result=true;
+			break;
 		}
 	}
-	return false;
+
+	return result;
 }
