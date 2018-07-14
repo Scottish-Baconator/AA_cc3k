@@ -40,9 +40,8 @@ public:
 	//Drain returns the health drain of a vamp
 		//Overriden by dwarf to -5
 	virtual int drain();
-	virtual int doubleAttack();
-	virtual int smallKiller();
-	virtual bool orcWeakness();
+	virtual bool doubleAttack();
+	virtual bool smallKiller();
 
 	virtual double potionMulti();
 

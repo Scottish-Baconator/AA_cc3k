@@ -5,6 +5,7 @@
  *      Author: alicy
  */
 #include "game.h"
+#include "floor.h"
 
 bool one(char c, char a[], int l){
 	for(int i = 0;i < l;i++){
@@ -16,6 +17,7 @@ bool one(char c, char a[], int l){
 }
 
 game::game(std::string s): f(s){
+	f = level(s);
 	pC = f.getChmbr(2)->random();
 	p = new shade(pC);
 	pp = p;
@@ -90,7 +92,8 @@ bool game::use(enum dir d){
 	coord temp = getCoord(d, pC);
 	if(f.getObj(temp)->render() == 'P'){
 		f.remove(pC);
-		pp = ((potion *) f.getObj(temp))->effect(pp);
+		//commented out for now for compilation's sake
+		//pp = ((potion *) f.getObj(temp))->effect(pp);
 		f.add(pp, pC);
 		return true;
 	}

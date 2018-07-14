@@ -76,7 +76,7 @@ void level::step(){
 	}
 }
 
-void level::add(obj* toAdd, coord pos){
+void level::add(obj *toAdd, coord pos){
 	if(grd[pos.x][pos.y] == nullptr){
 		grd[pos.x][pos.y] = toAdd;
 	}else{
@@ -115,6 +115,10 @@ level::~level(){
 	for(int i = 0;i < 5;i++){
 		delete chmbrs[i];
 	}
+}
+
+void level::remove(coord c){
+	delete grd[c.x][c.y]; //if it's nullptr this is still fine
 }
 
 level::Walk level::canWalk(coord c){
