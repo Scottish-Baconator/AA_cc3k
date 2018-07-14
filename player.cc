@@ -34,6 +34,3 @@ coord player::step() {
 	chngHP(regen());
 	return pos;
 }
-
-void player::merchantKiller(){} //Called when the player attacks a merchant
-

@@ -9,7 +9,6 @@
 #define POTIONS_H_
 #include "potion.h"
 #include "player.h"
-class pPlayer;
 
 class BAtk: public pPlayer {
 	int getAtk();

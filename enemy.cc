@@ -91,8 +91,44 @@ coord enemy::step(level *f){
 	return pos;
 }
 
+coord spawn(level *f, coord pos, int val){
+	coord to(pos);
+	int count = 0;
+	do{
+		to = pos;
+		switch(rand()%8){
+		case 0:
+			to.x++;
+			break;
+		case 1:
+			to.x++;to.y++;
+			break;
+		case 2:
+			to.y++;
+			break;
+		case 3:
+			to.x--;to.y++;
+			break;
+		case 4:
+			to.x--;
+			break;
+		case 5:
+			to.x--;to.y--;
+			break;
+		case 6:
+			to.y++;
+			break;
+		case 7:
+			to.x++;to.y--;
+		}
+
+	}while((!(f->canWalk(to) == level::All))||(count > 20));
+	f->add(new gold(to, val, true),to);
+	return to;
+}
+
+
 //By default, enemies drop small or normal gold
 void enemy::drop(level *f){
-	(void)f;
-	//DROP SMALL OR NORMAL GOLD RANDOMLY
+	spawn(f, pos, (rand()%2)*2);
 }
