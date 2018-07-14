@@ -9,6 +9,7 @@ CC_SRCS += \
 ../enemy.cc \
 ../floor.cc \
 ../game.cc \
+../gold.cc \
 ../human.cc \
 ../main.cc \
 ../obj.cc \
@@ -16,7 +17,9 @@ CC_SRCS += \
 ../potion.cc \
 ../potions.cc \
 ../shade.cc \
-../textdisplay.cc 
+../textdisplay.cc \
+../troll.cc \
+../vampire.cc 
 
 CC_DEPS += \
 ./chamber.d \
@@ -24,6 +27,7 @@ CC_DEPS += \
 ./enemy.d \
 ./floor.d \
 ./game.d \
+./gold.d \
 ./human.d \
 ./main.d \
 ./obj.d \
@@ -31,7 +35,9 @@ CC_DEPS += \
 ./potion.d \
 ./potions.d \
 ./shade.d \
-./textdisplay.d 
+./textdisplay.d \
+./troll.d \
+./vampire.d 
 
 OBJS += \
 ./chamber.o \
@@ -39,6 +45,7 @@ OBJS += \
 ./enemy.o \
 ./floor.o \
 ./game.o \
+./gold.o \
 ./human.o \
 ./main.o \
 ./obj.o \
@@ -46,7 +53,9 @@ OBJS += \
 ./potion.o \
 ./potions.o \
 ./shade.o \
-./textdisplay.o 
+./textdisplay.o \
+./troll.o \
+./vampire.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes

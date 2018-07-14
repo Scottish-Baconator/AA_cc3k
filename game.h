@@ -13,13 +13,14 @@
 #include "potion.h"
 #include "shade.h"
 #include "enemy.h"
+#include "gold.h"
 
 class game{
 	level f;
 	player *p = nullptr;
 	player *pp = nullptr;//potioned player
 	coord pC = coord(0,0);
-	int gold;
+	int gld;
 	bool paused;
 public:
 	game(std::string);

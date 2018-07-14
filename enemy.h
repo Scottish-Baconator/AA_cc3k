@@ -9,6 +9,7 @@
 #define ENEMY_H_
 #include "character.h"
 #include "floor.h"
+#include "gold.h"
 
 class enemy: public character{
 	
