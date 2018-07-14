@@ -16,6 +16,8 @@ class vampire: public player{
 public:
 	vampire(coord pos);
 
+	void chngHP(int p) override;
+
 	int atkEffect(character *subj, int dmg) override;
 
 	//Allows vampire to not have max hp

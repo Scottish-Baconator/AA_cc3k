@@ -42,6 +42,7 @@ public:
 	virtual int drain();
 	virtual int doubleAttack();
 	virtual int smallKiller();
+	virtual bool orcWeakness();
 
 	virtual double potionMulti();
 

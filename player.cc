@@ -23,10 +23,14 @@ int player::dodgeChance(){
 	return 50;
 }
 
+void player::chngHP(int p){
+	hp += p;
+	if(hp > maxHP){
+		hp = maxHP;
+	}
+}
+
 coord player::step() {
 	chngHP(regen());
 	return pos;
 }
-
-void player::merchantKiller(){} //Called when the player attacks a merchant
-

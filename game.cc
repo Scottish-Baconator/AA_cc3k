@@ -19,7 +19,7 @@ game::game(std::string s): f(s){
 	pC = f.getChmbr(2)->random();
 	p = new shade(pC);
 	pp = p;
-	gold = 0;
+	gld = 0;
 	f.add(pp, pC);
 	paused = false;
 }
@@ -74,6 +74,10 @@ coord getCoord(enum game::dir d, coord pC){
 
 bool game::move(enum dir d){
 	coord temp = getCoord(d, pC);
+	if(f.getObj(temp)->render() == 'G'){
+		gld += ((gold *) (f.getObj(temp)))->getVal();
+		f.remove(temp);
+	}
 	if(f.canWalk(temp) == level::All){
 		f.move(pC, temp);
 		pC = temp;
