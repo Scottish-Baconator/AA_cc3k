@@ -91,7 +91,7 @@ bool character::canDouble(){
 }
 
 //Used by orcs do deal extra damage to goblins
-bool character::orcWeakness(){
+bool character::smallWeakness(){
 	return false;
 }
 
