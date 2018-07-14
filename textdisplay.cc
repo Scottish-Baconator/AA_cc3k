@@ -24,7 +24,7 @@ char textDisplay::render(coord c){
 }
 
 void textDisplay::chambFrom(coord c, chamber *ch){
-	if(map[c.x][c.y] != '.'){
+	if(map[c.x][c.y] != '.' || (ch->containsCoord(c))){
 		return;
 	}
 	if(c.x > 0){
