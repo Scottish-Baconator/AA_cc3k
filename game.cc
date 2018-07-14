@@ -6,6 +6,7 @@
  */
 #include "game.h"
 #include "floor.h"
+#include <iostream>
 
 bool one(char c, char a[], int l){
 	for(int i = 0;i < l;i++){
@@ -17,7 +18,7 @@ bool one(char c, char a[], int l){
 }
 
 game::game(std::string s): f(level{s}){
-	pC = f.getChmbr(2)->random();
+	pC = f.getChmbr(1)->random();
 	p = new shade(pC);
 	pp = p;
 	gld = 0;
@@ -72,21 +73,26 @@ coord getCoord(enum game::dir d, coord pC){
 	return tr;
 }
 
-bool game::move(enum dir d){
+//Moves player in direction dir
+bool game::move(dir d){
+	//temp is the coordinates the player is trying to move in
 	coord temp = getCoord(d, pC);
-	if(f.getObj(temp)->render() == 'G'){
+
+	if(f.getObj(temp)!=nullptr && f.getObj(temp)->render() == 'G'){
 		gld += ((gold *) (f.getObj(temp)))->getVal();
 		f.remove(temp);
 	}
-	if(f.canWalk(temp) == level::All){
-		f.move(pC, temp);
-		pC = temp;
-		return true;
+
+	if(f.canWalk(temp) == level::All || f.canWalk(temp) == level::PC){
+		if(f.move(pC, temp)){
+			pC = temp;
+			return true;
+		}
 	}
 	return false;
 }
 
-bool game::use(enum dir d){
+bool game::use(dir d){
 	coord temp = getCoord(d, pC);
 	if(f.getObj(temp)->render() == 'P'){
 		f.remove(pC);
@@ -98,7 +104,7 @@ bool game::use(enum dir d){
 	return false;
 }
 
-bool game::attack(enum dir d){
+bool game::attack(dir d){
 	char enemies[] = {'H','W','E','O','M','D','L'};
 	coord temp = getCoord(d, pC);
 	if(one(f.getObj(temp)->render(), enemies, 7)){

@@ -97,12 +97,13 @@ void level::add(obj *toAdd, coord pos){
 	}
 }
 
-bool level::move(coord f, coord t){
-	if(grd[t.x][t.y] == nullptr){
-		grd[t.x][t.y] = grd[f.x][f.y];
-		grd[f.x][f.y] = nullptr;
+bool level::move(coord origin, coord target){
+	if(grd[target.x][target.y] == nullptr){
+		grd[target.x][target.y] = grd[origin.x][origin.y];
+		grd[target.x][target.y] = nullptr;
 		return true;
 	}
+
 	return false;
 }
 

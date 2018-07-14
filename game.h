@@ -26,9 +26,9 @@ public:
 	game(std::string);
 	game(std::string, bool);
 	enum dir {no, so, ea, we, ne, nw, se, sw};
-	bool move(enum dir d);
-	bool use(enum dir d);
-	bool attack(enum dir d);
+	bool move(dir d);
+	bool use(dir d);
+	bool attack(dir d);
 	void stop();
 	void step();
 	void render(std::ostream &out);
