@@ -16,8 +16,7 @@ bool one(char c, char a[], int l){
 	return false;
 }
 
-game::game(std::string s): f(s){
-	f = level(s);
+game::game(std::string s): f(level{s}){
 	pC = f.getChmbr(2)->random();
 	p = new shade(pC);
 	pp = p;
@@ -34,8 +33,8 @@ void game::step(){
 
 void game::render(std::ostream &out){
 	coord c = coord(0,0);
-	for(;c.y < 30;c.y++){
-		for(;c.x < 79;c.x++){
+	for(;c.y < 30;(c.y)++){
+		for(;c.x < 79;(c.x)++){
 			out<<(f.render(c));
 		}
 		out<<'\n';

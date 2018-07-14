@@ -16,7 +16,7 @@
 #include "gold.h"
 
 class game{
-	level *f;
+	level f;
 	player *p = nullptr;
 	player *pp = nullptr;//potioned player
 	coord pC = coord(0,0);

@@ -46,6 +46,9 @@ int main(int argc, char *argv[]){
 
 	game g = game(file);
 
+
+	//g.render(std::cout);
+	/*
 	std::string s;
 
 	while(std::cin >> s){
@@ -64,7 +67,7 @@ int main(int argc, char *argv[]){
 		}
 		g.step();
 		g.render(std::cout);
-	}
+	}*/
 }
 
 

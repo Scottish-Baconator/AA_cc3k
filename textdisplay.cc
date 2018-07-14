@@ -9,6 +9,7 @@
 textDisplay::textDisplay(std::string file){
 	std::ifstream in;
 	in.open(file);
+
 	for(int i = 0;i < 30;i++){
 		for(int j = 0;j < 79;j++){
 			in >> map[j][i];

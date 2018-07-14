@@ -18,8 +18,9 @@ bool is(chamber** chmbrs, coord c){
 
 //Reads map from file and determines the level layout
 level::level(std::string file){
+
 	td = new textDisplay(file);
-	
+
 	for(int i = 0;i < 30;i++){//rows
 		for(int j = 0;j < 79;j++){//cols
 			grd[i][j] = nullptr;
