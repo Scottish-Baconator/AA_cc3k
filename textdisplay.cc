@@ -32,7 +32,7 @@ void textDisplay::chambFrom(coord c, chamber *ch){
 	  ch->addCoord(c);
   }
   
-	if(c.x<0 || c.x>=79 || c.y<0 || c.y>=30 || map[c.x][c.y] != '.' || ch->containsCoord(c)){
+  if(c.x<0 || c.x>=79 || c.y<0 || c.y>=30 || map[c.x][c.y] != '.' || ch->containsCoord(c)){
 	  return;
   }
 	if(c.x > 0){

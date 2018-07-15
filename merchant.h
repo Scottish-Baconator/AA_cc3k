@@ -12,7 +12,7 @@
 #include "enemy.h"
 
 class merchant: public enemy{
-	static bool friendly=true;
+	static bool friendly = true;
 public:
 	merchant(coord pos); //calls enemy constructor with required params
 
