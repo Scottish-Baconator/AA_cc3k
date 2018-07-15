@@ -8,6 +8,7 @@
 #ifndef POTIONS_H_
 #define POTIONS_H_
 #include "potion.h"
+#include "pPlayer.h"
 #include "player.h"
 
 class BAtk : public pPlayer {
