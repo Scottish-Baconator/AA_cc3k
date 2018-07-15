@@ -7,24 +7,31 @@
 
 #ifndef POTIONS_H_
 #define POTIONS_H_
-#include "potion.h"
 #include "pPlayer.h"
 #include "player.h"
 
 class BAtk : public pPlayer {
-	int getAtk();
+public:
+	BAtk(player *p);
+	int getAtk() override;
 };
 
 class BDef : public pPlayer{
-	int getDef();
+public:
+	BDef(player *p);
+	int getDef() override;
 };
 
 class WAtk : public pPlayer{
-	int getAtk();
+public:
+	WAtk(player *p);
+	int getAtk() override;
 };
 
 class WDef : public pPlayer{
-	int getDef();
+public:
+	WDef(player *p);
+	int getDef() override;
 };
 
 #endif /* POTIONS_H_ */

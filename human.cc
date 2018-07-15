@@ -7,7 +7,7 @@
 #include "human.h"
 #include "enemy.h"
 
-human::human(coord pos): enemy(pos, 20, 20, 140, true, false){}
+human::human(coord pos): enemy(pos, 20, 20, 140, "Human", true, false){}
 
 char human::render(){
 	return 'H';

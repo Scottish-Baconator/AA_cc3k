@@ -6,6 +6,7 @@
  */
 #include "game.h"
 #include "floor.h"
+#include "potion.h"
 #include <iostream>
 #include "human.h"
 #include "dwarf.h"
@@ -103,13 +104,7 @@ void game::step(){
 }
 
 void game::render(std::ostream &out){
-	coord c = coord(0,0);
-	for(c.y=0;c.y < 30;(c.y)++){
-		for(c.x = 0;c.x < 79;(c.x)++){
-			out<<(f.render(c));
-		}
-		out<<'\n';
-	}
+	f.render(out, pp);
 }
 
 coord getCoord(enum game::dir d, coord pC){
@@ -169,8 +164,7 @@ bool game::use(dir d){
 	coord temp = getCoord(d, pC);
 	if(f.getObj(temp)->render() == 'P'){
 		f.remove(pC);
-		//commented out for now for compilation's sake
-		//pp = ((potion *) f.getObj(temp))->effect(pp);
+		pp = ((potion *) f.getObj(temp))->effect(pp);
 		f.add(pp, pC);
 		return true;
 	}

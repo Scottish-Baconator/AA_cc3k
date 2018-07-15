@@ -5,6 +5,12 @@
  *      Author: alicy
  */
 #include "potions.h"
+#include "pPlayer.h"
+
+BAtk::BAtk(player *p):pPlayer{p}{}
+BDef::BDef(player *p):pPlayer{p}{}
+WAtk::WAtk(player *p):pPlayer{p}{}
+WDef::WDef(player *p):pPlayer{p}{}
 
 int BAtk::getAtk(){
 	return plaer->getAtk() + 5;

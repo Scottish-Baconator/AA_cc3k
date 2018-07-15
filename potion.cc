@@ -9,10 +9,11 @@ class BAtk;
 class WDef;
 class WAtk;
 #include "potion.h"
+#include "potions.h"
 
 
 player* potion::effect(player *p){
-	switch(what){
+	switch(potionType){
 	case RH:
 		p->chngHP(10);
 		return p;
@@ -20,17 +21,13 @@ player* potion::effect(player *p){
 		p->chngHP(-10);
 		return p;
 	case BA:
-		player *tr = new BAtk(p);
-		return tr;
+		return new BAtk(p);
 	case BD:
-		player *tr = new BDef(p);
-		return tr;
+		return new BDef(p);
 	case WA:
-		player *tr = new WAtk(p);
-		return tr;
+		return new WAtk(p);
 	case WD:
-		player *tr = new WDef(p);
-		return tr;
+		return new WDef(p);
 	}
 	return p;
 }

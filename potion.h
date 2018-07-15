@@ -8,15 +8,14 @@
 #ifndef POTION_H_
 #define POTION_H_
 #include "item.h"
-#include "potions.h"
 #include "player.h"
 
 
 class potion: public item{
 	enum type{RH, BA, BD, PH, WA, WD};
-	enum type what;
+	type potionType;
 public:
-	potion(coord pos, enum type t): item(pos), what(t){};
+	potion(coord pos, type t): item(pos), potionType(t){};
 	char render(){return 'P';}
 	player* effect(player *p);
 };

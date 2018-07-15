@@ -6,6 +6,8 @@
  */
 #include "floor.h"
 #include "gold.h"
+#include "textdisplay.h"
+#include <iostream>
 #include <cstdlib>
 
 //Checks if a chamber contains coordinate
@@ -21,7 +23,7 @@ bool is(chamber** chmbrs, coord c){
 //Reads map from file and determines the level layout
 level::level(std::string file){
 
-	td = new textDisplay(file);
+	td = new textDisplay(file, this);
 
 	for(int i = 0;i < 79;i++){//rows
 		for(int j = 0;j < 30;j++){//cols
@@ -137,12 +139,8 @@ bool level::move(coord origin, coord target){
 }
 
 //Gets the character of the object at coordinate c
-char level::render(coord c){
-	if(grd[c.x][c.y] == nullptr){
-		return td->render(c);
-	}else{
-		return grd[c.x][c.y]->render();
-	}
+void level::render(std::ostream &out, player *p){
+	td->render(out, p);
 }
 
 level::~level(){
