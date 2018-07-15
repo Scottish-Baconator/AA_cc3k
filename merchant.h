@@ -13,12 +13,10 @@
 class merchant: public enemy{
 	static bool friendly;
 public:
-	static void merchantInit(){
-		friendly = true;
-	}
-	static void merchantAttacked(){
-		friendly = false;
-	}
+
+	static bool merchantHostile();
+
+	static void merchantAttacked();
 	merchant(coord pos); //calls enemy constructor with required params
 
 	char render() override;

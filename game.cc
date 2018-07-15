@@ -8,12 +8,6 @@
 #include "floor.h"
 #include "potion.h"
 #include <iostream>
-#include "human.h"
-#include "dwarf.h"
-#include "halfling.h"
-#include "elf.h"
-#include "orc.h"
-#include "merchant.h"
 
 bool one(char c, char a[], int l){
 	for(int i = 0;i < l;i++){
@@ -31,70 +25,6 @@ game::game(std::string s): f(level{s}){
 	gld = 0;
 	f.add(pp, pC);
 	paused = false;
-
-	//God I don't want to spawn enemies.
-	char toSpwn[20];
-	for(int i = 0;i < 20;i++){
-		switch (rand()%18){
-		case 0:
-		case 1:
-		case 2:
-		case 3:
-			toSpwn[i] = 'H';
-			break;
-		case 4:
-		case 5:
-		case 6:
-			toSpwn[i] = 'W';
-			break;
-		case 7:
-		case 8:
-		case 9:
-		case 10:
-		case 11:
-			toSpwn[i] = 'L';
-			break;
-		case 12:
-		case 13:
-			toSpwn[i] = 'E';
-			break;
-		case 14:
-		case 15:
-			toSpwn[i] = 'O';
-			break;
-		case 16:
-		case 17:
-			toSpwn[i] = 'M';
-			break;
-		}
-	}
-	for(int i = 0;i < 20;i++){
-		int chm = rand()%5;
-		coord a(0, 0);
-		do{
-			a = f.getChmbr(chm)->random();
-		}while(f.canWalk(a) != level::All);
-		switch (toSpwn[i]){
-		case 'H':
-			f.add(new human(a), a);
-			break;
-		case 'W':
-			f.add(new dwarf(a), a);
-			break;
-		case 'L':
-			f.add(new halfling(a), a);
-			break;
-		case 'E':
-			f.add(new elf(a), a);
-			break;
-		case 'O':
-			f.add(new orc(a), a);
-			break;
-		case 'M':
-			f.add(new merchant(a), a);
-			break;
-		}
-	}
 }
 
 void game::step(){
@@ -143,7 +73,9 @@ bool game::move(dir d){
 	//temp is the coordinates the player is trying to move in
 	coord temp = getCoord(d, pC);
 
-	if(f.getObj(temp)->render() == 'G'){
+	//This empty makes it so we dont check the render of an empty tile
+	//getObj doesnt work on an empty tile - ill probably add a throw line to that eventually
+	if(!f.empty(temp) && f.getObj(temp)->render() == 'G'){
 		gld += ((gold *) (f.getObj(temp)))->getVal();
 		f.remove(temp);
 	}
