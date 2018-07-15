@@ -14,6 +14,9 @@ char orc::render(){
 }
 
 int orc::atkEffect(character* subj, int dmg){
+	if(subj->smallWeakness()){
+		dmg*=1.5;
+	}
 	return dmg;
 }
 

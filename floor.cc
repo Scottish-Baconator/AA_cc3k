@@ -9,6 +9,12 @@
 #include "textdisplay.h"
 #include <iostream>
 #include <cstdlib>
+#include "human.h"
+#include "dwarf.h"
+#include "halfling.h"
+#include "elf.h"
+#include "orc.h"
+#include "merchant.h"
 
 //Checks if a chamber contains coordinate
 bool is(chamber** chmbrs, coord c){
@@ -25,6 +31,7 @@ level::level(std::string file){
 
 	td = new textDisplay(file, this);
 
+	//WE'RE GONNA HAVE TO METHODIZE THIS EVENTUALLY RIP
 	for(int i = 0;i < 79;i++){//rows
 		for(int j = 0;j < 30;j++){//cols
 			grd[i][j] = nullptr;
@@ -56,7 +63,7 @@ level::level(std::string file){
 			grd[i][j]=nullptr;
 		}
 	}
-	for(int i=0;i<5;++i){
+	for(int i=0;i<10;++i){
 		chmbrs[i] = new chamber();
 	}
 
@@ -73,6 +80,7 @@ level::level(std::string file){
 			}
 		}
 	}
+
 
 	for(int i=0; i<10; ++i){
 
@@ -95,6 +103,72 @@ level::level(std::string file){
 		}
 
 		grd[gc.x][gc.y]=g;
+	}
+
+
+	//God I don't want to spawn enemies.
+
+	char toSpwn[20];
+	for(int i = 0;i < 20;i++){
+		switch (rand()%18){
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+			toSpwn[i] = 'H';
+			break;
+		case 4:
+		case 5:
+		case 6:
+			toSpwn[i] = 'W';
+			break;
+		case 7:
+		case 8:
+		case 9:
+		case 10:
+		case 11:
+			toSpwn[i] = 'L';
+			break;
+		case 12:
+		case 13:
+			toSpwn[i] = 'E';
+			break;
+		case 14:
+		case 15:
+			toSpwn[i] = 'O';
+			break;
+		case 16:
+		case 17:
+			toSpwn[i] = 'M';
+			break;
+		}
+	}
+	for(int i = 0;i < 20;i++){
+		int chm = rand()%5;
+		coord a(0, 0);
+		do{
+			a = getChmbr(chm)->random();
+		}while(canWalk(a) != level::All);
+		switch (toSpwn[i]){
+		case 'H':
+			add(new human(a), a);
+			break;
+		case 'W':
+			add(new dwarf(a), a);
+			break;
+		case 'L':
+			add(new halfling(a), a);
+			break;
+		case 'E':
+			add(new elf(a), a);
+			break;
+		case 'O':
+			add(new orc(a), a);
+			break;
+		case 'M':
+			add(new merchant(a), a);
+			break;
+		}
 	}
 }
 
@@ -134,7 +208,6 @@ bool level::move(coord origin, coord target){
 		grd[origin.x][origin.y] = nullptr;
 		return true;
 	}
-
 	return false;
 }
 
