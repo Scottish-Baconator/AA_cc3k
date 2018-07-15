@@ -8,17 +8,9 @@
 #ifndef POTION_H_
 #define POTION_H_
 #include "item.h"
+#include "potions.h"
 #include "player.h"
 
-//"Decorator" Class
-//Player gets decorated with potions to track buffs/debuffs
-class pPlayer: public player{
-protected:
-	player *plaer = nullptr;
-public:
-	pPlayer(player *p);
-	~pPlayer();
-};
 
 class potion: public item{
 	enum type{RH, BA, BD, PH, WA, WD};

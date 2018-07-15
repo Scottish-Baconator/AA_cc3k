@@ -28,15 +28,13 @@ char textDisplay::render(coord c){
 }
 
 void textDisplay::chambFrom(coord c, chamber *ch){
-	/*(void)c;*/
-	//(void)ch;
-
+  if(map[c.x][c.y] == '.'){
+	  ch->addCoord(c);
+  }
+  
 	if(c.x<0 || c.x>=79 || c.y<0 || c.y>=30 || map[c.x][c.y] != '.' || ch->containsCoord(c)){
-		return;
-	}
-
-	ch->addCoord(c);
-
+	  return;
+  }
 	if(c.x > 0){
 		chambFrom(coord(c.x - 1, c.y), ch);
 		if(c.y > 0){
@@ -61,7 +59,6 @@ void textDisplay::chambFrom(coord c, chamber *ch){
 	if(c.y < 29){
 		chambFrom(coord(c.x, c.y + 1), ch);
 	}
-
 }
 
 
