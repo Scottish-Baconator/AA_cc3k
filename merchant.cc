@@ -7,7 +7,7 @@
 
 #include "merchant.h"
 
-merchant::merchant(coord pos): enemy(pos, 30, 70, 5, "merchant", !friendly, false){
+merchant::merchant(coord pos): enemy(pos, 30, 70, 5, "merchant", false, false){
 	merchantInit();
 }
 
