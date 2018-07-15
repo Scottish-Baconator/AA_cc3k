@@ -9,7 +9,7 @@
 #include "player.h"
 #include "vampire.h"
 
-vampire::vampire(coord pos) : player{pos,50,25,25} {}
+vampire::vampire(coord pos) : player{pos,50,25,25,"Vampire"} {}
 
 void vampire::chngHP(int p){
 	hp += p;

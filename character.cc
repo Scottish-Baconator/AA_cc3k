@@ -7,7 +7,8 @@
 #include "character.h"
 #include <cstdlib>
 
-character::character(coord pos, int hp, int atk, int def): obj{pos},mhp{hp},hp{hp},atk{atk},def{def}{}
+character::character(coord pos, int hp, int atk, int def,std::string name): obj{pos},mhp{hp},hp{hp},atk{atk},def{def},name{name}
+{}
 
 void character::attack(character *subj){
 	int dmg;
@@ -52,6 +53,9 @@ int character::getAtk(){
 }
 int character::getDef(){
 	return def;
+}
+std::string character::getName(){
+	return name;
 }
 
 //By default, enemies never dodge

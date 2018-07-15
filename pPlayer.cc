@@ -5,9 +5,9 @@
  *      Author: alicy
  */
 #include "pPlayer.h"
+#include "player.h"
 
-pPlayer::pPlayer(player *p): player(p->getPos(), p->getHP(), p->getAtk(), p->getDef()){
-	plaer = p;
+pPlayer::pPlayer(player *p): player(p->getPos(), p->getHP(), p->getAtk(), p->getDef(), p->getName()), plaer{p}{
 }
 
 pPlayer::~pPlayer(){
