@@ -6,6 +6,7 @@
  */
 #include "game.h"
 #include "floor.h"
+#include "potion.h"
 #include <iostream>
 
 bool one(char c, char a[], int l){
@@ -93,8 +94,7 @@ bool game::use(dir d){
 	coord temp = getCoord(d, pC);
 	if(f.getObj(temp)->render() == 'P'){
 		f.remove(pC);
-		//commented out for now for compilation's sake
-		//pp = ((potion *) f.getObj(temp))->effect(pp);
+		pp = ((potion *) f.getObj(temp))->effect(pp);
 		f.add(pp, pC);
 		return true;
 	}

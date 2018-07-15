@@ -28,8 +28,8 @@ public:
 
 	
 	int getHP();
-	int getAtk();
-	int getDef();
+	virtual int getAtk();
+	virtual int getDef();
 	std::string getName();
 	
 	//By default, enemies never dodge
