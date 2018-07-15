@@ -13,12 +13,12 @@
 
 class level{
 	textDisplay *td = nullptr;
-	obj* grd[30][79];
+	obj* grd[79][30];
 	chamber *chmbrs[5];
 public:
 	enum Walk {All, PC, No};
 private:
-	Walk can[30][79];
+	Walk can[79][30];
 public:
 	level(std::string);
 
@@ -32,7 +32,8 @@ public:
 	char render(coord);
 	void step();
 	obj *getObj(coord c){return grd[c.x][c.y];}
-	bool move(coord from, coord to);
+	bool empty(coord c);
+	bool move(coord origin, coord target);
 	Walk canWalk(coord c);
 	void remove(coord c);
 };

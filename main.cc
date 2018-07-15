@@ -9,6 +9,9 @@
 #include <string>
 
 game::dir convert(std::string s){
+	if(s.length()!=2){
+		return game::no;
+	}
 	switch (s[0]){
 	case 'n':
 		switch(s[1]){
@@ -39,13 +42,14 @@ int main(int argc, char *argv[]){
 	if(argc < 2){
 		//std::cerr<<"2 arguments required.";
 		//return 1;
-		file = "./cc3kfloor.txt";
+		file = "./cc3kblankfloor.txt";
 	}else{
 		file = std::string(argv[1]);
 	}
 
-	game g = game(file);
+	game g{file};
 
+	g.render(std::cout);
 	std::string s;
 
 	while(std::cin >> s){
@@ -60,9 +64,9 @@ int main(int argc, char *argv[]){
 		}else if(s[0] == 'q'){
 			break;
 		}else{
-			g.move(convert(s.substr(0, 2)));
+			g.move(convert(s));
 		}
-		g.step();
+		//g.step();
 		g.render(std::cout);
 	}
 }
