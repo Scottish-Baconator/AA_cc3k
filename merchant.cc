@@ -18,6 +18,7 @@ void merchant::merchantAttacked(){
 }
 
 merchant::merchant(coord pos): enemy(pos, 30, 70, 5, "merchant", merchant::merchantHostile(), false){
+
 }
 
 char merchant::render(){

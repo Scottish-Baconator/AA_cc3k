@@ -11,12 +11,13 @@
 #include "enemy.h"
 
 class merchant: public enemy{
-	static bool friendly;
+	//static bool friendly;
 public:
 
 	static bool merchantHostile();
 
 	static void merchantAttacked();
+
 	merchant(coord pos); //calls enemy constructor with required params
 
 	char render() override;
