@@ -63,7 +63,7 @@ level::level(std::string file){
 			grd[i][j]=nullptr;
 		}
 	}
-	for(int i=0;i<10;++i){
+	for(int i=0;i<5;++i){
 		chmbrs[i] = new chamber();
 	}
 
@@ -75,9 +75,15 @@ level::level(std::string file){
 			if(td->get(coord(i, j)) == '.'){
 				if(!is(chmbrs, coord(i, j))){
 					td->chambFrom(coord(i,j), chmbrs[cur]);
-					cur+=1;
+					cur++;
 				}
 			}
+			if(cur > 4){
+				break;
+			}
+		}
+		if(cur > 4){
+			break;
 		}
 	}
 

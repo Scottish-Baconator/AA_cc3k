@@ -16,12 +16,15 @@
 #include "gold.h"
 
 class game{
+	std::string file;
 	level f;
 	player *p = nullptr;
 	player *pp = nullptr;//potioned player
 	coord pC = coord(0,0);
+	coord stairs = coord (10, 10);
 	int gld;
 	bool paused;
+	void nextLevel();
 public:
 	game(std::string);
 	game(std::string, bool);

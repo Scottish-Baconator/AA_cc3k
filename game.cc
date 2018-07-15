@@ -7,6 +7,7 @@
 #include "game.h"
 #include "floor.h"
 #include "potion.h"
+#include "stair.h"
 #include <iostream>
 
 bool one(char c, char a[], int l){
@@ -19,12 +20,29 @@ bool one(char c, char a[], int l){
 }
 
 game::game(std::string s): f(level{s}){
-	pC = f.getChmbr(1)->random();
+	file = s;
+	int pCh = rand()%5;
+	pC = f.getChmbr(pCh)->random();
 	p = new shade(pC);
 	pp = p;
 	gld = 0;
 	f.add(pp, pC);
 	paused = false;
+	stairs = f.getChmbr(4 - pCh)->random();
+	f.add(new stair(stairs), stairs);
+}
+
+void game::nextLevel(){
+	f = level{file};
+	int pCh = rand()%5;
+	pC = f.getChmbr(pCh)->random();
+	p = new player{*p};
+	delete pp;
+	pp = p;
+	f.add(pp, pC);
+	paused = false;
+	stairs = f.getChmbr(4 - pCh)->random();
+	f.add(new stair(stairs), stairs);
 }
 
 void game::step(){
@@ -72,6 +90,10 @@ coord getCoord(enum game::dir d, coord pC){
 bool game::move(dir d){
 	//temp is the coordinates the player is trying to move in
 	coord temp = getCoord(d, pC);
+
+	if((f.getObj(temp) != nullptr) && (f.getObj(temp)->render() == '\\')){
+		nextLevel();
+	}
 
 	//This empty makes it so we dont check the render of an empty tile
 	//getObj doesnt work on an empty tile - ill probably add a throw line to that eventually
