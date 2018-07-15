@@ -8,14 +8,14 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 #include "obj.h"
-#include "floor.h"
 #include <cmath>
+#include <string>
 
 class character: public obj{
 	int mhp, hp, atk, def;
-	
+	std::string name;
 public:
-	character(coord pos, int hp, int atk, int def);
+	character(coord pos, int hp, int atk, int def, std::string name);
 	virtual ~character(){}
 
 	//attack does not get overriden so "resolving combat" stays generalized
@@ -30,6 +30,7 @@ public:
 	int getHP();
 	int getAtk();
 	int getDef();
+	std::string getName();
 	
 	//By default, enemies never dodge
 	virtual int dodgeChance();

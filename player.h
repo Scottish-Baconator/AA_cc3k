@@ -7,12 +7,16 @@
 
 #ifndef PLAYER_H_
 #define PLAYER_H_
-#include "character.h"
 
-class player: public character{
+#include "character.h"
+#include <string>
+
+class player : public character {
 	int maxHP;
+	std::string name;
+
 public:
-	player(coord pos, int hp, int atk, int def);
+	player(coord pos, int hp, int atk, int def, std::string name);
 	
 	char render();
 	

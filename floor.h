@@ -9,7 +9,10 @@
 #define FLOOR_H_
 #include "obj.h"
 #include "chamber.h"
-#include "textdisplay.h"
+#include "player.h"
+#include <iostream>
+
+class textDisplay;
 
 class level{
 	textDisplay *td = nullptr;
@@ -29,7 +32,7 @@ public:
 
 	chamber* getChmbr(int a){return chmbrs[a];}
 	void add(obj *toAdd, coord pos);
-	char render(coord);
+	void render(std::ostream &out, player *p);
 	void step();
 	obj *getObj(coord c){return grd[c.x][c.y];}
 	bool empty(coord c);
