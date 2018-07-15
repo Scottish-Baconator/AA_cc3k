@@ -7,8 +7,6 @@
 
 #ifndef HALFLING_H_
 #define HALFLING_H_
-
-
 #include "enemy.h"
 
 class halfling: public enemy{

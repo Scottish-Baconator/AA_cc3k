@@ -8,4 +8,12 @@
 
 elf::elf(coord pos): enemy(pos, 140, 30, 10, "Elf", true, false){}
 
+char elf::render(){
+	return 'E';
+}
+
+int elf::atkEffect(character *subj, int dmg){
+	(void) subj;
+	return dmg;
+}
 
