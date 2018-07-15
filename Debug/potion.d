@@ -1,6 +1,5 @@
 potion.o: ../potion.cc ../potion.h ../item.h ../obj.h ../coord.h \
- ../potions.h ../pPlayer.h ../player.h ../character.h ../floor.h \
- ../chamber.h ../textdisplay.h
+ ../player.h ../character.h ../potions.h ../pPlayer.h
 
 ../potion.h:
 
@@ -10,16 +9,10 @@ potion.o: ../potion.cc ../potion.h ../item.h ../obj.h ../coord.h \
 
 ../coord.h:
 
-../potions.h:
-
-../pPlayer.h:
-
 ../player.h:
 
 ../character.h:
 
-../floor.h:
+../potions.h:
 
-../chamber.h:
-
-../textdisplay.h:
+../pPlayer.h:

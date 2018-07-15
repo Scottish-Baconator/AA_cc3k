@@ -7,7 +7,7 @@
 
 #ifndef ELF_H_
 #define ELF_H_
-
+#include "enemy.h"
 
 class elf: public enemy{
 	public:

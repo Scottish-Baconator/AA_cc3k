@@ -6,6 +6,7 @@
 CC_SRCS += \
 ../chamber.cc \
 ../character.cc \
+../elf.cc \
 ../enemy.cc \
 ../floor.cc \
 ../game.cc \
@@ -25,6 +26,7 @@ CC_SRCS += \
 CC_DEPS += \
 ./chamber.d \
 ./character.d \
+./elf.d \
 ./enemy.d \
 ./floor.d \
 ./game.d \
@@ -44,6 +46,7 @@ CC_DEPS += \
 OBJS += \
 ./chamber.o \
 ./character.o \
+./elf.o \
 ./enemy.o \
 ./floor.o \
 ./game.o \

@@ -1,5 +1,5 @@
 floor.o: ../floor.cc ../floor.h ../obj.h ../coord.h ../chamber.h \
- ../textdisplay.h
+ ../player.h ../character.h ../gold.h ../item.h ../textdisplay.h
 
 ../floor.h:
 
@@ -8,5 +8,13 @@ floor.o: ../floor.cc ../floor.h ../obj.h ../coord.h ../chamber.h \
 ../coord.h:
 
 ../chamber.h:
+
+../player.h:
+
+../character.h:
+
+../gold.h:
+
+../item.h:
 
 ../textdisplay.h:

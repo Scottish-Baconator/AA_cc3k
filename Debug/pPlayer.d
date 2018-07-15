@@ -1,5 +1,5 @@
 pPlayer.o: ../pPlayer.cc ../pPlayer.h ../player.h ../character.h ../obj.h \
- ../coord.h ../floor.h ../chamber.h ../textdisplay.h
+ ../coord.h
 
 ../pPlayer.h:
 
@@ -10,9 +10,3 @@ pPlayer.o: ../pPlayer.cc ../pPlayer.h ../player.h ../character.h ../obj.h \
 ../obj.h:
 
 ../coord.h:
-
-../floor.h:
-
-../chamber.h:
-
-../textdisplay.h:

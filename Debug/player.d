@@ -1,16 +1,9 @@
-player.o: ../player.cc ../character.h ../obj.h ../coord.h ../floor.h \
- ../chamber.h ../textdisplay.h ../player.h
+player.o: ../player.cc ../character.h ../obj.h ../coord.h ../player.h
 
 ../character.h:
 
 ../obj.h:
 
 ../coord.h:
-
-../floor.h:
-
-../chamber.h:
-
-../textdisplay.h:
 
 ../player.h:
