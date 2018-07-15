@@ -8,12 +8,17 @@
 #ifndef MERCHANT_H_
 #define MERCHANT_H_
 
-
 #include "enemy.h"
 
 class merchant: public enemy{
-	static bool friendly = true;
+	static bool friendly;
 public:
+	static void merchantInit(){
+		friendly = true;
+	}
+	static void merchantAttacked(){
+		friendly = false;
+	}
 	merchant(coord pos); //calls enemy constructor with required params
 
 	char render() override;

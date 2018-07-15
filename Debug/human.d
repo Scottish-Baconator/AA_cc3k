@@ -1,5 +1,5 @@
 human.o: ../human.cc ../human.h ../enemy.h ../character.h ../obj.h \
- ../coord.h ../floor.h ../chamber.h ../textdisplay.h ../gold.h ../item.h
+ ../coord.h ../floor.h ../chamber.h ../player.h ../gold.h ../item.h
 
 ../human.h:
 
@@ -15,7 +15,7 @@ human.o: ../human.cc ../human.h ../enemy.h ../character.h ../obj.h \
 
 ../chamber.h:
 
-../textdisplay.h:
+../player.h:
 
 ../gold.h:
 
