@@ -11,7 +11,7 @@
 #include "enemy.h"
 
 class merchant: public enemy{
-	//static bool friendly;
+	static bool friendly;
 public:
 
 	static bool merchantHostile();
