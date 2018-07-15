@@ -75,9 +75,15 @@ level::level(std::string file){
 			if(td->get(coord(i, j)) == '.'){
 				if(!is(chmbrs, coord(i, j))){
 					td->chambFrom(coord(i,j), chmbrs[cur]);
-					cur+=1;
+					cur++;
 				}
 			}
+			if(cur > 9){
+				break;
+			}
+		}
+		if(cur > 9){
+			break;
 		}
 	}
 

@@ -53,38 +53,36 @@ void textDisplay::render(std::ostream &out, player *p){
 }
 
 void textDisplay::chambFrom(coord c, chamber *ch){
-  
-	if(c.x<0 || c.x>=79 || c.y<0 || c.y>=30 || map[c.x][c.y] != '.' || ch->containsCoord(c)){
-	  return;
+	if(c.x < 0 || c.x >= 79 || c.y < 0 || c.y >= 30 || map[c.x][c.y] != '.' || ch->containsCoord(c)){
+		return;
 	}
-
-	  if(map[c.x][c.y] == '.'){
-		  ch->addCoord(c);
-	  }
+	if(map[c.x][c.y] == '.'){
+		ch->addCoord(c);
+	}
 	if(c.x > 0){
-		chambFrom(coord(c.x - 1, c.y), ch);
-		if(c.y > 0){
-			chambFrom(coord(c.x - 1, c.y - 1), ch);
-		}
-		if(c.y < 29){
-			chambFrom(coord(c.x - 1, c.y + 1), ch);
-		}
-	}
-	if(c.x < 78){
-		chambFrom(coord(c.x + 1, c.y), ch);
-		if(c.y > 0){
-			chambFrom(coord(c.x + 1, c.y - 1), ch);
-		}
-		if(c.y < 29){
-			chambFrom(coord(c.x + 1, c.y + 1), ch);
-		}
-	}
-	if(c.y > 0){
-		chambFrom(coord(c.x, c.y - 1), ch);
-	}
-	if(c.y < 29){
-		chambFrom(coord(c.x, c.y + 1), ch);
-	}
+		  chambFrom(coord(c.x - 1, c.y), ch);
+		  if(c.y > 0){
+			  chambFrom(coord(c.x - 1, c.y - 1), ch);
+		  }
+		  if(c.y < 29){
+			  chambFrom(coord(c.x - 1, c.y + 1), ch);
+		  }
+	  }
+	  if(c.x < 78){
+		  chambFrom(coord(c.x + 1, c.y), ch);
+		  if(c.y > 0){
+			  chambFrom(coord(c.x + 1, c.y - 1), ch);
+		  }
+		  if(c.y < 29){
+			  chambFrom(coord(c.x + 1, c.y + 1), ch);
+		  }
+	  }
+	  if(c.y > 0){
+		  chambFrom(coord(c.x, c.y - 1), ch);
+	  }
+	  if(c.y < 29){
+		  chambFrom(coord(c.x, c.y + 1), ch);
+	  }
 }
 
 
