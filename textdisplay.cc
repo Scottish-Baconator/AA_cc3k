@@ -53,19 +53,12 @@ void textDisplay::render(std::ostream &out, player *p){
 }
 
 void textDisplay::chambFrom(coord c, chamber *ch){
-<<<<<<< HEAD
   if(map[c.x][c.y] == '.'){
 	  ch->addCoord(c);
   }
   
-  if(c.x<0 || c.x>=79 || c.y<0 || c.y>=30 || map[c.x][c.y] != '.' || ch->containsCoord(c)){
-=======
 	if(c.x<0 || c.x>=79 || c.y<0 || c.y>=30 || map[c.x][c.y] != '.' || ch->containsCoord(c)){
->>>>>>> 8123314d39457b329e285c31559c72dfe04e648a
 	  return;
-	}
-	if(map[c.x][c.y] == '.'){
-		ch->addCoord(c);
 	}
 
 	if(c.x > 0){
