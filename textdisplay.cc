@@ -39,11 +39,11 @@ void textDisplay::render(std::ostream &out, player *p){
 				out << (f->getObj(c))->render();
 			}
 		}
-		out<<'\n';
+		out << '\n';
 	}
 
-	out << "Race: " << p->getName();
-	out << "Gold: 0";
+	out << "Race: " << p->getName() << "\t";
+	out << "Gold: 0" << "\t";
 	out << "Floor: 1" << std::endl;
 	out << "HP: " << p->getHP() << std::endl;
 	out << "ATK: " << p->getAtk() << std::endl;

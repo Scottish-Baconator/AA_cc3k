@@ -63,7 +63,7 @@ level::level(std::string file){
 			grd[i][j]=nullptr;
 		}
 	}
-	for(int i=0;i<10;++i){
+	for(int i=0;i<5;++i){
 		chmbrs[i] = new chamber();
 	}
 
@@ -78,11 +78,11 @@ level::level(std::string file){
 					cur++;
 				}
 			}
-			if(cur > 9){
+			if(cur > 4){
 				break;
 			}
 		}
-		if(cur > 9){
+		if(cur > 4){
 			break;
 		}
 	}
