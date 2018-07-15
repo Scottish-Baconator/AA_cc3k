@@ -25,8 +25,9 @@ public:
 
 	//merchants cant be attacked by enemies, so this only needs to happen when any merchant has their HP changed
 	//If any merchant object gets "attacked" (called by chngHP), then
-	void attacked() override;
-	static void setUnfriendly();
+	void attacked(){
+		merchantAttacked();
+	}
 };
 
 

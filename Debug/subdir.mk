@@ -6,14 +6,18 @@
 CC_SRCS += \
 ../chamber.cc \
 ../character.cc \
+../dwarf.cc \
 ../elf.cc \
 ../enemy.cc \
 ../floor.cc \
 ../game.cc \
 ../gold.cc \
+../halfling.cc \
 ../human.cc \
 ../main.cc \
+../merchant.cc \
 ../obj.cc \
+../orc.cc \
 ../pPlayer.cc \
 ../player.cc \
 ../potion.cc \
@@ -26,14 +30,18 @@ CC_SRCS += \
 CC_DEPS += \
 ./chamber.d \
 ./character.d \
+./dwarf.d \
 ./elf.d \
 ./enemy.d \
 ./floor.d \
 ./game.d \
 ./gold.d \
+./halfling.d \
 ./human.d \
 ./main.d \
+./merchant.d \
 ./obj.d \
+./orc.d \
 ./pPlayer.d \
 ./player.d \
 ./potion.d \
@@ -46,14 +54,18 @@ CC_DEPS += \
 OBJS += \
 ./chamber.o \
 ./character.o \
+./dwarf.o \
 ./elf.o \
 ./enemy.o \
 ./floor.o \
 ./game.o \
 ./gold.o \
+./halfling.o \
 ./human.o \
 ./main.o \
+./merchant.o \
 ./obj.o \
+./orc.o \
 ./pPlayer.o \
 ./player.o \
 ./potion.o \

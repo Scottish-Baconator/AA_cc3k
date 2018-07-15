@@ -11,6 +11,7 @@
 
 player::player(coord pos, int hp, int atk, int def, std::string name):character{pos,hp,atk,def,name}
 {
+	maxHP = hp;
 }
 
 char player::render(){

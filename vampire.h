@@ -16,7 +16,7 @@ class vampire: public player{
 public:
 	vampire(coord pos);
 
-	void chngHP(int p) override;
+	void chngHP(int p);
 
 	int atkEffect(character *subj, int dmg) override;
 

@@ -12,8 +12,10 @@
 #include <string>
 
 class character: public obj{
-	int mhp, hp, atk, def;
+	int mhp, atk, def;
 	std::string name;
+protected:
+	int hp;
 public:
 	character(coord pos, int hp, int atk, int def, std::string name);
 	virtual ~character(){}
