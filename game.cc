@@ -78,13 +78,16 @@ bool game::move(dir d){
 	//temp is the coordinates the player is trying to move in
 	coord temp = getCoord(d, pC);
 
-	if(f.getObj(temp)!=nullptr && f.getObj(temp)->render() == 'G'){
+	if(!(f.empty(temp)) && f.getObj(temp)->render() == 'G'){
 		gld += ((gold *) (f.getObj(temp)))->getVal();
 		f.remove(temp);
 	}
 
+	//std::cerr<<"pot"<<std::endl;
 	if(f.canWalk(temp) == level::All || f.canWalk(temp) == level::PC){
+		//std::cerr<<"a"<<std::endl;
 		if(f.move(pC, temp)){
+			//std::cerr<<"to"<<std::endl;
 			pC = temp;
 			return true;
 		}

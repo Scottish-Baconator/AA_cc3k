@@ -5,6 +5,8 @@
  *      Author: alicy
  */
 #include "floor.h"
+#include "gold.h"
+#include <cstdlib>
 
 //Checks if a chamber contains coordinate
 bool is(chamber** chmbrs, coord c){
@@ -69,11 +71,38 @@ level::level(std::string file){
 			}
 		}
 	}
+
+	for(int i=0; i<10; ++i){
+
+		int chamberid;
+		coord gc(0,0);
+		gold* g;
+
+		int goldrand = rand() % 8;
+
+		do{
+		chamberid= rand() % 5;
+		gc= chmbrs[chamberid]->random();
+		}while(!empty(gc));
+
+		if(goldrand < 5){
+			g = new gold{gc, 2};
+		} else {
+			g = new gold{gc, 1};
+
+		}
+
+		grd[gc.x][gc.y]=g;
+	}
+}
+
+bool level::empty(coord c){
+	return (grd[c.x][c.y]==nullptr);
 }
 
 //Notifies all objects on level to run their step
 void level::step(){
-	bool ignore[30][79];
+	bool ignore[79][30];
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
 			ignore[i][j] = false;
@@ -98,9 +127,9 @@ void level::add(obj *toAdd, coord pos){
 }
 
 bool level::move(coord origin, coord target){
-	if(grd[target.x][target.y] == nullptr){
+	if(empty(target)){
 		grd[target.x][target.y] = grd[origin.x][origin.y];
-		grd[target.x][target.y] = nullptr;
+		grd[origin.x][origin.y] = nullptr;
 		return true;
 	}
 
@@ -133,6 +162,7 @@ level::~level(){
 
 void level::remove(coord c){
 	delete grd[c.x][c.y]; //if it's nullptr this is still fine
+	grd[c.x][c.y]=nullptr; //avoid segfault
 }
 
 level::Walk level::canWalk(coord c){

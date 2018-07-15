@@ -32,7 +32,8 @@ public:
 	char render(coord);
 	void step();
 	obj *getObj(coord c){return grd[c.x][c.y];}
-	bool move(coord from, coord to);
+	bool empty(coord c);
+	bool move(coord origin, coord target);
 	Walk canWalk(coord c);
 	void remove(coord c);
 };

@@ -6,8 +6,8 @@
  */
 #include "chamber.h"
 #include <cstdlib>
-#include <iostream>
 #include <vector>
+#include "time.h"
 
 coord chamber::random(){
 	int r = rand() % coords.size();
