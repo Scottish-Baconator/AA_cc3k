@@ -66,7 +66,7 @@ int main(int argc, char *argv[]){
 		}else{
 			g.move(convert(s));
 		}
-		//g.step();
+		g.step();
 		g.render(std::cout);
 	}
 }

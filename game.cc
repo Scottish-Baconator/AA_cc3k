@@ -123,7 +123,7 @@ bool game::move(dir d){
 	//temp is the coordinates the player is trying to move in
 	coord temp = getCoord(d, pC);
 
-	if((f.getObj(temp) != nullptr) && (f.getObj(temp)->render() == '\\')){
+	if(!(f.empty(temp)) && (f.getObj(temp)->render() == '\\')){
 		nextLevel();
 	}
 
