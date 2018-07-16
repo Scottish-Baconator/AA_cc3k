@@ -15,7 +15,7 @@ textDisplay::textDisplay(std::string file, level *f):f{f}{
 	in.open(file);
 	char c='.';
 
-	for(int i = 0;i < 30;i++){
+	for(int i = 0;i < 25;i++){
 		for(int j = 0;j < 79;j++){
 			in.get(c);
 			map[j][i] = c;
@@ -27,14 +27,22 @@ textDisplay::textDisplay(std::string file, level *f):f{f}{
 	}
 }
 
-void textDisplay::render(std::ostream &out, player *p){
+void textDisplay::render(std::ostream &out, player *p, int gld){
 
 	//Renders the map
 	coord c = coord(0,0);
 	for(c.y=0;c.y < 25;(c.y)++){
 		for(c.x = 0;c.x < 79;(c.x)++){
 			if(f->empty(c)){
-				out << map[c.x][c.y];
+				//if(map[c.x][c.y] == '.'){
+				//	for(int i = 0;i < 5;i++){
+				//		if(f->getChmbr(i)->containsCoord(c)){
+				//			out << i;
+				//		}
+				//	}
+				//}else{
+					out << map[c.x][c.y];
+				//}
 			}else {
 				out << (f->getObj(c))->render();
 			}
@@ -43,7 +51,7 @@ void textDisplay::render(std::ostream &out, player *p){
 	}
 
 	out << "Race: " << p->getName() << "\t";
-	out << "Gold: 0" << "\t";
+	out << "Gold: " << gld << "\t";
 	out << "Floor: 1" << std::endl;
 	out << "HP: " << p->getHP() << std::endl;
 	out << "ATK: " << p->getAtk() << std::endl;

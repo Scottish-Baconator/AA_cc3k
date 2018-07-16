@@ -24,9 +24,34 @@ CC_SRCS += \
 ../potions.cc \
 ../shade.cc \
 ../stair.cc \
+../test.cc \
 ../textdisplay.cc \
 ../troll.cc \
 ../vampire.cc 
+
+O_SRCS += \
+../chamber.o \
+../character.o \
+../dwarf.o \
+../elf.o \
+../enemy.o \
+../floor.o \
+../game.o \
+../gold.o \
+../halfling.o \
+../human.o \
+../main.o \
+../merchant.o \
+../obj.o \
+../orc.o \
+../pPlayer.o \
+../player.o \
+../potion.o \
+../potions.o \
+../shade.o \
+../stair.o \
+../textdisplay.o \
+../troll.o 
 
 CC_DEPS += \
 ./chamber.d \
@@ -49,6 +74,7 @@ CC_DEPS += \
 ./potions.d \
 ./shade.d \
 ./stair.d \
+./test.d \
 ./textdisplay.d \
 ./troll.d \
 ./vampire.d 
@@ -74,6 +100,7 @@ OBJS += \
 ./potions.o \
 ./shade.o \
 ./stair.o \
+./test.o \
 ./textdisplay.o \
 ./troll.o \
 ./vampire.o 

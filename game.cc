@@ -9,6 +9,7 @@
 #include "potion.h"
 #include "stair.h"
 #include <iostream>
+#include <ctime>
 
 bool one(char c, char a[], int l){
 	for(int i = 0;i < l;i++){
@@ -20,6 +21,7 @@ bool one(char c, char a[], int l){
 }
 
 game::game(std::string s): f(level{s}){
+	srand(time(nullptr));
 	file = s;
 	int pCh = rand()%5;
 	pC = f.getChmbr(pCh)->random();
@@ -28,7 +30,22 @@ game::game(std::string s): f(level{s}){
 	gld = 0;
 	f.add(pp, pC);
 	paused = false;
-	stairs = f.getChmbr(4 - pCh)->random();
+	switch(pCh){
+	case 0:
+		stairs = f.getChmbr(2)->random();
+		break;
+	case 1:
+		stairs = f.getChmbr(4)->random();
+		break;
+	case 2:
+		stairs = f.getChmbr(0)->random();
+		break;
+	case 3:
+		stairs = f.getChmbr(1)->random();
+		break;
+	case 4:
+		stairs = f.getChmbr(3)->random();
+	}
 	f.add(new stair(stairs), stairs);
 }
 
@@ -41,7 +58,22 @@ void game::nextLevel(){
 	pp = p;
 	f.add(pp, pC);
 	paused = false;
-	stairs = f.getChmbr(4 - pCh)->random();
+	switch(pCh){
+	case 0:
+		stairs = f.getChmbr(2)->random();
+		break;
+	case 1:
+		stairs = f.getChmbr(4)->random();
+		break;
+	case 2:
+		stairs = f.getChmbr(0)->random();
+		break;
+	case 3:
+		stairs = f.getChmbr(1)->random();
+		break;
+	case 4:
+		stairs = f.getChmbr(3)->random();
+	}
 	f.add(new stair(stairs), stairs);
 }
 
@@ -52,7 +84,7 @@ void game::step(){
 }
 
 void game::render(std::ostream &out){
-	f.render(out, pp);
+	f.render(out, pp, gld);
 }
 
 coord getCoord(enum game::dir d, coord pC){
