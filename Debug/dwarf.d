@@ -1,0 +1,22 @@
+dwarf.o: ../dwarf.cc ../dwarf.h ../enemy.h ../character.h ../obj.h \
+ ../coord.h ../floor.h ../chamber.h ../player.h ../gold.h ../item.h
+
+../dwarf.h:
+
+../enemy.h:
+
+../character.h:
+
+../obj.h:
+
+../coord.h:
+
+../floor.h:
+
+../chamber.h:
+
+../player.h:
+
+../gold.h:
+
+../item.h:

@@ -24,7 +24,6 @@ CC_SRCS += \
 ../potions.cc \
 ../shade.cc \
 ../stair.cc \
-../test.cc \
 ../textdisplay.cc \
 ../troll.cc \
 ../vampire.cc 
@@ -74,7 +73,6 @@ CC_DEPS += \
 ./potions.d \
 ./shade.d \
 ./stair.d \
-./test.d \
 ./textdisplay.d \
 ./troll.d \
 ./vampire.d 
@@ -100,7 +98,6 @@ OBJS += \
 ./potions.o \
 ./shade.o \
 ./stair.o \
-./test.o \
 ./textdisplay.o \
 ./troll.o \
 ./vampire.o 
