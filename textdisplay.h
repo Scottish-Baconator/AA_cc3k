@@ -24,7 +24,7 @@ class textDisplay {
 public:
 	textDisplay(std::string file, level *f);
 	~textDisplay(){}
-	void render(std::ostream &out, player *p);
+	void render(std::ostream &out, player *p, int gld);
 	void chambFrom(coord c, chamber *ch);
 	char get(coord c){return map[c.x][c.y];}
 };

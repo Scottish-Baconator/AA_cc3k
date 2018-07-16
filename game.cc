@@ -52,7 +52,7 @@ void game::step(){
 }
 
 void game::render(std::ostream &out){
-	f.render(out, pp);
+	f.render(out, pp, gld);
 }
 
 coord getCoord(enum game::dir d, coord pC){

@@ -13,25 +13,25 @@
 class BAtk : public pPlayer {
 public:
 	BAtk(player *p);
-	int getAtk() override;
+	double getAtk() override;
 };
 
 class BDef : public pPlayer{
 public:
 	BDef(player *p);
-	int getDef() override;
+	double getDef() override;
 };
 
 class WAtk : public pPlayer{
 public:
 	WAtk(player *p);
-	int getAtk() override;
+	double getAtk() override;
 };
 
 class WDef : public pPlayer{
 public:
 	WDef(player *p);
-	int getDef() override;
+	double getDef() override;
 };
 
 #endif /* POTIONS_H_ */

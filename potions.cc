@@ -12,22 +12,22 @@ BDef::BDef(player *p):pPlayer{p}{}
 WAtk::WAtk(player *p):pPlayer{p}{}
 WDef::WDef(player *p):pPlayer{p}{}
 
-int BAtk::getAtk(){
+double BAtk::getAtk(){
 	return plaer->getAtk() + 5;
 }
 
-int BDef::getDef(){
+double BDef::getDef(){
 	return plaer->getDef() + 5;
 }
 
-int WAtk::getAtk(){
+double WAtk::getAtk(){
 	if(plaer->getAtk() > 5){
 		return plaer->getAtk() - 5;
 	}
 	return 0;
 }
 
-int WDef::getDef(){
+double WDef::getDef(){
 	if(plaer->getDef() > 5){
 		return plaer->getDef() - 5;
 	}

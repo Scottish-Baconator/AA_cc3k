@@ -32,7 +32,7 @@ public:
 
 	chamber* getChmbr(int a){return chmbrs[a];}
 	void add(obj *toAdd, coord pos);
-	void render(std::ostream &out, player *p);
+	void render(std::ostream &out, player *p, int gld);
 	void step();
 	obj *getObj(coord c){return grd[c.x][c.y];}
 	bool empty(coord c);

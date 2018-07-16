@@ -15,7 +15,7 @@ textDisplay::textDisplay(std::string file, level *f):f{f}{
 	in.open(file);
 	char c='.';
 
-	for(int i = 0;i < 30;i++){
+	for(int i = 0;i < 25;i++){
 		for(int j = 0;j < 79;j++){
 			in.get(c);
 			map[j][i] = c;
@@ -27,7 +27,7 @@ textDisplay::textDisplay(std::string file, level *f):f{f}{
 	}
 }
 
-void textDisplay::render(std::ostream &out, player *p){
+void textDisplay::render(std::ostream &out, player *p, int gld){
 
 	//Renders the map
 	coord c = coord(0,0);
@@ -43,7 +43,7 @@ void textDisplay::render(std::ostream &out, player *p){
 	}
 
 	out << "Race: " << p->getName() << "\t";
-	out << "Gold: 0" << "\t";
+	out << "Gold: " << gld << "\t";
 	out << "Floor: 1" << std::endl;
 	out << "HP: " << p->getHP() << std::endl;
 	out << "ATK: " << p->getAtk() << std::endl;

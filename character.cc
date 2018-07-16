@@ -7,7 +7,7 @@
 #include "character.h"
 #include <cstdlib>
 
-character::character(coord pos, int hp, int atk, int def,std::string name): obj{pos},mhp{hp},hp{hp},atk{atk},def{def},name{name}
+character::character(coord pos, int hp, double atk, double def,std::string name): obj{pos},mhp{hp},hp{hp},atk{atk},def{def},name{name}
 {}
 
 void character::attack(character *subj){
@@ -48,10 +48,10 @@ void character::attacked(){
 int character::getHP(){
 	return hp;
 }
-int character::getAtk(){
+double character::getAtk(){
 	return atk;
 }
-int character::getDef(){
+double character::getDef(){
 	return def;
 }
 std::string character::getName(){

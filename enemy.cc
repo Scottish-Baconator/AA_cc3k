@@ -76,7 +76,7 @@ coord move(level *f, coord pos){
 	return to;
 }
 
-enemy::enemy(coord pos, int hp, int atk, int def, std::string name, bool hostile, bool stationary):
+enemy::enemy(coord pos, int hp, double atk, double def, std::string name, bool hostile, bool stationary):
 		character(pos, hp, atk, def, name),isHostile{hostile},isStationary{stationary}
 
 {}

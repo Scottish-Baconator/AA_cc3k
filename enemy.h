@@ -18,7 +18,7 @@ protected:
 	bool isStationary;
 	
 public:
-	enemy(coord pos, int hp, int atk, int def, std::string name, bool hostile, bool stationary);
+	enemy(coord pos, int hp, double atk, double def, std::string name, bool hostile, bool stationary);
 	
 	//NOTE::: ENEMY IS CURRENTLY NOT ABSTRACT
 	//I don't think we can just make the dtor abstract though can we???

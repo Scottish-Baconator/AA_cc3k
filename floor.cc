@@ -218,8 +218,8 @@ bool level::move(coord origin, coord target){
 }
 
 //Gets the character of the object at coordinate c
-void level::render(std::ostream &out, player *p){
-	td->render(out, p);
+void level::render(std::ostream &out, player *p, int gld){
+	td->render(out, p, gld);
 }
 
 level::~level(){

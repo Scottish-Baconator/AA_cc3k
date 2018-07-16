@@ -16,7 +16,7 @@ class player : public character {
 	std::string name;
 
 public:
-	player(coord pos, int hp, int atk, int def, std::string name);
+	player(coord pos, int hp, double atk, double def, std::string name);
 	
 	char render();
 	

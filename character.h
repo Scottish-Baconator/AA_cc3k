@@ -12,10 +12,11 @@
 #include <string>
 
 class character: public obj{
-	int mhp, hp, atk, def;
+	int mhp, hp;
+	double atk, def;
 	std::string name;
 public:
-	character(coord pos, int hp, int atk, int def, std::string name);
+	character(coord pos, int hp, double atk, double def, std::string name);
 	virtual ~character(){}
 
 	//attack does not get overriden so "resolving combat" stays generalized
@@ -28,8 +29,8 @@ public:
 
 	
 	int getHP();
-	virtual int getAtk();
-	virtual int getDef();
+	virtual double getAtk();
+	virtual double getDef();
 	std::string getName();
 	
 	//By default, enemies never dodge
