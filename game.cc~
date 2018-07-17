@@ -34,7 +34,7 @@ game::game(std::string s): a{new action()},f(level{s,a}){
 }
 
 void game::nextLevel(){
-  f = level{file,a};
+	f = level{file};
 	int pCh = rand()%5;
 	pC = f.getChmbr(pCh)->random();
 	p = new player{*p};
@@ -109,40 +109,38 @@ bool game::move(dir d){
 		if(f.move(pC, temp)){
 			//std::cerr<<"to"<<std::endl;
 			pC = temp;
-
-			std::string dirtext="North";
-			switch (d){
-				case game::no:
-					dirtext="North";
-					break;
-				case game::so:
-					dirtext="South";
-					break;
-				case game::we:
-					dirtext="West";
-					break;
-				case game::ea:
-					dirtext="East";
-					break;
-				case game::ne:
-					dirtext="Northeast";
-					break;
-				case game::nw:
-					dirtext="Northwest";
-					break;
-				case game::se:
-					dirtext="Southeast";
-					break;
-				case game::sw:
-					dirtext="Southwest";
-					break;
-				}
-			a->addText("PC moves "+dirtext);
-
 			return true;
 		}
 	}
 
+	std::string dirtext="North";
+	switch (d){
+		case game::no:
+			dirtext="North";
+			break;
+		case game::so:
+			dirtext="South";
+			break;
+		case game::we:
+			dirtext="West";
+			break;
+		case game::ea:
+			dirtext="East";
+			break;
+		case game::ne:
+			dirtext="Northeast";
+			break;
+		case game::nw:
+			dirtext="Northwest";
+			break;
+		case game::se:
+			dirtext="Southeast";
+			break;
+		case game::sw:
+			dirtext="Southwest";
+			break;
+		}
+	a->addText("PC moves "+dirtext);
 
 	return false;
 }

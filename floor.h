@@ -13,8 +13,10 @@
 #include <iostream>
 
 class textDisplay;
+class action;
 
 class level{
+	action *a;
 	textDisplay *td = nullptr;
 	obj* grd[79][30];
 	chamber *chmbrs[5];
@@ -23,7 +25,7 @@ public:
 private:
 	Walk can[79][30];
 public:
-	level(std::string);
+	level(std::string file, action *a);
 
 	//level(std::string file, bool);
 	//For later implementation

@@ -12,9 +12,7 @@
 
 
 class potion: public item{
-public:
 	enum type{RH, BA, BD, PH, WA, WD};
-private:
 	type potionType;
 public:
 	potion(coord pos, type t): item(pos), potionType(t){};

@@ -15,7 +15,6 @@
 #include "elf.h"
 #include "orc.h"
 #include "merchant.h"
-#include "potion.h"
 
 //Checks if a chamber contains coordinate
 bool is(chamber** chmbrs, coord c){
@@ -28,9 +27,9 @@ bool is(chamber** chmbrs, coord c){
 }
 
 //Reads map from file and determines the level layout
-level::level(std::string file){
+level::level(std::string file, action *a):a{a}{
 
-	td = new textDisplay(file, this);
+	td = new textDisplay(file, this, a);
 
 	//WE'RE GONNA HAVE TO METHODIZE THIS EVENTUALLY RIP
 	for(int i = 0;i < 79;i++){//rows
@@ -86,32 +85,6 @@ level::level(std::string file){
 		if(cur > 4){
 			break;
 		}
-	}
-
-	for(int i = 0;i < 10;i++){
-		coord tem = chmbrs[rand()%5]->random();
-		potion::type t;
-		switch (rand()%6) {
-		case 0:
-			t = potion::RH;
-			break;
-		case 1:
-			t = potion::PH;
-			break;
-		case 2:
-			t = potion::BA;
-			break;
-		case 3:
-			t = potion::BD;
-			break;
-		case 4:
-			t = potion::WA;
-			break;
-		case 5:
-			t = potion::WD;
-			break;
-		}
-		add(new potion(tem, t), tem);
 	}
 
 

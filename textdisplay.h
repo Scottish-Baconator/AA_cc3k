@@ -14,15 +14,17 @@
 #include <iostream>
 
 class player;
+class action;
 
 //class declaration to prevent circular include
 class level;
 
 class textDisplay {
 	level *f;
+	action *a;
 	char map[79][30];
 public:
-	textDisplay(std::string file, level *f);
+	textDisplay(std::string file, level *f, action *a);
 	~textDisplay(){}
 	void render(std::ostream &out, player *p, int gld);
 	void chambFrom(coord c, chamber *ch);

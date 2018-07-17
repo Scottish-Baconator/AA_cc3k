@@ -15,8 +15,11 @@
 #include "enemy.h"
 #include "gold.h"
 
+class action;
+
 class game{
 	std::string file;
+	action *a;
 	level f;
 	player *p = nullptr;
 	player *pp = nullptr;//potioned player
