@@ -13,17 +13,17 @@
 
 class player : public character {
 	int maxHP;
-	std::string name;
+	std::string race;
 
 public:
-	player(coord pos, int hp, double atk, double def, std::string name);
+	player(coord pos, int hp, double atk, double def, std::string race);
 	
 	char render();
 	
 
 	//Player dodges half the time
 	int dodgeChance() override;
-	
+	std::string getRace();
 	coord step() override;
 };
 

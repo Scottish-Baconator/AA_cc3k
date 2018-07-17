@@ -14,7 +14,7 @@
 bool one(char c, char a[], int l){
 	for(int i = 0;i < l;i++){
 		if(c == a[i]){
-			return false;
+			return true;
 		}
 	}
 	return false;
@@ -92,55 +92,68 @@ bool game::move(dir d){
 	//temp is the coordinates the player is trying to move in
 	coord temp = getCoord(d, pC);
 
-	if((f.getObj(temp) != nullptr) && (f.getObj(temp)->render() == '\\')){
-		nextLevel();
-	}
 
-	//This empty makes it so we dont check the render of an empty tile
-	//getObj doesnt work on an empty tile - ill probably add a throw line to that eventually
-	if(!f.empty(temp) && f.getObj(temp)->render() == 'G'){
-		gld += ((gold *) (f.getObj(temp)))->getVal();
-		f.remove(temp);
-	}
+	std::string dirtext="North";
+	switch (d){
+		case game::no:
+			dirtext="North";
+			break;
+		case game::so:
+			dirtext="South";
+			break;
+		case game::we:
+			dirtext="West";
+			break;
+		case game::ea:
+			dirtext="East";
+			break;
+		case game::ne:
+			dirtext="Northeast";
+			break;
+		case game::nw:
+			dirtext="Northwest";
+			break;
+		case game::se:
+			dirtext="Southeast";
+			break;
+		case game::sw:
+			dirtext="Southwest";
+			break;
+		}
 
 	//std::cerr<<"pot"<<std::endl;
 	if(f.canWalk(temp) == level::All || f.canWalk(temp) == level::PC){
+
+
+		//This empty makes it so we dont check the render of an empty tile
+		//getObj doesnt work on an empty tile - ill probably add a throw line to that eventually
+		if(!f.empty(temp)){
+			if((f.getObj(temp)->render() == '\\')){
+				nextLevel();
+			}else if(f.getObj(temp)->render() == 'G'){
+				int newgld = ((gold *) (f.getObj(temp)))->getVal();
+				gld += newgld;
+				a->addGold(newgld);
+				f.remove(temp);
+			} else {
+				a->cantMove(dirtext);
+				return false;
+			}
+
+		}
+
+		a->movePC(dirtext);
+
 		//std::cerr<<"a"<<std::endl;
 		if(f.move(pC, temp)){
 			//std::cerr<<"to"<<std::endl;
 			pC = temp;
 
-			std::string dirtext="North";
-			switch (d){
-				case game::no:
-					dirtext="North";
-					break;
-				case game::so:
-					dirtext="South";
-					break;
-				case game::we:
-					dirtext="West";
-					break;
-				case game::ea:
-					dirtext="East";
-					break;
-				case game::ne:
-					dirtext="Northeast";
-					break;
-				case game::nw:
-					dirtext="Northwest";
-					break;
-				case game::se:
-					dirtext="Southeast";
-					break;
-				case game::sw:
-					dirtext="Southwest";
-					break;
-				}
-			a->addText("PC moves "+dirtext);
-
 			return true;
 		}
+
+	}else{
+		a->cantMove(dirtext);
 	}
 
 
@@ -162,8 +175,10 @@ bool game::attack(dir d){
 	char enemies[] = {'H','W','E','O','M','D','L'};
 	coord temp = getCoord(d, pC);
 	if(one(f.getObj(temp)->render(), enemies, 7)){
+		std::cerr << "hello!" << std::endl;
 		enemy* tAtk = (enemy*)f.getObj(temp);
-		pp->attack(tAtk);
+		pp->attack(tAtk, a);
+		a->showHP(tAtk->getName(), tAtk->getHP());
 		if(tAtk->getHP() < 0){
 			tAtk->drop(&f);
 			f.remove(temp);

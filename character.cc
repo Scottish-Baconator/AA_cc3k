@@ -5,19 +5,22 @@
  *      Author: alicy
  */
 #include "character.h"
+#include "action.h"
 #include <cstdlib>
 
 character::character(coord pos, int hp, double atk, double def,std::string name): obj{pos},mhp{hp},hp{hp},atk{atk},def{def},name{name}
 {}
 
-void character::attack(character *subj){
+void character::attack(character *subj, action *a){
 	int dmg;
 	if(rand() % 100 < subj->dodgeChance()){
 		dmg = 0;
+		a->miss(getName(), subj->getName());
 	}else {
 		dmg = ceil((100/(100+subj->getDef()))*(this->getAtk()));
 		dmg = atkEffect(subj, dmg);
 		subj->chngHP(-dmg);
+		a->attack(getName(), subj->getName(), dmg);
 	}
 }
 

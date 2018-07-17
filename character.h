@@ -11,6 +11,8 @@
 #include <cmath>
 #include <string>
 
+class action;
+
 class character: public obj{
 	int mhp, hp;
 	double atk, def;
@@ -20,7 +22,7 @@ public:
 	virtual ~character(){}
 
 	//attack does not get overriden so "resolving combat" stays generalized
-	void attack(character *subj);
+	void attack(character *subj, action *a);
 	
 	virtual int atkEffect(character *subj, int dmg); //both players and enemies can have an atkEffect (vampire; elf)
 	

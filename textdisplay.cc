@@ -44,7 +44,7 @@ void textDisplay::render(std::ostream &out, player *p, int gld){
 		out << '\n';
 	}
 
-	out << "Race: " << p->getName() << "\t";
+	out << "Race: " << p->getRace() << "\t";
 	out << "Gold: " << gld << "\t";
 	out << "Floor: 1" << std::endl;
 	out << "HP: " << p->getHP() << std::endl;

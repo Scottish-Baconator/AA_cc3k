@@ -16,7 +16,6 @@ class textDisplay;
 class action;
 
 class level{
-	action *a;
 	textDisplay *td = nullptr;
 	obj* grd[79][30];
 	chamber *chmbrs[5];
