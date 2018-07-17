@@ -15,6 +15,7 @@
 #include "elf.h"
 #include "orc.h"
 #include "merchant.h"
+#include "potion.h"
 
 //Checks if a chamber contains coordinate
 bool is(chamber** chmbrs, coord c){
