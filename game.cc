@@ -34,7 +34,8 @@ game::game(std::string s): a{new action()},f(level{s,a}){
 }
 
 void game::nextLevel(){
-  f = level{file,a};
+	delete f;
+	f = level{file,a};
 	int pCh = rand()%5;
 	pC = f.getChmbr(pCh)->random();
 	p = new player{*p};

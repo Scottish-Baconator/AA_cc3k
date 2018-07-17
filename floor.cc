@@ -224,9 +224,7 @@ level::~level(){
 	delete td;
 	for(int j = 0;j < 30;j++){
 		for(int i = 0;i < 79;i++){
-			if(grd[i][j] != nullptr){
-				delete grd[i][j];
-			}
+			delete grd[i][j];
 
 		}
 	}
