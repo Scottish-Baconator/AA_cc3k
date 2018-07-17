@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CC_SRCS += \
+../action.cc \
 ../chamber.cc \
 ../character.cc \
 ../dwarf.cc \
@@ -24,11 +25,13 @@ CC_SRCS += \
 ../potions.cc \
 ../shade.cc \
 ../stair.cc \
+../test.cc \
 ../textdisplay.cc \
 ../troll.cc \
 ../vampire.cc 
 
 O_SRCS += \
+../action.o \
 ../chamber.o \
 ../character.o \
 ../dwarf.o \
@@ -53,6 +56,7 @@ O_SRCS += \
 ../troll.o 
 
 CC_DEPS += \
+./action.d \
 ./chamber.d \
 ./character.d \
 ./dwarf.d \
@@ -73,11 +77,13 @@ CC_DEPS += \
 ./potions.d \
 ./shade.d \
 ./stair.d \
+./test.d \
 ./textdisplay.d \
 ./troll.d \
 ./vampire.d 
 
 OBJS += \
+./action.o \
 ./chamber.o \
 ./character.o \
 ./dwarf.o \
@@ -98,6 +104,7 @@ OBJS += \
 ./potions.o \
 ./shade.o \
 ./stair.o \
+./test.o \
 ./textdisplay.o \
 ./troll.o \
 ./vampire.o 

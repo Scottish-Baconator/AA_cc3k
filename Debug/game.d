@@ -1,6 +1,6 @@
 game.o: ../game.cc ../game.h ../floor.h ../obj.h ../coord.h ../chamber.h \
  ../player.h ../character.h ../potion.h ../item.h ../shade.h ../enemy.h \
- ../gold.h ../stair.h
+ ../gold.h ../stair.h ../action.h
 
 ../game.h:
 
@@ -27,3 +27,5 @@ game.o: ../game.cc ../game.h ../floor.h ../obj.h ../coord.h ../chamber.h \
 ../gold.h:
 
 ../stair.h:
+
+../action.h:
