@@ -9,7 +9,7 @@
 #include "character.h"
 #include "player.h"
 
-player::player(coord pos, int hp, double atk, double def, std::string name):character{pos,hp,atk,def,name}
+player::player(coord pos, int hp, double atk, double def, std::string race):character{pos,hp,atk,def,"PC"},race{race}
 {
 	maxHP = hp;
 }
@@ -26,4 +26,8 @@ int player::dodgeChance(){
 coord player::step() {
 	chngHP(regen());
 	return pos;
+}
+
+std::string player::getRace(){
+	return race;
 }

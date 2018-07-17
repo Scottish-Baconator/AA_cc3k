@@ -10,7 +10,6 @@
 #include "obj.h"
 #include "action.h"
 #include <iostream>
-#include <string>
 
 textDisplay::textDisplay(std::string file, level *f, action *a):f{f},a{a}{
 	std::ifstream in;
@@ -44,13 +43,13 @@ void textDisplay::render(std::ostream &out, player *p, int gld){
 		out << '\n';
 	}
 
-	out << "Race: " << p->getRace() << "\t";
+	out << "Race: " << p->getName() << "\t";
 	out << "Gold: " << gld << "\t";
 	out << "Floor: 1" << std::endl;
 	out << "HP: " << p->getHP() << std::endl;
 	out << "ATK: " << p->getAtk() << std::endl;
 	out << "DEF: " << p->getDef() << std::endl;
-	out << "Action: " <<  a->printText() << std::endl;
+	out << "Action: " + "work!" + a->printText() << "work!!!" << std::endl;
 
 }
 

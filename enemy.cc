@@ -86,7 +86,7 @@ enemy::~enemy(){}
 //Runs enemy action.
 coord enemy::step(level *f){
 	if(closePC(f, pos) && isHostile){
-		attack(getPC(f));
+		//attack(getPC(f));
 	}else if(!isStationary){
 		pos = move(f, pos);
 	}
