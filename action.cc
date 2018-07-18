@@ -53,3 +53,12 @@ void action::showHP(std::string subject, int hp){
 void action::miss(std::string attacker, std::string defender){
 	addText(attacker+" missed "+defender+".");
 }
+
+void action::usePot(std::string name){
+	addText("PC drinks "+name+" Potion.");
+
+}
+void action::changeStat(std::string statname, std::string change, int amt){
+	addText(statname+" "+change+intToString(amt));
+
+}

@@ -20,6 +20,7 @@ public:
 	potion(coord pos, type t): item(pos), potionType(t){};
 	char render(){return 'P';}
 	player* effect(player *p);
+	void displayEffect(action *a);
 };
 
 

@@ -54,7 +54,8 @@ int main(int argc, char *argv[]){
 
 	while(std::cin >> s){
 		if(s[0] == 'u'){
-			g.use(convert(s.substr(2, 2)));
+			std::cin >> s;
+			g.use(convert(s));
 		}else if(s[0] == 'a'){
 			std::cin >> s;
 			g.attack(convert(s));
