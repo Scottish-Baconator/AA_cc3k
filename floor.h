@@ -43,6 +43,7 @@ public:
 	void remove(coord c);
 	void update(obj *toAdd, coord pos);
 	int getFloorNum();
+	bool enemyStuck(coord c);
 };
 
 

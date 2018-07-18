@@ -8,6 +8,7 @@
 #include "floor.h"
 #include "gold.h"
 #include <cmath>
+#include <iostream>
 
 //abs already included somewhere else (cmath?)
 /*int abs(int a){
@@ -42,7 +43,19 @@ character* getPC(level *f){
 //Move to a random neighbouring tile
 coord move(level *f, coord pos){
 	coord to(pos);
-	int count = 0;
+
+	if(   	f->enemyStuck(coord{pos.x,pos.y+1}) &&
+			f->enemyStuck(coord{pos.x+1,pos.y+1}) &&
+			f->enemyStuck(coord{pos.x-1,pos.y+1}) &&
+			f->enemyStuck(coord{pos.x+1,pos.y-1}) &&
+			f->enemyStuck(coord{pos.x,pos.y-1})   &&
+			f->enemyStuck(coord{pos.x-1,pos.y-1}) &&
+			f->enemyStuck(coord{pos.x-1,pos.y})   &&
+			f->enemyStuck(coord{pos.x+1,pos.y}))
+		{
+		return pos;
+	}
+
 	do{
 		to = pos;
 		switch(rand()%8){
@@ -71,7 +84,7 @@ coord move(level *f, coord pos){
 			to.x++;to.y--;
 		}
 
-	}while((!(f->canWalk(to) == level::All))||(count > 20));
+	}while(!(f->empty(to)) || !(f->canWalk(to) == level::All));
 	f->move(pos, to);
 	return to;
 }
@@ -85,11 +98,14 @@ enemy::~enemy(){}
 
 //Runs enemy action.
 coord enemy::step(level *f){
-	if(closePC(f, pos) && isHostile){
+//	std::cerr << getName() << "START" << std::endl;
+//	if(closePC(f, pos) && isHostile){
 		//attack(getPC(f));
-	}else if(!isStationary){
+	//}
+	 if(!isStationary){
 		pos = move(f, pos);
 	}
+	//	std::cerr << getName() << "END" << std::endl;
 	return pos;
 }
 
