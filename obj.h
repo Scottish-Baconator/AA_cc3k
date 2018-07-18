@@ -9,13 +9,16 @@
 #define OBJ_H_
 #include "coord.h"
 
+class level;
+
 class obj{
 protected:
 	coord pos;
 public:
 	obj(coord c): pos(c){}
 	virtual ~obj(){};
-	virtual coord step(){
+	virtual coord step(level *f){
+		(void)f;
 		return pos;
 	}
 	coord getPos(){return pos;}

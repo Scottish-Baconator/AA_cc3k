@@ -203,21 +203,28 @@ level::level(std::string file, action *a, int floorNum):floorNum{floorNum},td{ne
 }
 
 bool level::empty(coord c){
+	if(c.x>=79 || c.y >=30 || c.x < 0 || c.y<0){
+		return false;
+	}
 	return (grd[c.x][c.y]==nullptr);
 }
 
 //Notifies all objects on level to run their step
 void level::step(){
 	bool ignore[79][30];
+	//std::cerr << "hello " << std::endl;
+
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
 			ignore[i][j] = false;
 		}
+
 	}
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
 			if((!ignore[i][j])&&(grd[i][j] != nullptr)){
-				coord t = grd[i][j]->step();
+			//	std::cerr << "hi " << std::endl;
+				coord t = grd[i][j]->step(this);
 				ignore[t.x][t.y] = true;
 			}
 		}
