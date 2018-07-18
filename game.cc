@@ -20,7 +20,7 @@ bool one(char c, char a[], int l){
 	return false;
 }
 
-game::game(std::string s): a{new action()},f(new level{s,a}){
+game::game(std::string s): a{new action()},f(new level{s,a,floorNum}){
 	file = s;
 	int pCh = rand()%5;
 	pC = f->getChmbr(pCh)->random();
@@ -36,10 +36,11 @@ game::game(std::string s): a{new action()},f(new level{s,a}){
 }
 
 void game::nextLevel(){
+	floorNum++;
 	//must copy FIRST since delete f deletes our player!
 	p = new player{*p};
 	delete f;
-	f = new level{file,a};
+	f = new level{file,a, floorNum};
 	int pCh = rand()%5;
 	pC = f->getChmbr(pCh)->random();
 	pp = p;
@@ -166,9 +167,11 @@ bool game::move(dir d){
 bool game::use(dir d){
 	coord temp = getCoord(d, pC);
 	if(f->getObj(temp)->render() == 'P'){
-		f->remove(pC);
-		pp = ((potion *) f->getObj(temp))->effect(pp);
-		f->add(pp, pC);
+		potion *pot = (potion *) f->getObj(temp);
+		pp = pot->effect(pp);
+		pot->displayEffect(a);
+		f->update(pp, pC);
+		f->remove(temp);
 		return true;
 	}
 	return false;

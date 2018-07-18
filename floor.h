@@ -16,6 +16,7 @@ class textDisplay;
 class action;
 
 class level{
+	int floorNum;
 	textDisplay *td = nullptr;
 	obj* grd[79][30];
 	chamber *chmbrs[5];
@@ -24,7 +25,7 @@ public:
 private:
 	Walk can[79][30];
 public:
-	level(std::string file, action *a);
+	level(std::string file, action *a, int floorNum);
 
 	//level(std::string file, bool);
 	//For later implementation
@@ -40,6 +41,8 @@ public:
 	bool move(coord origin, coord target);
 	Walk canWalk(coord c);
 	void remove(coord c);
+	void update(obj *toAdd, coord pos);
+	int getFloorNum();
 };
 
 

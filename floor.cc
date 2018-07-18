@@ -28,7 +28,7 @@ bool is(chamber** chmbrs, coord c){
 }
 
 //Reads map from file and determines the level layout
-level::level(std::string file, action *a):td{new textDisplay(file, this, a)} {
+level::level(std::string file, action *a, int floorNum):floorNum{floorNum},td{new textDisplay(file, this, a)} {
 
 	//WE'RE GONNA HAVE TO METHODIZE THIS EVENTUALLY RIP
 	for(int i = 0;i < 79;i++){//rows
@@ -232,6 +232,11 @@ void level::add(obj *toAdd, coord pos){
 	}
 }
 
+
+void level::update(obj *toAdd, coord pos){
+	grd[pos.x][pos.y] = toAdd;
+}
+
 bool level::move(coord origin, coord target){
 	if(empty(target)){
 		grd[target.x][target.y] = grd[origin.x][origin.y];
@@ -271,5 +276,9 @@ level::Walk level::canWalk(coord c){
 		return can[c.x][c.y];
 	//}
 	//return No;
+}
+
+int level::getFloorNum(){
+	return floorNum;
 }
 
