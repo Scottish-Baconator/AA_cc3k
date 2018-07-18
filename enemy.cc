@@ -44,14 +44,15 @@ character* getPC(level *f){
 coord move(level *f, coord pos){
 	coord to(pos);
 
-	if(!(f->empty(coord{pos.x,pos.y+1}) ||
-			f->empty(coord{pos.x+1,pos.y+1}) ||
-			f->empty(coord{pos.x-1,pos.y+1}) ||
-			f->empty(coord{pos.x+1,pos.y-1}) ||
-			f->empty(coord{pos.x,pos.y-1}) ||
-			f->empty(coord{pos.x-1,pos.y-1}) ||
-			f->empty(coord{pos.x-1,pos.y}) ||
-			f->empty(coord{pos.x+1,pos.y}))){
+	if(   	f->enemyStuck(coord{pos.x,pos.y+1}) &&
+			f->enemyStuck(coord{pos.x+1,pos.y+1}) &&
+			f->enemyStuck(coord{pos.x-1,pos.y+1}) &&
+			f->enemyStuck(coord{pos.x+1,pos.y-1}) &&
+			f->enemyStuck(coord{pos.x,pos.y-1})   &&
+			f->enemyStuck(coord{pos.x-1,pos.y-1}) &&
+			f->enemyStuck(coord{pos.x-1,pos.y})   &&
+			f->enemyStuck(coord{pos.x+1,pos.y}))
+		{
 		return pos;
 	}
 
@@ -97,13 +98,14 @@ enemy::~enemy(){}
 
 //Runs enemy action.
 coord enemy::step(level *f){
-	std::cerr << "hello " << std::endl;
+//	std::cerr << getName() << "START" << std::endl;
 //	if(closePC(f, pos) && isHostile){
 		//attack(getPC(f));
 	//}
 	 if(!isStationary){
 		pos = move(f, pos);
 	}
+	//	std::cerr << getName() << "END" << std::endl;
 	return pos;
 }
 

@@ -289,3 +289,6 @@ int level::getFloorNum(){
 	return floorNum;
 }
 
+bool level::enemyStuck(coord c){
+	return !(empty(c)) || !(canWalk(c)==level::All);
+}
