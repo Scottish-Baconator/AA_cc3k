@@ -87,4 +87,3 @@ void textDisplay::chambFrom(coord c, chamber *ch){
 	  }
 }
 
-

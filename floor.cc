@@ -247,10 +247,9 @@ void level::render(std::ostream &out, player *p, int gld){
 }
 
 level::~level(){
-	delete td;
-	for(int j = 0;j < 30;j++){
-		for(int i = 0;i < 79;i++){
-			if(grd[i][j] != nullptr){
+	for(int i = 0;i < 79;i++){
+		for(int j = 0;j < 30;j++){
+			if(grd[i][j]!=nullptr){
 				delete grd[i][j];
 			}
 
@@ -259,6 +258,7 @@ level::~level(){
 	for(int i = 0;i < 5;i++){
 		delete chmbrs[i];
 	}
+	delete td;
 }
 
 void level::remove(coord c){

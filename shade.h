@@ -12,7 +12,6 @@
 class shade: public player{
 public:
 	shade(coord pos);
-
 	//Shade has no notable functions of its own
 };
 
