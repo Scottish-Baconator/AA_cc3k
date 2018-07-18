@@ -20,41 +20,43 @@ bool one(char c, char a[], int l){
 	return false;
 }
 
-game::game(std::string s): a{new action()},f(level{s,a}){
+game::game(std::string s): a{new action()},f(new level{s,a}){
 	file = s;
 	int pCh = rand()%5;
-	pC = f.getChmbr(pCh)->random();
+	pC = f->getChmbr(pCh)->random();
 	p = new shade(pC);
 	pp = p;
 	gld = 0;
-	f.add(pp, pC);
+	f->add(pp, pC);
 	paused = false;
-	stairs = f.getChmbr(4 - pCh)->random();
-	f.add(new stair(stairs), stairs);
+	//for testing purposes
+	stairs = f->getChmbr(pCh)->random();
+//	stairs = f->getChmbr(4 - pCh)->random();
+	f->add(new stair(stairs), stairs);
 }
 
 void game::nextLevel(){
-	delete f;
-	f = level{file,a};
-	int pCh = rand()%5;
-	pC = f.getChmbr(pCh)->random();
+	//must copy FIRST since delete f deletes our player!
 	p = new player{*p};
-	delete pp;
+	delete f;
+	f = new level{file,a};
+	int pCh = rand()%5;
+	pC = f->getChmbr(pCh)->random();
 	pp = p;
-	f.add(pp, pC);
+	f->add(pp, pC);
 	paused = false;
-	stairs = f.getChmbr(4 - pCh)->random();
-	f.add(new stair(stairs), stairs);
+	stairs = f->getChmbr(4 - pCh)->random();
+	f->add(new stair(stairs), stairs);
 }
 
 void game::step(){
 	if(!paused){
-		f.step();
+		f->step();
 	}
 }
 
 void game::render(std::ostream &out){
-	f.render(out, pp, gld);
+	f->render(out, pp, gld);
 }
 
 coord getCoord(enum game::dir d, coord pC){
@@ -123,19 +125,19 @@ bool game::move(dir d){
 		}
 
 	//std::cerr<<"pot"<<std::endl;
-	if(f.canWalk(temp) == level::All || f.canWalk(temp) == level::PC){
+	if(f->canWalk(temp) == level::All || f->canWalk(temp) == level::PC){
 
 
 		//This empty makes it so we dont check the render of an empty tile
 		//getObj doesnt work on an empty tile - ill probably add a throw line to that eventually
-		if(!f.empty(temp)){
-			if((f.getObj(temp)->render() == '\\')){
+		if(!f->empty(temp)){
+			if((f->getObj(temp)->render() == '\\')){
 				nextLevel();
-			}else if(f.getObj(temp)->render() == 'G'){
-				int newgld = ((gold *) (f.getObj(temp)))->getVal();
+			}else if(f->getObj(temp)->render() == 'G'){
+				int newgld = ((gold *) (f->getObj(temp)))->getVal();
 				gld += newgld;
 				a->addGold(newgld);
-				f.remove(temp);
+				f->remove(temp);
 			} else {
 				a->cantMove(dirtext);
 				return false;
@@ -146,7 +148,7 @@ bool game::move(dir d){
 		a->movePC(dirtext);
 
 		//std::cerr<<"a"<<std::endl;
-		if(f.move(pC, temp)){
+		if(f->move(pC, temp)){
 			//std::cerr<<"to"<<std::endl;
 			pC = temp;
 
@@ -163,10 +165,10 @@ bool game::move(dir d){
 
 bool game::use(dir d){
 	coord temp = getCoord(d, pC);
-	if(f.getObj(temp)->render() == 'P'){
-		f.remove(pC);
-		pp = ((potion *) f.getObj(temp))->effect(pp);
-		f.add(pp, pC);
+	if(f->getObj(temp)->render() == 'P'){
+		f->remove(pC);
+		pp = ((potion *) f->getObj(temp))->effect(pp);
+		f->add(pp, pC);
 		return true;
 	}
 	return false;
@@ -175,14 +177,14 @@ bool game::use(dir d){
 bool game::attack(dir d){
 	char enemies[] = {'H','W','E','O','M','D','L'};
 	coord temp = getCoord(d, pC);
-	if(one(f.getObj(temp)->render(), enemies, 7)){
+	if(one(f->getObj(temp)->render(), enemies, 7)){
 		std::cerr << "hello!" << std::endl;
-		enemy* tAtk = (enemy*)f.getObj(temp);
+		enemy* tAtk = (enemy*)f->getObj(temp);
 		pp->attack(tAtk, a);
 		a->showHP(tAtk->getName(), tAtk->getHP());
 		if(tAtk->getHP() < 0){
-			tAtk->drop(&f);
-			f.remove(temp);
+			tAtk->drop(f);
+			f->remove(temp);
 		}
 		return true;
 	}

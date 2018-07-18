@@ -20,7 +20,7 @@ class action;
 class game{
 	std::string file;
 	action *a;
-	level f;
+	level *f;
 	player *p = nullptr;
 	player *pp = nullptr;//potioned player
 	coord pC = coord(0,0);
