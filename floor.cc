@@ -28,7 +28,7 @@ bool is(chamber** chmbrs, coord c){
 }
 
 //Reads map from file and determines the level layout
-level::level(std::string file, action *a):td{new textDisplay(file, this, a)} {
+level::level(std::string file, action *a, int floorNum):floorNum{floorNum},td{new textDisplay(file, this, a)} {
 
 	//WE'RE GONNA HAVE TO METHODIZE THIS EVENTUALLY RIP
 	for(int i = 0;i < 79;i++){//rows
@@ -203,21 +203,28 @@ level::level(std::string file, action *a):td{new textDisplay(file, this, a)} {
 }
 
 bool level::empty(coord c){
+	if(c.x>=79 || c.y >=30 || c.x < 0 || c.y<0){
+		return false;
+	}
 	return (grd[c.x][c.y]==nullptr);
 }
 
 //Notifies all objects on level to run their step
 void level::step(){
 	bool ignore[79][30];
+	//std::cerr << "hello " << std::endl;
+
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
 			ignore[i][j] = false;
 		}
+
 	}
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
 			if((!ignore[i][j])&&(grd[i][j] != nullptr)){
-				coord t = grd[i][j]->step();
+			//	std::cerr << "hi " << std::endl;
+				coord t = grd[i][j]->step(this);
 				ignore[t.x][t.y] = true;
 			}
 		}
@@ -230,6 +237,11 @@ void level::add(obj *toAdd, coord pos){
 	}else{
 		delete toAdd;
 	}
+}
+
+
+void level::update(obj *toAdd, coord pos){
+	grd[pos.x][pos.y] = toAdd;
 }
 
 bool level::move(coord origin, coord target){
@@ -273,3 +285,10 @@ level::Walk level::canWalk(coord c){
 	//return No;
 }
 
+int level::getFloorNum(){
+	return floorNum;
+}
+
+bool level::enemyStuck(coord c){
+	return !(empty(c)) || !(canWalk(c)==level::All);
+}

@@ -10,6 +10,8 @@
 #include "pPlayer.h"
 #include "player.h"
 
+class action;
+
 class BAtk : public pPlayer {
 public:
 	BAtk(player *p);

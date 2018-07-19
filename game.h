@@ -18,6 +18,7 @@
 class action;
 
 class game{
+	int floorNum=1;
 	std::string file;
 	action *a;
 	level *f;
@@ -28,6 +29,7 @@ class game{
 	int gld;
 	bool paused;
 	void nextLevel();
+
 public:
 	game(std::string);
 	game(std::string, bool);

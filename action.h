@@ -26,6 +26,9 @@ public:
 
 	void showHP(std::string subject, int hp);
 	void miss(std::string attacker, std::string defender);
+
+	void usePot(std::string name);
+	void changeStat(std::string statname, std::string change, int amt);
 };
 
 
