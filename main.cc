@@ -53,11 +53,12 @@ int main(int argc, char *argv[]){
 	std::string s;
 
 	while(std::cin >> s){
+		bool comp = false;
 		if(s[0] == 'u'){
-			g.use(convert(s.substr(2, 2)));
+			comp = g.use(convert(s.substr(2, 2)));
 		}else if(s[0] == 'a'){
 			std::cin >> s;
-			g.attack(convert(s));
+			comp = g.attack(convert(s));
 		}else if(s[0] == 'f'){
 			g.stop();
 		}else if(s[0] == 'r'){
@@ -66,9 +67,12 @@ int main(int argc, char *argv[]){
 			break;
 		}else{
 			g.move(convert(s));
+			comp = true;
 		}
-		//g.step();
-		g.render(std::cout);
+		if(comp){
+			//g.step();
+			g.render(std::cout);
+		}
 	}
 }
 
