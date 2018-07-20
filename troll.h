@@ -13,6 +13,7 @@
 
 class troll: public player{
 public:
+	~troll(){};
 	troll(coord pos);
 
 	int regen() override;

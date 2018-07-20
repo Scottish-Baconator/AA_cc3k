@@ -9,6 +9,7 @@
 goblin::goblin(coord pos): player(pos, 110, 15, 20, "Goblin"){}
 
 int goblin::atkEffect(character *subj, int dmg){
+	(void) subj;
 	return dmg;
 }
 
