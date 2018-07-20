@@ -49,6 +49,10 @@ int main(int argc, char *argv[]){
 
 	game g{file};
 
+	if(!g.goodRace()){
+		return 0;
+	}
+
 	g.render(std::cout);
 	std::string s;
 

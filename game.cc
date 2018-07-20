@@ -36,8 +36,10 @@ char game::racePick(){
 	cout<<"g: Troll   (120, 25/15)  (gain 5HP per turn)\n";
 	cout<<"t: Goblin  (110, 15/20)  (5 gold per enemy killed)\n";
 	string in;
-	cin>>in;
-	return in[0];
+	if(cin>>in){
+		return in[0];
+	}
+	return '\'';
 }
 
 bool oneOf(char a, char b[], int l){
@@ -62,7 +64,7 @@ game::game(std::string s): a{new action()},f(new level{s,a,floorNum}){
 	char races[] = {'s', 'd', 'v', 'g', 't'};
 	do{
 		race = racePick();
-		if(race == 'q' || race == EOF){
+		if(race == 'q' || race == '\''){
 			return;
 		}
 	}while(!oneOf(race, races, 5));
