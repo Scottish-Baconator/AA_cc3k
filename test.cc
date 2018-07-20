@@ -40,9 +40,9 @@ public:
     return 10;
   }
   
-  int attackEffect(Enemy *other) override{
-    return drainEffect(*other);
-  }
+ // int attackEffect(Enemy other) override{
+  //  return drainEffect(other);
+  //}
 
 };
 

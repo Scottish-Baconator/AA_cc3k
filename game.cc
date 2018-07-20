@@ -5,11 +5,6 @@
  *      Author: alicy
  */
 #include "game.h"
-#include "floor.h"
-#include "potion.h"
-#include "stair.h"
-#include "action.h"
-#include <iostream>
 
 bool one(char c, char a[], int l){
 	for(int i = 0;i < l;i++){
@@ -20,11 +15,56 @@ bool one(char c, char a[], int l){
 	return false;
 }
 
+char game::racePick(){
+	std::cout<<"What race would you like to be?\n";
+	std::cout<<"   name     HP  Atk/Def  Special power\n";
+	std::cout<<"s: Shade   (125, 25/25)\n";
+	std::cout<<"d: Drow    (150, 25/15)  (all Potions effects x1.5)\n";
+	std::cout<<"v: Vampire (50, 25/25)   (5HP gained per atk, no max HP)\n";
+	std::cout<<"g: Troll   (120, 25/15)  (gain 5HP per turn)\n";
+	std::cout<<"t: Goblin  (110, 15/20)  (5 gold per enemy killed)\n";
+	std::string in;
+	std::cin>>in;
+	return in[0];
+}
+
+bool oneOf(char a, char b[], int l){
+	for(int i =0;i < l;i++){
+		if(a == b[i]){
+			return true;
+		}
+	}
+	return false;
+}
+
 game::game(std::string s): a{new action()},f(new level{s,a,floorNum}){
+	char races[] = {'s', 'd', 'v', 'g', 't'};
+	do{
+		race = racePick();
+		if(race == 'q' || race == EOF){
+			return;
+		}
+	}while(oneOf(race, races, 5));
 	file = s;
 	int pCh = rand()%5;
 	pC = f->getChmbr(pCh)->random();
-	p = new shade(pC);
+	switch (race){
+	case 's':
+		p = new shade(pC);
+		break;
+	case 'd':
+		p = new drow(pC);
+		break;
+	case 'v':
+		p = new vampire(pC);
+		break;
+	case 't':
+		p = new troll(pC);
+		break;
+	case 'g':
+		p = new goblin(pC);
+		break;
+	}
 	pp = p;
 	gld = 0;
 	f->add(pp, pC);

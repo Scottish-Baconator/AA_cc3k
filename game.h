@@ -11,9 +11,15 @@
 #include <iostream>
 #include <string>
 #include "potion.h"
-#include "shade.h"
 #include "enemy.h"
 #include "gold.h"
+#include "stair.h"
+#include "action.h"
+#include "shade.h"
+#include "drow.h"
+#include "vampire.h"
+#include "troll.h"
+#include "goblin.h"
 
 class action;
 
@@ -29,7 +35,8 @@ class game{
 	int gld;
 	bool paused;
 	void nextLevel();
-
+	char racePick();
+	char race = 'I';
 public:
 	game(std::string);
 	game(std::string, bool);
@@ -40,7 +47,6 @@ public:
 	void stop();
 	void step();
 	void render(std::ostream &out);
-	void race(char r);
 	~game(){};
 };
 
