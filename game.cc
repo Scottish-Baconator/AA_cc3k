@@ -39,7 +39,7 @@ char game::racePick(){
 	if(cin>>in){
 		return in[0];
 	}
-	return '\'';
+	return 'q';
 }
 
 bool oneOf(char a, char b[], int l){
@@ -64,7 +64,7 @@ game::game(std::string s): a{new action()},f(new level{s,a,floorNum}){
 	char races[] = {'s', 'd', 'v', 'g', 't'};
 	do{
 		race = racePick();
-		if(race == 'q' || race == '\''){
+		if(race == 'q'){
 			return;
 		}
 	}while(!oneOf(race, races, 5));
