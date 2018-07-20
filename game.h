@@ -7,20 +7,12 @@
 
 #ifndef GAME_H_
 #define GAME_H_
-#include "floor.h"
 #include <iostream>
 #include <string>
-#include "potion.h"
-#include "enemy.h"
-#include "gold.h"
-#include "stair.h"
-#include "action.h"
-#include "shade.h"
-#include "drow.h"
-#include "vampire.h"
-#include "troll.h"
-#include "goblin.h"
+#include "coord.h"
 
+class level;
+class player;
 class action;
 
 class game{
@@ -47,6 +39,8 @@ public:
 	void stop();
 	void step();
 	void render(std::ostream &out);
+	char getRace();
+	bool goodRace();
 	~game(){};
 };
 
