@@ -65,7 +65,7 @@ game::game(std::string s): a{new action()},f(new level{s,a,floorNum}){
 		if(race == 'q' || race == EOF){
 			return;
 		}
-	}while(oneOf(race, races, 5));
+	}while(!oneOf(race, races, 5));
 	file = s;
 	int pCh = rand()%5;
 	pC = f->getChmbr(pCh)->random();
