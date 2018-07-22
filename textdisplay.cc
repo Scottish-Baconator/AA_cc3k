@@ -75,8 +75,8 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 	std::ifstream in;
 	std::ifstream dr;
 	std::vector<coord> dragons;
-	char accept[] = {'|', '-', '.', '#', '+'};
-	int aLen = 5;
+	char accept[] = {'|', '-', '.', '#', '+', ' '};
+	int aLen = 6;
 	dr.open(file);
 	char c='.';
 	if(!rand){

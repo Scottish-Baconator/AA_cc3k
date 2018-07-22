@@ -4,6 +4,7 @@
  *  Created on: Jul 12, 2018
  *      Author: alicy
  */
+#include <fstream>
 #include "game.h"
 #include "shade.h"
 #include "drow.h"
@@ -16,6 +17,22 @@
 #include "stair.h"
 #include "action.h"
 #include "floor.h"
+
+coord find(char c, std::string file, int floorNum){
+	std::ifstream in;
+	in.open(file);
+	in.ignore(1975 * (floorNum - 1));
+	char cur = '0';
+	for(int i = 0;i < 25;i++){
+		for(int j = 0;j < 79;j++){
+			in.get(cur);
+			if(cur == c){
+				return coord(j, i);
+			}
+		}
+	}
+	return coord(0,0);
+}
 
 bool one(char c, char a[], int l){
 	for(int i = 0;i < l;i++){
@@ -73,8 +90,14 @@ game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level
 		}
 	}while(!inArr(race, races, 5));
 	file = fl;
-	int pCh = rand()%5;
-	pC = f->getChmbr(pCh)->random();
+	if(!provided){
+		int pCh = rand()%5;
+		pC = f->getChmbr(pCh)->random();
+		stairs = f->getChmbr(pCh)->random();
+	}else{
+		pC = find('@', file, floorNum);
+		stairs = find('\\', file, floorNum);
+	}
 	switch (race){
 	case 's':
 		p = new shade(pC);
@@ -97,7 +120,6 @@ game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level
 	f->add(pp, pC);
 	paused = false;
 	//for testing purposes
-	stairs = f->getChmbr(pCh)->random();
 //	stairs = f->getChmbr(4 - pCh)->random();
 	f->add(new stair(stairs), stairs);
 }
@@ -111,13 +133,18 @@ void game::nextLevel(){
 	//must copy FIRST since delete f deletes our player!
 	p = new player{*p};
 	delete f;
-	f = new level{file,a, floorNum, provided};
-	int pCh = rand()%5;
-	pC = f->getChmbr(pCh)->random();
+	f = new level{file,a, floorNum, !provided};
+	if(!provided){
+		int pCh = rand()%5;
+		pC = f->getChmbr(pCh)->random();
+		stairs = f->getChmbr(4 - pCh)->random();
+	}else{
+		pC = find('@', file, floorNum);
+		stairs = find('\\', file, floorNum);
+	}
 	pp = p;
 	f->add(pp, pC);
 	paused = false;
-	stairs = f->getChmbr(4 - pCh)->random();
 	f->add(new stair(stairs), stairs);
 }
 

@@ -7,7 +7,6 @@
 
 #ifndef GAME_H_
 #define GAME_H_
-#include <iostream>
 #include <string>
 #include "coord.h"
 
