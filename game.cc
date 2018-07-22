@@ -180,7 +180,7 @@ bool game::use(dir d){
 bool game::attack(dir d){
 	char enemies[] = {'H','W','E','O','M','D','L'};
 	coord temp = getCoord(d, pC);
-	if(one(f->getObj(temp)->render(), enemies, 7)){
+	if(!f->empty(temp) && one(f->getObj(temp)->render(), enemies, 7)){
 		std::cerr << "hello!" << std::endl;
 		enemy* tAtk = (enemy*)f->getObj(temp);
 		pp->attack(tAtk, a);
