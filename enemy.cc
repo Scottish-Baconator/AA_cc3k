@@ -107,7 +107,7 @@ void enemy::spawn(level *f, coord pos, int val){
 	if(!f->enemyTrapped(pos)){
 		do{
 			to = pos;
-			switch(rand()%9){
+			switch(rand()%8){
 			case 0:
 				to.x++;
 				break;

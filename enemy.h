@@ -26,7 +26,7 @@ public:
 	virtual void drop(level *f); 
 	virtual ~enemy();
 	coord step(level *f, action *a) override;
-	coord spawn(level *f, coord pos, int val);
+	void spawn(level *f, coord pos, int val);
 };
 
 

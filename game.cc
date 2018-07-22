@@ -206,7 +206,7 @@ bool game::move(dir d){
 		if(!f->empty(temp)){
 			if((f->getObj(temp)->render() == '\\')){
 				nextLevel();
-			}else if(f->getObj(temp)->render() == 'G'){
+			}else if(f->getObj(temp)->render() == 'G' && ((gold*)f->getObj(temp))->getPick()){
 				int newgld = ((gold *) (f->getObj(temp)))->getVal();
 				gld += newgld;
 				a->addGold(newgld);

@@ -11,6 +11,8 @@
 #include "gold.h"
 #include "floor.h"
 
+class dragon;
+
 class hoard: public gold{
 public:
 	hoard(coord pos, level *f);
