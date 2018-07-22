@@ -13,14 +13,18 @@ character::character(coord pos, int hp, double atk, double def,std::string name)
 
 void character::attack(character *subj, action *a){
 	int dmg;
-	if(rand() % 100 < subj->dodgeChance()){
-		dmg = 0;
-		a->miss(getName(), subj->getName());
-	}else {
-		dmg = ceil((100/(100+subj->getDef()))*(this->getAtk()));
-		dmg = atkEffect(subj, dmg);
-		subj->chngHP(-dmg);
-		a->attack(getName(), subj->getName(), dmg);
+	int atktimes = (doubleAttack() && subj->canDouble()) ? 2 : 1;
+
+	for(int i=0; i < atktimes; ++ i){
+		if(rand() % 100 < subj->dodgeChance()){
+			dmg = 0;
+			a->miss(getName(), subj->getName());
+		}else {
+			dmg = ceil((100/(100+subj->getDef()))*(this->getAtk()));
+			dmg = atkEffect(subj, dmg);
+			subj->chngHP(-dmg);
+			a->attack(getName(), subj->getName(), dmg);
+		}
 	}
 }
 
@@ -76,8 +80,7 @@ int character::drain(){
 bool character::doubleAttack(){
 	return false;
 }
-
-bool character::smallKiller(){
+bool character::canSteal(){
 	return false;
 }
 
@@ -96,7 +99,7 @@ int character::regen(){
 }
 
 //Allows goblin to steal gold. Default is 5
-int character::steal(){
+int character::stealAmt(){
 	return 5;
 }
 
