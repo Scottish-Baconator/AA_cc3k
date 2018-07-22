@@ -33,8 +33,8 @@ char game::racePick(){
 	cout<<"s: Shade   (125, 25/25)\n";
 	cout<<"d: Drow    (150, 25/15)  (all Potions effects x1.5)\n";
 	cout<<"v: Vampire (50,  25/25)  (5HP gained per atk, no max HP)\n";
-	cout<<"g: Troll   (120, 25/15)  (gain 5HP per turn)\n";
-	cout<<"t: Goblin  (110, 15/20)  (5 gold per enemy killed)\n";
+	cout<<"t: Troll   (120, 25/15)  (gain 5HP per turn)\n";
+	cout<<"g: Goblin  (110, 15/20)  (5 gold per enemy killed)\n";
 	string in;
 	if(cin>>in){
 		return in[0];
