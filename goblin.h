@@ -17,6 +17,7 @@ public:
 	int atkEffect(character *subj, int dmg) override;
 
 	bool smallWeakness() override;
+	bool canSteal() override;
 };
 
 

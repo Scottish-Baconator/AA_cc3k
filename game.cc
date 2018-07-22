@@ -79,7 +79,7 @@ bool game::goodRace(){
 
 
 
-game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level{fl, a, floorNum, prov}){
+	game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level{fl, a, floorNum, prov}){
 	provided = prov;
 	char races[] = {'s', 'd', 'v', 'g', 't'};
 	done = false;
@@ -282,12 +282,14 @@ bool game::use(dir d){
 bool game::attack(dir d){
 	char enemies[] = {'H','W','E','O','M','D','L'};
 	coord temp = getCoord(d, pC);
-	if(one(f->getObj(temp)->render(), enemies, 7)){
-		//std::cerr << "hello!" << std::endl;
+	if(!f->empty(temp) && one(f->getObj(temp)->render(), enemies, 7)){
 		enemy* tAtk = (enemy*)f->getObj(temp);
 		pp->attack(tAtk, a);
 		a->showHP(tAtk->getName(), tAtk->getHP());
 		if(tAtk->getHP() <= 0){
+			if(pp->canSteal()){
+				gld += tAtk->stealAmt();
+			}
 			a->slay(tAtk->getName());
 			tAtk->drop(f);
 		}

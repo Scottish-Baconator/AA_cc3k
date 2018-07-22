@@ -45,7 +45,7 @@ public:
 		//Overriden by dwarf to -5
 	virtual int drain();
 	virtual bool doubleAttack();
-	virtual bool smallKiller();
+	virtual bool canSteal();
 
 	virtual double potionMulti();
 
@@ -56,7 +56,7 @@ public:
 	virtual int regen();
 
 	//Allows goblin to steal items
-	virtual int steal();
+	virtual int stealAmt();
 
 	//Used by drow to double-attack most player races
 	virtual bool canDouble();
