@@ -187,6 +187,7 @@ bool game::attack(dir d){
 		a->showHP(tAtk->getName(), tAtk->getHP());
 		if(tAtk->getHP() < 0){
 			tAtk->drop(f);
+			gld += pp->steal();
 			f->remove(temp);
 		}
 		return true;
