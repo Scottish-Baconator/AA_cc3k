@@ -60,8 +60,9 @@ bool game::goodRace(){
 	return oneOf(race, races, 5);
 }
 
-game::game(std::string s): a{new action()},f(new level{s,a,floorNum}){
+game::game(std::string s): floorNum(1), a{new action()},f(new level{s,a,floorNum}){
 	char races[] = {'s', 'd', 'v', 'g', 't'};
+	done = false;
 	do{
 		race = racePick();
 		if(race == 'q'){
@@ -100,6 +101,10 @@ game::game(std::string s): a{new action()},f(new level{s,a,floorNum}){
 
 void game::nextLevel(){
 	floorNum++;
+	if(floorNum == 6){
+		done = true;
+		return;
+	}
 	//must copy FIRST since delete f deletes our player!
 	p = new player{*p};
 	delete f;
@@ -114,6 +119,10 @@ void game::nextLevel(){
 }
 
 void game::step(){
+	if(pp->getHP() <= 0){
+		done = true;
+		return;
+	}
 	if(!paused){
 		f->step();
 	}
@@ -261,3 +270,14 @@ void game::stop(){
 	paused = !paused;
 }
 
+bool game::isDone(){
+	return done;
+}
+
+int game::getGold(){
+	return gld;
+}
+
+int game::getHP(){
+	return pp->getHP();
+}

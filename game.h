@@ -16,7 +16,8 @@ class player;
 class action;
 
 class game{
-	int floorNum=1;
+	bool done;
+	int floorNum;
 	std::string file;
 	action *a;
 	level *f;
@@ -41,6 +42,9 @@ public:
 	void render(std::ostream &out);
 	char getRace();
 	bool goodRace();
+	bool isDone();
+	int getGold();
+	int getHP();
 	~game(){};
 };
 
