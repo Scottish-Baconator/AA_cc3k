@@ -69,7 +69,7 @@ int main(int argc, char *argv[]){
 		}else if(s[0] == 'f'){
 			g.stop();
 		}else if(s[0] == 'r'){
-			g = game(file);
+			g = game(file, provided);
 		}else if(s[0] == 'q'){
 			break;
 		}else{

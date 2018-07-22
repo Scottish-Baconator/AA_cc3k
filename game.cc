@@ -42,7 +42,7 @@ char game::racePick(){
 	return 'q';
 }
 
-bool oneOf(char a, char b[], int l){
+bool inArr(char a, char b[], int l){
 	for(int i =0;i < l;i++){
 		if(a == b[i]){
 			return true;
@@ -57,17 +57,13 @@ char game::getRace(){
 
 bool game::goodRace(){
 	char races[] = {'s', 'd', 'v', 'g', 't'};
-	return oneOf(race, races, 5);
+	return inArr(race, races, 5);
 }
 
 
 
-game::game(std::string fl, bool prov): floorNum(1), a{new action()}{
-	if(prov){
-		f(new level{fl, a, floorNum, true});
-	}else{
-		f(new level{fl, a, floorNum, false});
-	}
+game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level{fl, a, floorNum, prov}){
+	provided = prov;
 	char races[] = {'s', 'd', 'v', 'g', 't'};
 	done = false;
 	do{
@@ -75,7 +71,7 @@ game::game(std::string fl, bool prov): floorNum(1), a{new action()}{
 		if(race == 'q'){
 			return;
 		}
-	}while(!oneOf(race, races, 5));
+	}while(!inArr(race, races, 5));
 	file = fl;
 	int pCh = rand()%5;
 	pC = f->getChmbr(pCh)->random();
@@ -115,7 +111,7 @@ void game::nextLevel(){
 	//must copy FIRST since delete f deletes our player!
 	p = new player{*p};
 	delete f;
-	f = new level{file,a, floorNum};
+	f = new level{file,a, floorNum, provided};
 	int pCh = rand()%5;
 	pC = f->getChmbr(pCh)->random();
 	pp = p;

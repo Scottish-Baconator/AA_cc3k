@@ -7,6 +7,7 @@ CC_SRCS += \
 ../action.cc \
 ../chamber.cc \
 ../character.cc \
+../dragon.cc \
 ../drow.cc \
 ../dwarf.cc \
 ../elf.cc \
@@ -16,6 +17,7 @@ CC_SRCS += \
 ../goblin.cc \
 ../gold.cc \
 ../halfling.cc \
+../hoard.cc \
 ../human.cc \
 ../main.cc \
 ../merchant.cc \
@@ -61,6 +63,7 @@ CC_DEPS += \
 ./action.d \
 ./chamber.d \
 ./character.d \
+./dragon.d \
 ./drow.d \
 ./dwarf.d \
 ./elf.d \
@@ -70,6 +73,7 @@ CC_DEPS += \
 ./goblin.d \
 ./gold.d \
 ./halfling.d \
+./hoard.d \
 ./human.d \
 ./main.d \
 ./merchant.d \
@@ -90,6 +94,7 @@ OBJS += \
 ./action.o \
 ./chamber.o \
 ./character.o \
+./dragon.o \
 ./drow.o \
 ./dwarf.o \
 ./elf.o \
@@ -99,6 +104,7 @@ OBJS += \
 ./goblin.o \
 ./gold.o \
 ./halfling.o \
+./hoard.o \
 ./human.o \
 ./main.o \
 ./merchant.o \

@@ -22,7 +22,7 @@
 #include <string>
 #include <vector>
 
-bool oneOf(char a, char b[], int len){
+bool isIn(char a, char b[], int len){
 	for(int i = 0;i < len;i++){
 		if(a == b[i]){
 			return true;
@@ -32,6 +32,7 @@ bool oneOf(char a, char b[], int len){
 }
 
 obj* textDisplay::type(char c, coord pos, std::vector<coord> drgns){
+	coord d = drgns.front();
 	switch(c){
 	case '0':
 		return new potion(pos, potion::RH);
@@ -52,9 +53,8 @@ obj* textDisplay::type(char c, coord pos, std::vector<coord> drgns){
 	case '8':
 		return new gold(pos, 4);
 	case '9':
-		coord temp = drgns.front();
 		drgns.erase(drgns.begin());
-		return new hoard(pos, f, temp);
+		return new hoard(pos, f, d);
 	case 'M':
 		return new merchant(pos);
 	case 'E':
@@ -95,10 +95,10 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 		for(int j = 0;j < 79;j++){
 			in.get(c);
 
-			if((!rand) && !oneOf(c, accept, aLen)){
+			if((!rand) && !isIn(c, accept, aLen)){
 				map[i][j] = '.';
-				coord pos = new coord(j, i);
-				f->add(type(c, pos), pos, dragons);
+				coord pos{j, i};
+				f->add(type(c, pos, dragons), pos);
 			}else{
 				map[j][i] = c;
 			}

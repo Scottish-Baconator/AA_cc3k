@@ -23,7 +23,7 @@ class textDisplay {
 	level *f;
 	action *a;
 	char map[79][30];
-	obj* type(char c, coord pos);
+	obj* type(char c, coord pos, std::vector<coord> dragons);
 public:
 	textDisplay(std::string file, level *f, action *a, bool rand);
 	void render(std::ostream &out, player *p, int gld);

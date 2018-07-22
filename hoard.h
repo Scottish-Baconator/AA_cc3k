@@ -16,6 +16,7 @@ class dragon;
 class hoard: public gold{
 public:
 	hoard(coord pos, level *f);
+	hoard(coord pos, level *f, coord dragonPos);
 
 	void unprotectHoard(); //Called by dragon when dragon dies
 

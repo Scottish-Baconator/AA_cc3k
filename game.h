@@ -18,6 +18,7 @@ class player;
 class action;
 
 class game{
+	bool provided;
 	bool done;
 	int floorNum;//starts from 1
 	std::string file;

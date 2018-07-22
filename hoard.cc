@@ -10,7 +10,6 @@
 #include "dragon.h"
 #include <iostream>
 hoard::hoard(coord pos, level *f):gold{pos,6,false}{
-	std::cerr << "hoard at " << pos.x << "," << pos.y << std::endl;
 	coord dc(pos);
 
 	do{
@@ -44,6 +43,11 @@ hoard::hoard(coord pos, level *f):gold{pos,6,false}{
 	}while(f->enemyStuck(dc));
 	f->add(new dragon(dc, this),dc);
 }
+
+hoard::hoard(coord pos, level *f, coord dragonPos):gold{pos,6,false}{
+	f->add(new dragon(dragonPos, this),dragonPos);
+}
+
 
 void hoard::unprotectHoard(){
 	canPick=true;
