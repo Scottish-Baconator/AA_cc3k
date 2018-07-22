@@ -23,8 +23,9 @@ class textDisplay {
 	level *f;
 	action *a;
 	char map[79][30];
+	obj* type(char c, coord pos);
 public:
-	textDisplay(std::string file, level *f, action *a);
+	textDisplay(std::string file, level *f, action *a, bool rand);
 	void render(std::ostream &out, player *p, int gld);
 	void chambFrom(coord c, chamber *ch);
 	char get(coord c){return map[c.x][c.y];}

@@ -60,7 +60,14 @@ bool game::goodRace(){
 	return oneOf(race, races, 5);
 }
 
-game::game(std::string s): floorNum(1), a{new action()},f(new level{s,a,floorNum}){
+
+
+game::game(std::string fl, bool prov): floorNum(1), a{new action()}{
+	if(prov){
+		f(new level{fl, a, floorNum, true});
+	}else{
+		f(new level{fl, a, floorNum, false});
+	}
 	char races[] = {'s', 'd', 'v', 'g', 't'};
 	done = false;
 	do{
@@ -69,7 +76,7 @@ game::game(std::string s): floorNum(1), a{new action()},f(new level{s,a,floorNum
 			return;
 		}
 	}while(!oneOf(race, races, 5));
-	file = s;
+	file = fl;
 	int pCh = rand()%5;
 	pC = f->getChmbr(pCh)->random();
 	switch (race){

@@ -24,11 +24,11 @@ public:
 	enum Walk {All, PC, No};
 private:
 	Walk can[79][30];
+	void randGen();
+	void setWalk();
 public:
-	level(std::string file, action *a, int floorNum);
 
-	//level(std::string file, bool);
-	//For later implementation
+	level(std::string file, action *a, int floorNum, bool rand);
 
 	~level();
 

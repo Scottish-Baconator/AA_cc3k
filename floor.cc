@@ -27,93 +27,34 @@ bool is(chamber** chmbrs, coord c){
 	return false;
 }
 
-//Reads map from file and determines the level layout
-level::level(std::string file, action *a, int floorNum):floorNum{floorNum},td{new textDisplay(file, this, a)} {
-
-	//WE'RE GONNA HAVE TO METHODIZE THIS EVENTUALLY RIP
-	for(int i = 0;i < 79;i++){//rows
-		for(int j = 0;j < 30;j++){//cols
-			grd[i][j] = nullptr;
-			switch(td->get(coord(i, j))){
-			case '.':
-				can[i][j] = All;
-				break;
-			case '+':
-				can[i][j] = PC;
-				break;
-			case '#':
-				can[i][j] = PC;
-				break;
-			case '|':
-				can[i][j] = No;
-				break;
-			case '-':
-				can[i][j] = No;
-				break;
-			case ' ':
-				can[i][j] = No;
-				break;
-			}
-		}
-	}
-
-	for(int i = 0;i < 79;i++){
-		for(int j = 0;j < 30;j++){
-			grd[i][j]=nullptr;
-		}
-	}
-	for(int i=0;i<5;++i){
-		chmbrs[i] = new chamber();
-	}
-
-	int cur = 0;
-
-
-	for(int i = 0;i < 79;i++){
-		for(int j = 0;j < 30;j++){
-			if(td->get(coord(i, j)) == '.'){
-				if(!is(chmbrs, coord(i, j))){
-					td->chambFrom(coord(i,j), chmbrs[cur]);
-					cur++;
-				}
-			}
-			if(cur > 4){
-				break;
-			}
-		}
-		if(cur > 4){
+void level::randGen(){
+	for(int i = 0;i < 10;i++){
+		coord tem = chmbrs[rand()%5]->random();
+		potion::type t;
+		switch (rand()%6) {
+		case 0:
+			t = potion::RH;
+			break;
+		case 1:
+			t = potion::PH;
+			break;
+		case 2:
+			t = potion::BA;
+			break;
+		case 3:
+			t = potion::BD;
+			break;
+		case 4:
+			t = potion::WA;
+			break;
+		case 5:
+			t = potion::WD;
 			break;
 		}
+		add(new potion(tem, t), tem);
 	}
 
-	for(int i = 0;i < 10;i++){
-			coord tem = chmbrs[rand()%5]->random();
-			potion::type t;
-			switch (rand()%6) {
-			case 0:
-				t = potion::RH;
-				break;
-			case 1:
-				t = potion::PH;
-				break;
-			case 2:
-				t = potion::BA;
-				break;
-			case 3:
-				t = potion::BD;
-				break;
-			case 4:
-				t = potion::WA;
-				break;
-			case 5:
-				t = potion::WD;
-				break;
-			}
-			add(new potion(tem, t), tem);
-		}
-
 	for(int i=0; i<10; ++i){
-
 		int chamberid;
 		coord gc(0,0);
 		gold* g;
@@ -121,17 +62,15 @@ level::level(std::string file, action *a, int floorNum):floorNum{floorNum},td{ne
 		int goldrand = rand() % 8;
 
 		do{
-		chamberid= rand() % 5;
-		gc= chmbrs[chamberid]->random();
+			chamberid= rand() % 5;
+			gc= chmbrs[chamberid]->random();
 		}while(!empty(gc));
 
 		if(goldrand < 5){
 			g = new gold{gc, 2};
 		} else {
 			g = new gold{gc, 1};
-
 		}
-
 		grd[gc.x][gc.y]=g;
 	}
 
@@ -199,6 +138,79 @@ level::level(std::string file, action *a, int floorNum):floorNum{floorNum},td{ne
 			add(new merchant(a), a);
 			break;
 		}
+	}
+}
+
+void level::setWalk(){
+	for(int i = 0;i < 79;i++){//rows
+		for(int j = 0;j < 30;j++){//cols
+			grd[i][j] = nullptr;
+			switch(td->get(coord(i, j))){
+			case '.':
+				can[i][j] = All;
+				break;
+			case '+':
+				can[i][j] = PC;
+				break;
+			case '#':
+				can[i][j] = PC;
+				break;
+			case '|':
+				can[i][j] = No;
+				break;
+			case '-':
+				can[i][j] = No;
+				break;
+			case ' ':
+				can[i][j] = No;
+				break;
+			}
+		}
+	}
+
+}
+
+bool oneOf(char a, char b[], int len){
+	for(int i = 0;i < len;i++){
+		if(a == b[i]){
+			return true;
+		}
+	}
+	return false;
+}
+
+
+//Reads map from file and determines the level layout
+level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floorNum}, td{new textDisplay(file, this, a, rand)}{
+	setWalk();
+	for(int i = 0;i < 79;i++){
+		for(int j = 0;j < 30;j++){
+			grd[i][j]=nullptr;
+		}
+	}
+	for(int i=0;i<5;++i){
+		chmbrs[i] = new chamber();
+	}
+
+	int cur = 0;
+	for(int i = 0;i < 79;i++){
+		for(int j = 0;j < 30;j++){
+			if(td->get(coord(i, j)) == '.'){
+				if(!is(chmbrs, coord(i, j))){
+					td->chambFrom(coord(i,j), chmbrs[cur]);
+					cur++;
+				}
+			}
+			if(cur > 4){
+				break;
+			}
+		}
+		if(cur > 4){
+			break;
+		}
+	}
+	if(rand){
+		randGen();
 	}
 }
 

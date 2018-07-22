@@ -39,6 +39,7 @@ game::dir convert(std::string s){
 
 int main(int argc, char *argv[]){
 	std::string file;
+	bool provided = (argc < 2);
 	if(argc < 2){
 		//std::cerr<<"2 arguments required.";
 		//return 1;
@@ -47,7 +48,8 @@ int main(int argc, char *argv[]){
 		file = std::string(argv[1]);
 	}
 
-	game g{file};
+	game g{file, provided};
+
 
 	if(!g.goodRace()){
 		return 0;
