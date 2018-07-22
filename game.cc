@@ -100,11 +100,11 @@ game::game(std::string s): floorNum(1), a{new action()},f(new level{s,a,floorNum
 }
 
 void game::nextLevel(){
-	floorNum++;
-	if(floorNum == 6){
+	if(floorNum == MAX_FLOORS){
 		done = true;
 		return;
 	}
+	floorNum++;
 	//must copy FIRST since delete f deletes our player!
 	p = new player{*p};
 	delete f;
