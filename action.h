@@ -23,6 +23,7 @@ public:
 	void cantMove(std::string dir);
 
 	void attack(std::string attacker, std::string defender, int dmg);
+	void slay(std::string name);
 
 	void showHP(std::string subject, int hp);
 	void miss(std::string attacker, std::string defender);

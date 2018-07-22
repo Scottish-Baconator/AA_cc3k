@@ -75,7 +75,7 @@ int main(int argc, char *argv[]){
 			comp = true;
 		}
 		if(comp){
-			//g.step();
+			g.step();
 			g.render(std::cout);
 		}
 	}

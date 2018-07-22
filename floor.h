@@ -34,8 +34,9 @@ public:
 
 	chamber* getChmbr(int a){return chmbrs[a];}
 	void add(obj *toAdd, coord pos);
+	void replace(obj *toAdd, coord pos);
 	void render(std::ostream &out, player *p, int gld);
-	void step();
+	void step(action *a);
 	obj *getObj(coord c){return grd[c.x][c.y];}
 	bool empty(coord c);
 	bool move(coord origin, coord target);
@@ -44,6 +45,7 @@ public:
 	void update(obj *toAdd, coord pos);
 	int getFloorNum();
 	bool enemyStuck(coord c);
+	bool enemyTrapped(coord c);
 };
 
 

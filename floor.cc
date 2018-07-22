@@ -210,7 +210,7 @@ bool level::empty(coord c){
 }
 
 //Notifies all objects on level to run their step
-void level::step(){
+void level::step(action *a){
 	bool ignore[79][30];
 	//std::cerr << "hello " << std::endl;
 
@@ -224,7 +224,7 @@ void level::step(){
 		for(int j = 0;j < 30;j++){
 			if((!ignore[i][j])&&(grd[i][j] != nullptr)){
 			//	std::cerr << "hi " << std::endl;
-				coord t = grd[i][j]->step(this);
+				coord t = grd[i][j]->step(this, a);
 				ignore[t.x][t.y] = true;
 			}
 		}
@@ -237,6 +237,11 @@ void level::add(obj *toAdd, coord pos){
 	}else{
 		delete toAdd;
 	}
+}
+
+void level::replace(obj *toAdd, coord pos){
+	delete grd[pos.x][pos.y];
+	grd[pos.x][pos.y] = toAdd;
 }
 
 
@@ -289,6 +294,19 @@ int level::getFloorNum(){
 	return floorNum;
 }
 
+//Checks if an enemy can move to specified coordinate
 bool level::enemyStuck(coord c){
 	return !(empty(c)) || !(canWalk(c)==level::All);
+}
+
+//Checks if an enemy can more to any adjacent coordinate
+bool level::enemyTrapped(coord c){
+	return (   	enemyStuck(coord{c.x,c.y+1}) &&
+				enemyStuck(coord{c.x+1,c.y+1}) &&
+				enemyStuck(coord{c.x-1,c.y+1}) &&
+				enemyStuck(coord{c.x+1,c.y-1}) &&
+				enemyStuck(coord{c.x,c.y-1})   &&
+				enemyStuck(coord{c.x-1,c.y-1}) &&
+				enemyStuck(coord{c.x-1,c.y})   &&
+				enemyStuck(coord{c.x+1,c.y}));
 }

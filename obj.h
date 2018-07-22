@@ -10,6 +10,7 @@
 #include "coord.h"
 
 class level;
+class action;
 
 class obj{
 protected:
@@ -17,7 +18,7 @@ protected:
 public:
 	obj(coord c): pos(c){}
 	virtual ~obj(){};
-	virtual coord step(level *f);
+	virtual coord step(level *f, action *a);
 	coord getPos();
 	virtual char render();
 };

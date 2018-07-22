@@ -30,7 +30,7 @@ char game::racePick(){
 	using namespace std;
 	cout<<"What race would you like to be?\n";
 	cout<<"   name     HP  Atk/Def  Special power\n";
-	cout<<"s: Shade   (125, 25/25)\n";
+	cout<<"s: Shade   (125, 25/25) (1.5x Score at end of game)\n";
 	cout<<"d: Drow    (150, 25/15)  (all Potions effects x1.5)\n";
 	cout<<"v: Vampire (50,  25/25)  (5HP gained per atk, no max HP)\n";
 	cout<<"t: Troll   (120, 25/15)  (gain 5HP per turn)\n";
@@ -115,7 +115,7 @@ void game::nextLevel(){
 
 void game::step(){
 	if(!paused){
-		f->step();
+		f->step(a);
 	}
 }
 
@@ -244,13 +244,13 @@ bool game::attack(dir d){
 	char enemies[] = {'H','W','E','O','M','D','L'};
 	coord temp = getCoord(d, pC);
 	if(one(f->getObj(temp)->render(), enemies, 7)){
-		std::cerr << "hello!" << std::endl;
+		//std::cerr << "hello!" << std::endl;
 		enemy* tAtk = (enemy*)f->getObj(temp);
 		pp->attack(tAtk, a);
 		a->showHP(tAtk->getName(), tAtk->getHP());
-		if(tAtk->getHP() < 0){
+		if(tAtk->getHP() <= 0){
+			a->slay(tAtk->getName());
 			tAtk->drop(f);
-			f->remove(temp);
 		}
 		return true;
 	}
