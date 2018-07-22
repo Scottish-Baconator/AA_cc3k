@@ -12,6 +12,7 @@
 #include <string>
 
 class level;
+class action;
 
 class player : public character {
 	int maxHP;
@@ -26,7 +27,7 @@ public:
 	//Player dodges half the time
 	int dodgeChance() override;
 	std::string getRace();
-	coord step(level *f) override;
+	coord step(level *f, action *a) override;
 };
 
 

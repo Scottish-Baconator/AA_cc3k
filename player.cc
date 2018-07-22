@@ -23,8 +23,9 @@ int player::dodgeChance(){
 	return 50;
 }
 
-coord player::step(level *f) {
+coord player::step(level *f, action *a) {
 	(void)f;
+	(void)a;
 	chngHP(regen());
 	return pos;
 }

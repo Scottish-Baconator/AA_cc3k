@@ -46,6 +46,12 @@ void action::attack(std::string attacker, std::string defender, int dmg){
 	addText(attacker+" deals "+intToString(dmg)+" DMG to "+defender+".");
 }
 
+
+void action::slay(std::string name){
+	addText("PC defeats "+name+".");
+
+}
+
 void action::showHP(std::string subject, int hp){
 	addText("("+subject+": "+intToString(hp)+" HP)");
 }

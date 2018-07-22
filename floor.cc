@@ -16,6 +16,7 @@
 #include "orc.h"
 #include "merchant.h"
 #include "potion.h"
+#include "hoard.h"
 
 //Checks if a chamber contains coordinate
 bool is(chamber** chmbrs, coord c){
@@ -27,93 +28,34 @@ bool is(chamber** chmbrs, coord c){
 	return false;
 }
 
-//Reads map from file and determines the level layout
-level::level(std::string file, action *a, int floorNum):floorNum{floorNum},td{new textDisplay(file, this, a)} {
-
-	//WE'RE GONNA HAVE TO METHODIZE THIS EVENTUALLY RIP
-	for(int i = 0;i < 79;i++){//rows
-		for(int j = 0;j < 30;j++){//cols
-			grd[i][j] = nullptr;
-			switch(td->get(coord(i, j))){
-			case '.':
-				can[i][j] = All;
-				break;
-			case '+':
-				can[i][j] = PC;
-				break;
-			case '#':
-				can[i][j] = PC;
-				break;
-			case '|':
-				can[i][j] = No;
-				break;
-			case '-':
-				can[i][j] = No;
-				break;
-			case ' ':
-				can[i][j] = No;
-				break;
-			}
-		}
-	}
-
-	for(int i = 0;i < 79;i++){
-		for(int j = 0;j < 30;j++){
-			grd[i][j]=nullptr;
-		}
-	}
-	for(int i=0;i<5;++i){
-		chmbrs[i] = new chamber();
-	}
-
-	int cur = 0;
-
-
-	for(int i = 0;i < 79;i++){
-		for(int j = 0;j < 30;j++){
-			if(td->get(coord(i, j)) == '.'){
-				if(!is(chmbrs, coord(i, j))){
-					td->chambFrom(coord(i,j), chmbrs[cur]);
-					cur++;
-				}
-			}
-			if(cur > 4){
-				break;
-			}
-		}
-		if(cur > 4){
+void level::randGen(){
+	for(int i = 0;i < 10;i++){
+		coord tem = chmbrs[rand()%5]->random();
+		potion::type t;
+		switch (rand()%6) {
+		case 0:
+			t = potion::RH;
+			break;
+		case 1:
+			t = potion::PH;
+			break;
+		case 2:
+			t = potion::BA;
+			break;
+		case 3:
+			t = potion::BD;
+			break;
+		case 4:
+			t = potion::WA;
+			break;
+		case 5:
+			t = potion::WD;
 			break;
 		}
+		add(new potion(tem, t), tem);
 	}
 
-	for(int i = 0;i < 10;i++){
-			coord tem = chmbrs[rand()%5]->random();
-			potion::type t;
-			switch (rand()%6) {
-			case 0:
-				t = potion::RH;
-				break;
-			case 1:
-				t = potion::PH;
-				break;
-			case 2:
-				t = potion::BA;
-				break;
-			case 3:
-				t = potion::BD;
-				break;
-			case 4:
-				t = potion::WA;
-				break;
-			case 5:
-				t = potion::WD;
-				break;
-			}
-			add(new potion(tem, t), tem);
-		}
-
 	for(int i=0; i<10; ++i){
-
 		int chamberid;
 		coord gc(0,0);
 		gold* g;
@@ -121,17 +63,24 @@ level::level(std::string file, action *a, int floorNum):floorNum{floorNum},td{ne
 		int goldrand = rand() % 8;
 
 		do{
-		chamberid= rand() % 5;
-		gc= chmbrs[chamberid]->random();
+			chamberid= rand() % 5;
+			gc= chmbrs[chamberid]->random();
 		}while(!empty(gc));
 
 		if(goldrand < 5){
 			g = new gold{gc, 2};
-		} else {
+		} else if (goldrand < 5){
 			g = new gold{gc, 1};
+		} else { //goldrand = 7
+			//Repeats finding a coordinate for gold until it can find one where
+			//it can also spawn a dragon beside it
+			while(enemyTrapped(gc)){
+				chamberid= rand() % 5;
+				gc= chmbrs[chamberid]->random();
+			}
 
+			g = new hoard{gc, this};
 		}
-
 		grd[gc.x][gc.y]=g;
 	}
 
@@ -202,6 +151,79 @@ level::level(std::string file, action *a, int floorNum):floorNum{floorNum},td{ne
 	}
 }
 
+void level::setWalk(){
+	for(int i = 0;i < 79;i++){//rows
+		for(int j = 0;j < 30;j++){//cols
+			grd[i][j] = nullptr;
+			switch(td->get(coord(i, j))){
+			case '.':
+				can[i][j] = All;
+				break;
+			case '+':
+				can[i][j] = PC;
+				break;
+			case '#':
+				can[i][j] = PC;
+				break;
+			case '|':
+				can[i][j] = No;
+				break;
+			case '-':
+				can[i][j] = No;
+				break;
+			case ' ':
+				can[i][j] = No;
+				break;
+			}
+		}
+	}
+
+}
+
+bool oneOf(char a, char b[], int len){
+	for(int i = 0;i < len;i++){
+		if(a == b[i]){
+			return true;
+		}
+	}
+	return false;
+}
+
+
+//Reads map from file and determines the level layout
+level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floorNum}, td{new textDisplay(file, this, a, rand)}{
+	setWalk();
+	for(int i = 0;i < 79;i++){
+		for(int j = 0;j < 30;j++){
+			grd[i][j]=nullptr;
+		}
+	}
+	for(int i=0;i<5;++i){
+		chmbrs[i] = new chamber();
+	}
+
+	int cur = 0;
+	for(int i = 0;i < 79;i++){
+		for(int j = 0;j < 30;j++){
+			if(td->get(coord(i, j)) == '.'){
+				if(!is(chmbrs, coord(i, j))){
+					td->chambFrom(coord(i,j), chmbrs[cur]);
+					cur++;
+				}
+			}
+			if(cur > 4){
+				break;
+			}
+		}
+		if(cur > 4){
+			break;
+		}
+	}
+	if(rand){
+		randGen();
+	}
+}
+
 bool level::empty(coord c){
 	if(c.x>=79 || c.y >=30 || c.x < 0 || c.y<0){
 		return false;
@@ -210,7 +232,7 @@ bool level::empty(coord c){
 }
 
 //Notifies all objects on level to run their step
-void level::step(){
+void level::step(action *a){
 	bool ignore[79][30];
 	//std::cerr << "hello " << std::endl;
 
@@ -224,7 +246,7 @@ void level::step(){
 		for(int j = 0;j < 30;j++){
 			if((!ignore[i][j])&&(grd[i][j] != nullptr)){
 			//	std::cerr << "hi " << std::endl;
-				coord t = grd[i][j]->step(this);
+				coord t = grd[i][j]->step(this, a);
 				ignore[t.x][t.y] = true;
 			}
 		}
@@ -237,6 +259,11 @@ void level::add(obj *toAdd, coord pos){
 	}else{
 		delete toAdd;
 	}
+}
+
+void level::replace(obj *toAdd, coord pos){
+	delete grd[pos.x][pos.y];
+	grd[pos.x][pos.y] = toAdd;
 }
 
 
@@ -289,6 +316,19 @@ int level::getFloorNum(){
 	return floorNum;
 }
 
+//Checks if an enemy can move to specified coordinate
 bool level::enemyStuck(coord c){
 	return !(empty(c)) || !(canWalk(c)==level::All);
+}
+
+//Checks if an enemy can more to any adjacent coordinate
+bool level::enemyTrapped(coord c){
+	return (   	enemyStuck(coord{c.x,c.y+1}) &&
+				enemyStuck(coord{c.x+1,c.y+1}) &&
+				enemyStuck(coord{c.x-1,c.y+1}) &&
+				enemyStuck(coord{c.x+1,c.y-1}) &&
+				enemyStuck(coord{c.x,c.y-1})   &&
+				enemyStuck(coord{c.x-1,c.y-1}) &&
+				enemyStuck(coord{c.x-1,c.y})   &&
+				enemyStuck(coord{c.x+1,c.y}));
 }

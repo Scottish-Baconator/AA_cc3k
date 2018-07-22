@@ -7,18 +7,19 @@
 
 #ifndef GAME_H_
 #define GAME_H_
-#include "floor.h"
 #include <iostream>
 #include <string>
-#include "potion.h"
-#include "shade.h"
-#include "enemy.h"
-#include "gold.h"
+#include "coord.h"
 
+const static int MAX_FLOORS = 5;
+
+class level;
+class player;
 class action;
 
 class game{
-	int floorNum=1;
+	bool done;
+	int floorNum;//starts from 1
 	std::string file;
 	action *a;
 	level *f;
@@ -29,7 +30,8 @@ class game{
 	int gld;
 	bool paused;
 	void nextLevel();
-
+	char racePick();
+	char race = 'I';
 public:
 	game(std::string);
 	game(std::string, bool);
@@ -40,7 +42,11 @@ public:
 	void stop();
 	void step();
 	void render(std::ostream &out);
-	void race(char r);
+	char getRace();
+	bool goodRace();
+	bool isDone();
+	int getGold();
+	int getHP();
 	~game(){};
 };
 

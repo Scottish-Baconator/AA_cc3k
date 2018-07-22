@@ -39,6 +39,7 @@ game::dir convert(std::string s){
 
 int main(int argc, char *argv[]){
 	std::string file;
+	bool provided = (argc < 2);
 	if(argc < 2){
 		//std::cerr<<"2 arguments required.";
 		//return 1;
@@ -47,18 +48,24 @@ int main(int argc, char *argv[]){
 		file = std::string(argv[1]);
 	}
 
-	game g{file};
+	game g{file, provided};
+
+
+	if(!g.goodRace()){
+		return 0;
+	}
 
 	g.render(std::cout);
 	std::string s;
 
 	while(std::cin >> s){
+		bool comp = false;
 		if(s[0] == 'u'){
 			std::cin >> s;
-			g.use(convert(s));
+			comp = g.use(convert(s));
 		}else if(s[0] == 'a'){
 			std::cin >> s;
-			g.attack(convert(s));
+			comp = g.attack(convert(s));
 		}else if(s[0] == 'f'){
 			g.stop();
 		}else if(s[0] == 'r'){
@@ -67,9 +74,46 @@ int main(int argc, char *argv[]){
 			break;
 		}else{
 			g.move(convert(s));
+			comp = true;
 		}
-		g.step();
-		g.render(std::cout);
+		if(comp){
+			g.step();
+			g.render(std::cout);
+		}
+		if(g.isDone()){
+			break;
+		}
+	}
+	if(g.isDone()){
+		if(g.getHP() <= 0){
+			std::cout<<"Bad luck. You were killed in the dungeon.\n";
+		}else{
+			std::cout<<"Good job! You survived the dungeon.\n";
+		}
+		std::cout<<"You achieved a score of ";
+		if(g.getRace() == 's'){
+			std::cout<<(g.getGold() * 1.5);
+		}else{
+			std::cout<<(g.getGold());
+		}
+		std::cout<<" as a ";
+		switch (g.getRace()){
+		case 's':
+			std::cout<<"shade";
+			break;
+		case 'd':
+			std::cout<<"shade";
+			break;
+		case 'v':
+			std::cout<<"vampire";
+			break;
+		case 't':
+			std::cout<<"troll";
+			break;
+		case 'g':
+			std::cout<<"goblin";
+			break;
+		}
 	}
 }
 

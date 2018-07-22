@@ -24,18 +24,19 @@ public:
 	enum Walk {All, PC, No};
 private:
 	Walk can[79][30];
+	void randGen();
+	void setWalk();
 public:
-	level(std::string file, action *a, int floorNum);
 
-	//level(std::string file, bool);
-	//For later implementation
+	level(std::string file, action *a, int floorNum, bool rand);
 
 	~level();
 
 	chamber* getChmbr(int a){return chmbrs[a];}
 	void add(obj *toAdd, coord pos);
+	void replace(obj *toAdd, coord pos);
 	void render(std::ostream &out, player *p, int gld);
-	void step();
+	void step(action *a);
 	obj *getObj(coord c){return grd[c.x][c.y];}
 	bool empty(coord c);
 	bool move(coord origin, coord target);
@@ -44,6 +45,7 @@ public:
 	void update(obj *toAdd, coord pos);
 	int getFloorNum();
 	bool enemyStuck(coord c);
+	bool enemyTrapped(coord c);
 };
 
 

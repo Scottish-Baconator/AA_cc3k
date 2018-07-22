@@ -6,6 +6,7 @@
  */
 #include "human.h"
 #include "enemy.h"
+#include "floor.h"
 
 human::human(coord pos): enemy(pos, 20, 20, 140, "Human", true, false){}
 
@@ -14,7 +15,6 @@ char human::render(){
 }
 
 void human::drop(level *f){
-	coord tA = pos;
-	tA.x++;
-	f->add(new gold(tA, 4), tA);
+	spawn(f, pos, 2);
+	f->replace(new gold(pos, 2), pos);
 }

@@ -19,6 +19,7 @@ class dragon: public enemy{
 		dragon(coord pos, hoard *treasure);
 
 		char render() override;
+		bool closePC(level *f) override;
 
 		//Doesn't actually drop to map, but this function will "unlock" the treasure horde
 		void drop(level *f) override;

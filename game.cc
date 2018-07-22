@@ -5,11 +5,17 @@
  *      Author: alicy
  */
 #include "game.h"
-#include "floor.h"
+#include "shade.h"
+#include "drow.h"
+#include "vampire.h"
+#include "troll.h"
+#include "goblin.h"
 #include "potion.h"
+#include "enemy.h"
+#include "gold.h"
 #include "stair.h"
 #include "action.h"
-#include <iostream>
+#include "floor.h"
 
 bool one(char c, char a[], int l){
 	for(int i = 0;i < l;i++){
@@ -20,11 +26,76 @@ bool one(char c, char a[], int l){
 	return false;
 }
 
-game::game(std::string s): a{new action()},f(new level{s,a,floorNum}){
-	file = s;
+char game::racePick(){
+	using namespace std;
+	cout<<"What race would you like to be?\n";
+	cout<<"   name     HP  Atk/Def  Special power\n";
+	cout<<"s: Shade   (125, 25/25) (1.5x Score at end of game)\n";
+	cout<<"d: Drow    (150, 25/15)  (all Potions effects x1.5)\n";
+	cout<<"v: Vampire (50,  25/25)  (5HP gained per atk, no max HP)\n";
+	cout<<"t: Troll   (120, 25/15)  (gain 5HP per turn)\n";
+	cout<<"g: Goblin  (110, 15/20)  (5 gold per enemy killed)\n";
+	string in;
+	if(cin>>in){
+		return in[0];
+	}
+	return 'q';
+}
+
+bool oneOf(char a, char b[], int l){
+	for(int i =0;i < l;i++){
+		if(a == b[i]){
+			return true;
+		}
+	}
+	return false;
+}
+
+char game::getRace(){
+	return race;
+}
+
+bool game::goodRace(){
+	char races[] = {'s', 'd', 'v', 'g', 't'};
+	return oneOf(race, races, 5);
+}
+
+
+
+game::game(std::string fl, bool prov): floorNum(1), a{new action()}{
+	if(prov){
+		f(new level{fl, a, floorNum, true});
+	}else{
+		f(new level{fl, a, floorNum, false});
+	}
+	char races[] = {'s', 'd', 'v', 'g', 't'};
+	done = false;
+	do{
+		race = racePick();
+		if(race == 'q'){
+			return;
+		}
+	}while(!oneOf(race, races, 5));
+	file = fl;
 	int pCh = rand()%5;
 	pC = f->getChmbr(pCh)->random();
-	p = new shade(pC);
+	switch (race){
+	case 's':
+		p = new shade(pC);
+		break;
+	case 'd':
+		p = new drow(pC);
+		break;
+	case 'v':
+		p = new vampire(pC);
+		break;
+	case 't':
+		p = new troll(pC);
+		break;
+	case 'g':
+		p = new goblin(pC);
+		break;
+	}
 	pp = p;
 	gld = 0;
 	f->add(pp, pC);
@@ -36,6 +107,10 @@ game::game(std::string s): a{new action()},f(new level{s,a,floorNum}){
 }
 
 void game::nextLevel(){
+	if(floorNum == MAX_FLOORS){
+		done = true;
+		return;
+	}
 	floorNum++;
 	//must copy FIRST since delete f deletes our player!
 	p = new player{*p};
@@ -51,8 +126,12 @@ void game::nextLevel(){
 }
 
 void game::step(){
+	if(pp->getHP() <= 0){
+		done = true;
+		return;
+	}
 	if(!paused){
-		f->step();
+		f->step(a);
 	}
 }
 
@@ -134,7 +213,7 @@ bool game::move(dir d){
 		if(!f->empty(temp)){
 			if((f->getObj(temp)->render() == '\\')){
 				nextLevel();
-			}else if(f->getObj(temp)->render() == 'G'){
+			}else if(f->getObj(temp)->render() == 'G' && ((gold*)f->getObj(temp))->getPick()){
 				int newgld = ((gold *) (f->getObj(temp)))->getVal();
 				gld += newgld;
 				a->addGold(newgld);
@@ -181,14 +260,13 @@ bool game::attack(dir d){
 	char enemies[] = {'H','W','E','O','M','D','L'};
 	coord temp = getCoord(d, pC);
 	if(!f->empty(temp) && one(f->getObj(temp)->render(), enemies, 7)){
-		std::cerr << "hello!" << std::endl;
 		enemy* tAtk = (enemy*)f->getObj(temp);
 		pp->attack(tAtk, a);
 		a->showHP(tAtk->getName(), tAtk->getHP());
-		if(tAtk->getHP() < 0){
+		if(tAtk->getHP() <= 0){
+			a->slay(tAtk->getName());
 			tAtk->drop(f);
 			gld += pp->steal();
-			f->remove(temp);
 		}
 		return true;
 	}
@@ -199,3 +277,14 @@ void game::stop(){
 	paused = !paused;
 }
 
+bool game::isDone(){
+	return done;
+}
+
+int game::getGold(){
+	return gld;
+}
+
+int game::getHP(){
+	return pp->getHP();
+}
