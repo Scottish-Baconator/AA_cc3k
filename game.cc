@@ -64,9 +64,9 @@ bool game::goodRace(){
 
 game::game(std::string fl, bool prov): floorNum(1), a{new action()}{
 	if(prov){
-		f(new level{fl, a, floorNum, true});
+		f = new level{fl, a, floorNum, true};
 	}else{
-		f(new level{fl, a, floorNum, false});
+		f = new level{fl, a, floorNum, false};
 	}
 	char races[] = {'s', 'd', 'v', 'g', 't'};
 	done = false;
@@ -115,7 +115,9 @@ void game::nextLevel(){
 	//must copy FIRST since delete f deletes our player!
 	p = new player{*p};
 	delete f;
-	f = new level{file,a, floorNum};
+
+	//ANTON: I CHANGED THIS; THIS IS WRONG
+	f = new level{file,a, floorNum, true};
 	int pCh = rand()%5;
 	pC = f->getChmbr(pCh)->random();
 	pp = p;
@@ -264,9 +266,11 @@ bool game::attack(dir d){
 		pp->attack(tAtk, a);
 		a->showHP(tAtk->getName(), tAtk->getHP());
 		if(tAtk->getHP() <= 0){
+			if(pp->canSteal()){
+				gld += tAtk->stealAmt();
+			}
 			a->slay(tAtk->getName());
 			tAtk->drop(f);
-			gld += pp->steal();
 		}
 		return true;
 	}
