@@ -78,6 +78,40 @@ int main(int argc, char *argv[]){
 			g.step();
 			g.render(std::cout);
 		}
+		if(g.isDone()){
+			break;
+		}
+	}
+	if(g.isDone()){
+		if(g.getHP() <= 0){
+			std::cout<<"Bad luck. You were killed in the dungeon.\n";
+		}else{
+			std::cout<<"Good job! You survived the dungeon.\n";
+		}
+		std::cout<<"You achieved a score of ";
+		if(g.getRace() == 's'){
+			std::cout<<(g.getGold() * 1.5);
+		}else{
+			std::cout<<(g.getGold());
+		}
+		std::cout<<" as a ";
+		switch (g.getRace()){
+		case 's':
+			std::cout<<"shade";
+			break;
+		case 'd':
+			std::cout<<"shade";
+			break;
+		case 'v':
+			std::cout<<"vampire";
+			break;
+		case 't':
+			std::cout<<"troll";
+			break;
+		case 'g':
+			std::cout<<"goblin";
+			break;
+		}
 	}
 }
 

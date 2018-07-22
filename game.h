@@ -11,12 +11,15 @@
 #include <string>
 #include "coord.h"
 
+const static int MAX_FLOORS = 5;
+
 class level;
 class player;
 class action;
 
 class game{
-	int floorNum=1;
+	bool done;
+	int floorNum;//starts from 1
 	std::string file;
 	action *a;
 	level *f;
@@ -41,6 +44,9 @@ public:
 	void render(std::ostream &out);
 	char getRace();
 	bool goodRace();
+	bool isDone();
+	int getGold();
+	int getHP();
 	~game(){};
 };
 
