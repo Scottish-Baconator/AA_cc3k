@@ -16,6 +16,7 @@
 #include "orc.h"
 #include "merchant.h"
 #include "potion.h"
+#include "hoard.h"
 
 //Checks if a chamber contains coordinate
 bool is(chamber** chmbrs, coord c){
@@ -68,8 +69,17 @@ void level::randGen(){
 
 		if(goldrand < 5){
 			g = new gold{gc, 2};
-		} else {
+		} else if (goldrand < 5){
 			g = new gold{gc, 1};
+		} else { //goldrand = 7
+			//Repeats finding a coordinate for gold until it can find one where
+			//it can also spawn a dragon beside it
+			while(enemyTrapped(gc)){
+				chamberid= rand() % 5;
+				gc= chmbrs[chamberid]->random();
+			}
+
+			g = new hoard{gc, this};
 		}
 		grd[gc.x][gc.y]=g;
 	}

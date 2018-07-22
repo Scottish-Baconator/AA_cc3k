@@ -16,11 +16,11 @@
 }*/
 
 //Determines if the player is on a neighbouring tile
-bool closePC(level *f, coord c){
+bool enemy::closePC(level *f){
 	for(int i = 0;i < 30;i++){
 		for(int j = 0;j < 79;j++){
 			if(!f->empty(coord(j, i)) && f->getObj(coord(j, i))->render() == '@'){
-				return (abs(j - c.x) <= 1 && abs(i - c.y) <= 1);
+				return (abs(j - pos.x) <= 1 && abs(i - pos.y) <= 1);
 			}
 		}
 	}
@@ -28,7 +28,7 @@ bool closePC(level *f, coord c){
 }
 
 //Returns the player character object
-character* getPC(level *f){
+character* enemy::getPC(level *f){
 	for(int i = 0;i < 30;i++){
 		for(int j = 0;j < 79;j++){
 			if(!f->empty(coord(j, i)) && f->getObj(coord(j, i))->render() == '@'){
@@ -41,7 +41,7 @@ character* getPC(level *f){
 }
 
 //Move to a random neighbouring tile
-coord move(level *f, coord pos){
+coord enemy::move(level *f){
 	coord to(pos);
 
 	if(f->enemyTrapped(pos))
@@ -92,10 +92,10 @@ enemy::~enemy(){}
 //Runs enemy action.
 coord enemy::step(level *f, action *a){
 //	std::cerr << getName() << "START" << std::endl;
-	if(closePC(f, pos) && isHostile){
+	if(closePC(f) && isHostile){
 		attack(getPC(f), a);
 	}else if(!isStationary){
-		pos = move(f, pos);
+		pos = move(f);
 	}
 	//	std::cerr << getName() << "END" << std::endl;
 	return pos;
@@ -107,7 +107,7 @@ void enemy::spawn(level *f, coord pos, int val){
 	if(!f->enemyTrapped(pos)){
 		do{
 			to = pos;
-			switch(rand()%9){
+			switch(rand()%8){
 			case 0:
 				to.x++;
 				break;

@@ -12,6 +12,8 @@
 #include "gold.h"
 
 class enemy: public character{
+	coord move(level *f);
+	character* getPC(level *f);
 	
 protected:
 	bool isHostile;
@@ -24,9 +26,10 @@ public:
 	//I don't think we can just make the dtor abstract though can we???
 	
 	virtual void drop(level *f); 
+	virtual bool closePC(level *f);
 	virtual ~enemy();
 	coord step(level *f, action *a) override;
-	coord spawn(level *f, coord pos, int val);
+	void spawn(level *f, coord pos, int val);
 };
 
 
