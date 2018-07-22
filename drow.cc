@@ -5,6 +5,7 @@
  *      Author: alicy
  */
 #include "drow.h"
+#include "player.h"
 
 drow::drow(coord pos): player(pos, 150, 25, 15, "Drow"){}
 

@@ -191,7 +191,7 @@ bool oneOf(char a, char b[], int len){
 
 
 //Reads map from file and determines the level layout
-level::level(std::string file, action *a, int floorNum, bool rand=true):floorNum{floorNum}, td{new textDisplay(file, this, a, rand)}{
+level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floorNum}, td{new textDisplay(file, this, a, rand)}{
 	setWalk();
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){

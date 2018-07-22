@@ -79,24 +79,27 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 	int aLen = 6;
 	dr.open(file);
 	char c='.';
+
 	if(!rand){
 		for(int i = 0;i < 25;i++){
 			for(int j = 0;j < 79;j++){
 				dr.get(c);
-				if((!rand) && c == 'D'){
+				if(c == 'D'){
 					coord ta{j, i};
-					dragons.push_back(ta);
+					dragons.emplace_back(ta);
 				}
 			}
+			in.ignore();
 		}
 	}
+
 	in.open(file);
 	for(int i = 0;i < 25;i++){
 		for(int j = 0;j < 79;j++){
 			in.get(c);
 
 			if((!rand) && !isIn(c, accept, aLen)){
-				map[i][j] = '.';
+				map[j][i] = '.';
 				coord pos{j, i};
 				f->add(type(c, pos, dragons), pos);
 			}else{
