@@ -100,7 +100,7 @@ coord enemy::step(level *f, action *a){
 }
 
 //Spawns a gold of the specified val adjacent to pos on the given level
-void enemy::spawn(level *f, coord pos, int val){
+void enemy::spawn(level *f, const coord &pos, int val){
 	coord to(pos);
 
 	if(!f->enemyTrapped(pos)){

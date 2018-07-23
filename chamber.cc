@@ -14,11 +14,11 @@ coord chamber::random() const{
 	return coords[r];
 }
 
-void chamber::addCoord(const coord a){
+void chamber::addCoord(const coord &a){
 	coords.emplace_back(a);
 }
 
-bool chamber::containsCoord(const coord a) const{
+bool chamber::containsCoord(const coord &a) const{
 	bool result=false;
 
 	for(auto it = coords.begin(); it != coords.end(); it++){

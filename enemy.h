@@ -26,7 +26,7 @@ public:
 	virtual bool closePC(const level * const f) const;
 	virtual ~enemy()=0;
 	coord step(level *f, action *a) override;
-	void spawn(level *f, coord pos, int val);
+	void spawn(level *f, const coord &pos, int val);
 };
 
 

@@ -15,3 +15,10 @@
 		return pos;
 	}
 
+	obj::obj(coord c):pos{c}{
+	}
+
+	obj::~obj(){
+
+	}
+

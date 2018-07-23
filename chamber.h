@@ -17,10 +17,10 @@ public:
 	coord random() const;
 	
 	//Adds coordinate to chamber
-	void addCoord(const coord a);
+	void addCoord(const coord &a);
 	
 	//Checks if the given coordinate is in this chamber
-	bool containsCoord(const coord a) const;
+	bool containsCoord(const coord &a) const;
 };
 
 
