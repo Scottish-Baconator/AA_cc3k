@@ -19,7 +19,7 @@
 #include "hoard.h"
 
 //Checks if a chamber contains coordinate
-bool is(chamber** chmbrs, coord c){
+bool is(chamber** chmbrs, const coord &c){
 	for(int i = 0;i < 5;i++){
 		if(chmbrs[i]->containsCoord(c)){
 			return true;
@@ -122,6 +122,7 @@ void level::randGen(){
 			break;
 		}
 	}
+
 	for(int i = 0;i < 20;i++){
 		int chm = rand()%5;
 		coord a(0, 0);
@@ -189,15 +190,7 @@ bool oneOf(char a, char b[], int len){
 	return false;
 }
 
-
-//Reads map from file and determines the level layout
-level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floorNum}, td{new textDisplay(file, this, a, rand)}{
-	setWalk();
-	for(int i = 0;i < 79;i++){
-		for(int j = 0;j < 30;j++){
-			grd[i][j]=nullptr;
-		}
-	}
+void level::makeChambers(){
 	for(int i=0;i<5;++i){
 		chmbrs[i] = new chamber();
 	}
@@ -219,12 +212,28 @@ level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floo
 			break;
 		}
 	}
+}
+
+
+//Reads map from file and determines the level layout
+level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floorNum}, td{new textDisplay(file, this, a, rand)}{
+	setWalk();
+
+	//Initializes every cell to be empty
+	for(int i = 0;i < 79;i++){
+		for(int j = 0;j < 30;j++){
+			grd[i][j]=nullptr;
+		}
+	}
+
+	makeChambers();
+
 	if(rand){
 		randGen();
 	}
 }
 
-bool level::empty(coord c){
+bool level::empty(const coord &c) const{
 	if(c.x>=79 || c.y >=30 || c.x < 0 || c.y<0){
 		return false;
 	}
@@ -232,9 +241,9 @@ bool level::empty(coord c){
 }
 
 //Notifies all objects on level to run their step
+//The use of ignore prevents enemies from moving multiple times
 void level::step(action *a){
 	bool ignore[79][30];
-	//std::cerr << "hello " << std::endl;
 
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
@@ -245,7 +254,6 @@ void level::step(action *a){
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
 			if((!ignore[i][j])&&(grd[i][j] != nullptr)){
-			//	std::cerr << "hi " << std::endl;
 				coord t = grd[i][j]->step(this, a);
 				ignore[t.x][t.y] = true;
 			}
@@ -253,7 +261,7 @@ void level::step(action *a){
 	}
 }
 
-void level::add(obj *toAdd, coord pos){
+void level::add(obj *toAdd, const coord &pos){
 	if(grd[pos.x][pos.y] == nullptr){
 		grd[pos.x][pos.y] = toAdd;
 	}else{
@@ -261,17 +269,17 @@ void level::add(obj *toAdd, coord pos){
 	}
 }
 
-void level::replace(obj *toAdd, coord pos){
+void level::replace(obj *toAdd, const coord &pos){
 	delete grd[pos.x][pos.y];
 	grd[pos.x][pos.y] = toAdd;
 }
 
 
-void level::update(obj *toAdd, coord pos){
+void level::update(obj *toAdd, const coord &pos){
 	grd[pos.x][pos.y] = toAdd;
 }
 
-bool level::move(coord origin, coord target){
+bool level::move(const coord &origin, const coord &target){
 	if(empty(target)){
 		grd[target.x][target.y] = grd[origin.x][origin.y];
 		grd[origin.x][origin.y] = nullptr;
@@ -281,17 +289,15 @@ bool level::move(coord origin, coord target){
 }
 
 //Gets the character of the object at coordinate c
-void level::render(std::ostream &out, player *p, int gld){
+void level::render(std::ostream &out, player *const p, const int gld) const{
 	td->render(out, p, gld);
 }
 
 level::~level(){
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
-			if(grd[i][j]!=nullptr){
-				delete grd[i][j];
-			}
-
+			delete grd[i][j];
+			grd[i][j]=nullptr;
 		}
 	}
 	for(int i = 0;i < 5;i++){
@@ -300,29 +306,26 @@ level::~level(){
 	delete td;
 }
 
-void level::remove(coord c){
+void level::remove(const coord &c){
 	delete grd[c.x][c.y]; //if it's nullptr this is still fine
 	grd[c.x][c.y]=nullptr; //avoid segfault
 }
 
-level::Walk level::canWalk(coord c){
-	//if(grd[c.x][c.y] == nullptr){
-		return can[c.x][c.y];
-	//}
-	//return No;
+level::Walk level::canWalk(const coord &c) const{
+	return can[c.x][c.y];
 }
 
-int level::getFloorNum(){
+int level::getFloorNum() const{
 	return floorNum;
 }
 
 //Checks if an enemy can move to specified coordinate
-bool level::enemyStuck(coord c){
+bool level::enemyStuck(const coord &c){
 	return !(empty(c)) || !(canWalk(c)==level::All);
 }
 
 //Checks if an enemy can more to any adjacent coordinate
-bool level::enemyTrapped(coord c){
+bool level::enemyTrapped(const coord &c){
 	return (   	enemyStuck(coord{c.x,c.y+1}) &&
 				enemyStuck(coord{c.x+1,c.y+1}) &&
 				enemyStuck(coord{c.x-1,c.y+1}) &&
@@ -331,4 +334,13 @@ bool level::enemyTrapped(coord c){
 				enemyStuck(coord{c.x-1,c.y-1}) &&
 				enemyStuck(coord{c.x-1,c.y})   &&
 				enemyStuck(coord{c.x+1,c.y}));
+}
+
+
+chamber* level::getChmbr(const int a) const {
+	return chmbrs[a];
+}
+
+obj *level::getObj(const coord &c) const{
+	return grd[c.x][c.y];
 }

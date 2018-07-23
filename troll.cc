@@ -10,7 +10,7 @@ troll::troll(coord pos): player(pos, 120, 25, 15, "Troll"){
 
 }
 
-int troll::regen(){
+int troll::regen() const{
 	return 5;
 }
 

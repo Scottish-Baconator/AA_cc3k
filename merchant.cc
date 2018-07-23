@@ -21,6 +21,6 @@ merchant::merchant(coord pos): enemy(pos, 30, 70, 5, "merchant", merchant::merch
 
 }
 
-char merchant::render(){
+char merchant::render() const{
 	return 'M';
 }

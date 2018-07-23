@@ -13,10 +13,10 @@ class halfling: public enemy{
 	public:
 		halfling(coord pos); //calls enemy constructor with required params
 
-		char render() override;
+		char render() const override;
 
 		//Halfling dodges half the time
-		int dodgeChance() override;
+		int dodgeChance() const override;
 };
 
 

@@ -15,8 +15,8 @@ class drow: public player{
 public:
 	drow(coord pos);
 
-	double potionMulti() override;
-	bool canDouble() override;
+	double potionMulti() const override;
+	bool canDouble() const override;
 };
 
 

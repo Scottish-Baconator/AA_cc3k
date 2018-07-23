@@ -11,3 +11,6 @@
 
 shade::shade(coord pos) : player{pos,125,25,25,"Shade"} {}
 
+double shade::scoreMultiplier() const{
+	return 1.5;
+}

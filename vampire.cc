@@ -11,15 +11,11 @@
 
 vampire::vampire(coord pos) : player{pos,50,25,25,"Vampire"} {}
 
-/*void vampire::chngHP(int p){
-	hp += p;
-}*/
-
-int vampire::atkEffect(character *subj, int dmg){
+int vampire::atkEffect(character *const subj, int dmg){
 	chngHP(subj->drain());
 	return dmg;
 }
 
-bool vampire::ignoreMHP(){
+bool vampire::ignoreMHP() const{
 	return true;
 }

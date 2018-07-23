@@ -9,7 +9,7 @@
 
 orc::orc(coord pos): enemy(pos, 180, 30, 25, "orc", true, false){}
 
-char orc::render(){
+char orc::render() const{
 	return 'O';
 }
 

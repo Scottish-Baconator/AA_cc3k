@@ -32,6 +32,7 @@ class game{
 	void nextLevel();
 	char racePick();
 	char race = 'I';
+
 public:
 	game(std::string);
 	game(std::string, bool);
@@ -42,11 +43,11 @@ public:
 	void stop();
 	void step();
 	void render(std::ostream &out);
-	char getRace();
+	std::string getRace();
 	bool goodRace();
 	bool isDone();
-	int getGold();
-	int getHP();
+	bool isWinner();
+	int getScore();
 	~game(){};
 };
 
