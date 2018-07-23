@@ -20,9 +20,10 @@
 #include "hoard.h"
 
 //Checks if a chamber contains coordinate
-bool is(chamber** chmbrs, const coord &c){
-	for(int i = 0;i < 5;i++){
-		if(chmbrs[i]->containsCoord(c)){
+bool level::is(const coord &c) const{
+
+	for (auto it = chmbrs.begin() ; it != chmbrs.end(); ++it) {
+		if((*it)->containsCoord(c)){
 			return true;
 		}
 	}
@@ -31,7 +32,7 @@ bool is(chamber** chmbrs, const coord &c){
 
 void level::randGen(){
 	for(int i = 0;i < 10;i++){
-		coord tem = chmbrs[rand()%5]->random();
+		coord tem = chmbrs[rand()%(chmbrs.size())]->random();
 		potion::type t;
 		switch (rand()%6) {
 		case 0:
@@ -63,7 +64,7 @@ void level::randGen(){
 
 		int goldrand = rand() % 8;
 		do{
-			chamberid= rand() % 5;
+			chamberid= rand() % chmbrs.size();
 			gc= chmbrs[chamberid]->random();
 		}while(!empty(gc));
 
@@ -75,7 +76,7 @@ void level::randGen(){
 			//Repeats finding a coordinate for gold until it can find one where
 			//it can also spawn a dragon beside it
 			while(enemyTrapped(gc)){
-				chamberid= rand() % 5;
+				chamberid= rand() % chmbrs.size();
 				gc= chmbrs[chamberid]->random();
 			}
 
@@ -124,7 +125,7 @@ void level::randGen(){
 	}
 
 	for(int i = 0;i < 20;i++){
-		int chm = rand()%5;
+		int chm = rand()%chmbrs.size();
 		coord a(0, 0);
 		do{
 			a = getChmbr(chm)->random();
@@ -192,14 +193,14 @@ bool oneOf(char a, char b[], int len){
 
 void level::makeChambers(){
 	for(int i=0;i<5;++i){
-		chmbrs[i] = new chamber();
+		chmbrs.emplace_back(new chamber());
 	}
 
 	int cur = 0;
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
 			if(td->get(coord(i, j)) == '.'){
-				if(!is(chmbrs, coord(i, j))){
+				if(!is(coord(i, j))){
 					td->chambFrom(coord(i,j), chmbrs[cur]);
 					cur++;
 				}
@@ -301,9 +302,10 @@ level::~level(){
 			grd[i][j]=nullptr;
 		}
 	}
-	for(int i = 0;i < 5;i++){
-		delete chmbrs[i];
-	}
+
+	for (auto it = chmbrs.begin() ; it != chmbrs.end(); ++it) {
+	 delete (*it);
+   }
 	delete td;
 }
 
