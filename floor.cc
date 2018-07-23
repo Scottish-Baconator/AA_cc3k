@@ -61,7 +61,7 @@ void level::randGen(){
 		gold* g;
 
 		int goldrand = rand() % 8;
-
+		std::cout<<goldrand;
 		do{
 			chamberid= rand() % 5;
 			gc= chmbrs[chamberid]->random();
@@ -216,7 +216,8 @@ void level::makeChambers(){
 
 
 //Reads map from file and determines the level layout
-level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floorNum}, td{new textDisplay(file, this, a, rand)}{
+level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floorNum}{
+	td = new textDisplay(file, this, a, rand);
 	setWalk();
 
 	//Initializes every cell to be empty

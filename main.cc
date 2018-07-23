@@ -57,23 +57,26 @@ int main(int argc, char *argv[]){
 
 	g.render(std::cout);
 
-	std::string s;
+	std::string s = "";
 
 	while(std::cin >> s){
 		bool comp = false;
 
-		if(s == 'u'){
+		if(s[0] == 'u'){
 			std::cin >> s;
 			comp = g.use(convert(s));
-		}else if(s == 'a'){
+		}else if(s[0] == 'a'){
 			std::cin >> s;
 			comp = g.attack(convert(s));
-		}else if(s == 'f'){
+		}else if(s[0] == 'f'){
 			g.stop();
-		}else if(s == 'r'){
+		}else if(s[0] == 'r'){
 			g = game(file, provided);
-		}else if(s == 'q'){
+		}else if(s[0] == 'q'){
 			break;
+		}else if(s[0] == '@'){
+			g.gotoNext();
+			comp = true;
 		}else{
 			g.move(convert(s));
 			comp = true;

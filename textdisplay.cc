@@ -72,6 +72,10 @@ obj* textDisplay::type(char c, coord pos, std::vector<coord> drgns){
 }
 
 textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},a{a}{
+	map.resize(79);
+	for(size_t i = 0;i < map.size();i++){
+		map[i].resize(30);
+	}
 	std::ifstream in;
 	std::ifstream dr;
 	std::vector<coord> dragons;
@@ -79,6 +83,12 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 	int aLen = 6;
 	dr.open(file);
 	char c='.';
+
+	for(int i = 0;i < 25;i++){
+		for(int j = 0;j < 79;j++){
+			map[j][i] = '.';
+		}
+	}
 
 	if(!rand){
 		for(int i = 0;i < 25;i++){
