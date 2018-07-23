@@ -32,7 +32,7 @@ character* enemy::getPC(level *f){
 	for(int i = 0;i < 30;i++){
 		for(int j = 0;j < 79;j++){
 			if(!f->empty(coord(j, i)) && f->getObj(coord(j, i))->render() == '@'){
-				return (character*) f->getObj(coord(j,i));
+				return static_cascharacter*> (f->getObj(coord(j,i)));
 			}
 		}
 	}
