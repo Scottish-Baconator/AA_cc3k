@@ -15,8 +15,11 @@ const static int MAX_FLOORS = 5;
 class level;
 class player;
 class action;
+class obj;
 
 class game{
+	obj* tHoard;//stupid frekin hoards
+	bool bHoard;
 	bool provided;
 	bool done;
 	int floorNum;//starts from 1

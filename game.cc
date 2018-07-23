@@ -197,8 +197,6 @@ coord getCoord(enum game::dir d, coord pC){
 bool game::move(dir d){
 	//temp is the coordinates the player is trying to move in
 	coord temp = getCoord(d, pC);
-
-
 	std::string dirtext="North";
 	switch (d){
 		case game::no:
@@ -237,10 +235,16 @@ bool game::move(dir d){
 			if((f->getObj(temp)->render() == '\\')){
 				nextLevel();
 			}else if(f->getObj(temp)->render() == 'G' && ((gold*)f->getObj(temp))->getPick()){
-				int newgld = ((gold *) (f->getObj(temp)))->getVal();
-				gld += newgld;
-				a->addGold(newgld);
-				f->remove(temp);
+				if(((gold*)f->getObj(temp))->getPick()){
+					int newgld = ((gold *) (f->getObj(temp)))->getVal();
+					gld += newgld;
+					a->addGold(newgld);
+					f->remove(temp);
+				}else{
+					tHoard = f->getObj(temp);
+					bHoard = true;
+					f->update(nullptr, temp);
+				}
 			} else {
 				a->cantMove(dirtext);
 				return false;
@@ -253,6 +257,13 @@ bool game::move(dir d){
 		//std::cerr<<"a"<<std::endl;
 		if(f->move(pC, temp)){
 			//std::cerr<<"to"<<std::endl;
+			if(!bHoard && (tHoard != nullptr)){
+				f->add(tHoard, pC);
+				tHoard = nullptr;
+			}
+			if(bHoard){
+				bHoard = false;
+			}
 			pC = temp;
 
 			return true;
