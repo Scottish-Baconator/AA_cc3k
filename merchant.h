@@ -20,11 +20,11 @@ public:
 
 	merchant(coord pos); //calls enemy constructor with required params
 
-	char render() override;
+	char render() const override;
 
 	//merchants cant be attacked by enemies, so this only needs to happen when any merchant has their HP changed
 	//If any merchant object gets "attacked" (called by chngHP), then
-	void attacked(){
+	void attacked() override{
 		merchantAttacked();
 	}
 };

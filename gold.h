@@ -14,17 +14,13 @@ class gold: public item{
 protected:
 	bool canPick;
 public:
-	gold(coord pos, int v, bool pickable=true): item(pos), val(v), canPick{pickable}{
-	};
-	char render(){
-		return 'G';
-	}
-	int getVal(){
-		return val;
-	}
-	bool getPick(){
-		return canPick;
-	}
+	gold(coord pos, int v, bool pickable=true);
+
+	char render() const override;
+
+	int getVal() const;
+
+	bool getPick() const;
 };
 
 

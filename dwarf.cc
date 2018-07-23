@@ -10,10 +10,10 @@ dwarf::dwarf(coord pos): enemy(pos, 100, 20, 30, "Dwarf", true, false){
 
 }
 
-char dwarf::render(){
+char dwarf::render() const{
 	return 'W';
 }
 
-int dwarf::drain(){
+int dwarf::drain() const{
 	return -5;
 }

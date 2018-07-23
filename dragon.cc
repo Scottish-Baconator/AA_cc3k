@@ -15,16 +15,18 @@ dragon::dragon(coord pos, hoard *treasure): enemy(pos, 150, 20, 30, "Dragon", tr
 
 }
 
-char dragon::render(){
+char dragon::render() const{
 	return 'D';
 }
 
+//Frees the hoard to be picked up when dragon dies
 void dragon::drop(level *f){
 	treasure->unprotectHoard();
 	f->remove(pos);
 }
 
-bool dragon::closePC(level *f){
+//Dragon can attack from range if the PC is beside its hoard
+bool dragon::closePC(const level  *const f) const{
 	for(int i = 0;i < 30;i++){
 		for(int j = 0;j < 79;j++){
 			if(!f->empty(coord(j, i)) && f->getObj(coord(j, i))->render() == '@'){

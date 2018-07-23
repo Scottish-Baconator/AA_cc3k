@@ -46,15 +46,15 @@ bool one(char c, char a[], int l){
 char game::racePick(){
 	using namespace std;
 	cout<<"What race would you like to be?\n";
-	cout<<"   name     HP  Atk/Def  Special power\n";
-	cout<<"s: Shade   (125, 25/25) (1.5x Score at end of game)\n";
-	cout<<"d: Drow    (150, 25/15)  (all Potions effects x1.5)\n";
+	cout<<"   Name     HP  Atk/Def  Special power\n";
+	cout<<"s: Shade   (125, 25/25)  (1.5x Score at end of game)\n";
+	cout<<"d: Drow    (150, 25/15)  (All Potions effects x1.5)\n";
 	cout<<"v: Vampire (50,  25/25)  (5HP gained per atk, no max HP)\n";
-	cout<<"t: Troll   (120, 25/15)  (gain 5HP per turn)\n";
+	cout<<"t: Troll   (120, 25/15)  (Recover 5HP per turn)\n";
 	cout<<"g: Goblin  (110, 15/20)  (5 gold per enemy killed)\n";
-	string in;
+	char in;
 	if(cin>>in){
-		return in[0];
+		return in;
 	}
 	return 'q';
 }
@@ -68,8 +68,8 @@ bool inArr(char a, char b[], int l){
 	return false;
 }
 
-char game::getRace(){
-	return race;
+std::string game::getRace(){
+	return pp->getRace();
 }
 
 bool game::goodRace(){
@@ -79,8 +79,8 @@ bool game::goodRace(){
 
 
 
-	game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level{fl, a, floorNum, prov}){
-	provided = prov;
+game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level{fl, a, floorNum, prov}){
+	provided = !prov;
 	char races[] = {'s', 'd', 'v', 'g', 't'};
 	done = false;
 	do{
@@ -149,12 +149,12 @@ void game::nextLevel(){
 }
 
 void game::step(){
+	if(!paused){
+		f->step(a);
+	}
 	if(pp->getHP() <= 0){
 		done = true;
 		return;
-	}
-	if(!paused){
-		f->step(a);
 	}
 }
 
@@ -279,7 +279,8 @@ bool game::move(dir d){
 
 bool game::use(dir d){
 	coord temp = getCoord(d, pC);
-	if(f->getObj(temp)->render() == 'P'){
+
+	if(!f->empty(temp) && f->getObj(temp)->render() == 'P'){
 		potion *pot = (potion *) f->getObj(temp);
 		pp = pot->effect(pp);
 		pot->displayEffect(a);
@@ -287,25 +288,31 @@ bool game::use(dir d){
 		f->remove(temp);
 		return true;
 	}
+
 	return false;
 }
 
 bool game::attack(dir d){
 	char enemies[] = {'H','W','E','O','M','D','L'};
 	coord temp = getCoord(d, pC);
+
 	if(!f->empty(temp) && one(f->getObj(temp)->render(), enemies, 7)){
 		enemy* tAtk = (enemy*)f->getObj(temp);
 		pp->attack(tAtk, a);
 		a->showHP(tAtk->getName(), tAtk->getHP());
+
 		if(tAtk->getHP() <= 0){
+
 			if(pp->canSteal()){
 				gld += tAtk->stealAmt();
 			}
+
 			a->slay(tAtk->getName());
 			tAtk->drop(f);
 		}
 		return true;
 	}
+
 	return false;
 }
 
@@ -317,10 +324,11 @@ bool game::isDone(){
 	return done;
 }
 
-int game::getGold(){
-	return gld;
+bool game::isWinner(){
+	return pp->getHP()>0;
 }
 
-int game::getHP(){
-	return pp->getHP();
+int game::getScore(){
+	return gld*pp->scoreMultiplier();
 }
+

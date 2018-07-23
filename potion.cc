@@ -13,6 +13,12 @@ class WAtk;
 #include "action.h"
 
 
+potion::potion(coord pos, type t): item(pos), potionType(t){}
+
+char potion::render() const {
+	return 'P';
+}
+
 player* potion::effect(player *p){
 	switch(potionType){
 	case RH:

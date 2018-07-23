@@ -15,25 +15,25 @@ class action;
 class BAtk : public pPlayer {
 public:
 	BAtk(player *p);
-	double getAtk() override;
+	double getAtk() const override;
 };
 
 class BDef : public pPlayer{
 public:
 	BDef(player *p);
-	double getDef() override;
+	double getDef() const override;
 };
 
 class WAtk : public pPlayer{
 public:
 	WAtk(player *p);
-	double getAtk() override;
+	double getAtk() const override;
 };
 
 class WDef : public pPlayer{
 public:
 	WDef(player *p);
-	double getDef() override;
+	double getDef() const override;
 };
 
 #endif /* POTIONS_H_ */

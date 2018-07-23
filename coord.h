@@ -13,7 +13,7 @@ struct coord{
 	int x, y;
 	coord(int a, int b): x(a), y(b){}
 
-	bool eq(coord &a){
+	bool eq(const coord &a) const{
 		return (a.x == x && a.y == y);
 	}
 };
