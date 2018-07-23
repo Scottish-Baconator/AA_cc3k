@@ -12,6 +12,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 class player;
 class action;
@@ -22,7 +23,7 @@ class level;
 class textDisplay {
 	level *f;
 	action *a;
-	char map[79][30];
+	std::vector<std::vector<char>> map;
 	obj* type(char c, coord pos, std::vector<coord> dragons);
 public:
 	textDisplay(std::string file, level *f, action *a, bool rand);

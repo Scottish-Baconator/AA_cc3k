@@ -18,10 +18,11 @@
 #include "action.h"
 #include "floor.h"
 
+
 coord find(char c, std::string file, int floorNum){
 	std::ifstream in;
 	in.open(file);
-	in.ignore(1975 * (floorNum - 1));
+	in.ignore(CHAR_IN_FLOOR * (floorNum - 1));
 	char cur = '0';
 	for(int i = 0;i < 25;i++){
 		for(int j = 0;j < 79;j++){
@@ -122,6 +123,8 @@ game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level
 	//for testing purposes
 //	stairs = f->getChmbr(4 - pCh)->random();
 	f->add(new stair(stairs), stairs);
+	tHoard = nullptr;
+	bHoard = false;
 }
 
 void game::nextLevel(){
@@ -142,6 +145,7 @@ void game::nextLevel(){
 		pC = find('@', file, floorNum);
 		stairs = find('\\', file, floorNum);
 	}
+	p->chngPos(pC);
 	pp = p;
 	f->add(pp, pC);
 	paused = false;
@@ -234,7 +238,7 @@ bool game::move(dir d){
 		if(!f->empty(temp)){
 			if((f->getObj(temp)->render() == '\\')){
 				nextLevel();
-			}else if(f->getObj(temp)->render() == 'G' && ((gold*)f->getObj(temp))->getPick()){
+			}else if(f->getObj(temp)->render() == 'G'){
 				if(((gold*)f->getObj(temp))->getPick()){
 					int newgld = ((gold *) (f->getObj(temp)))->getVal();
 					gld += newgld;
@@ -332,3 +336,12 @@ int game::getScore(){
 	return gld*pp->scoreMultiplier();
 }
 
+void game::gotoNext(){
+	nextLevel();
+}
+
+game::~game(){
+	delete f;
+	delete a;
+	delete tHoard;
+}
