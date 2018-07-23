@@ -28,6 +28,7 @@ public:
 	int dodgeChance() const override;
 	std::string getRace() const;
 	coord step(level *f, action *a) override;
+	virtual double scoreMultiplier() const;
 };
 
 

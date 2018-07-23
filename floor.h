@@ -22,30 +22,40 @@ class level{
 	chamber *chmbrs[5];
 public:
 	enum Walk {All, PC, No};
+
 private:
 	Walk can[79][30];
 	void randGen();
 	void setWalk();
+	void makeChambers();
+
 public:
 
 	level(std::string file, action *a, int floorNum, bool rand);
 
 	~level();
 
-	chamber* getChmbr(int a){return chmbrs[a];}
-	void add(obj *toAdd, coord pos);
-	void replace(obj *toAdd, coord pos);
-	void render(std::ostream &out, player *p, int gld);
+	chamber* getChmbr(const int a) const;
+	int getFloorNum() const;
+	obj *getObj(const coord &c) const;
+
+	void add(obj *toAdd, const coord &pos);
+	void replace(obj *toAdd, const coord &pos);
+	void remove(const coord &c);
+	void update(obj *toAdd, const coord &pos);
+
+	void render(std::ostream &out, player *const p, const int gld) const;
 	void step(action *a);
-	obj *getObj(coord c) const{return grd[c.x][c.y];}
-	bool empty(coord c) const;
-	bool move(coord origin, coord target);
-	Walk canWalk(coord c);
-	void remove(coord c);
-	void update(obj *toAdd, coord pos);
-	int getFloorNum();
-	bool enemyStuck(coord c);
-	bool enemyTrapped(coord c);
+	bool move(const coord &origin, const coord &target);
+
+	bool empty(const coord &c) const;
+	Walk canWalk(const coord &c) const;
+
+	//True if an enemy cannot move to c (not empty or not walkable)
+	bool enemyStuck(const coord &c);
+
+	//Checks enemyStuck all 8 directions
+	bool enemyTrapped(const coord &c);
 };
 
 

@@ -26,7 +26,7 @@ class textDisplay {
 	obj* type(char c, coord pos, std::vector<coord> dragons);
 public:
 	textDisplay(std::string file, level *f, action *a, bool rand);
-	void render(std::ostream &out, player *p, int gld) const;
+	void render(std::ostream &out, player *const p, const int gld) const;
 	void chambFrom(coord c, chamber *ch);
 	char get(const coord &c) const;
 };

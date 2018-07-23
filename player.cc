@@ -33,3 +33,7 @@ coord player::step(level *f, action *a) {
 std::string player::getRace() const{
 	return race;
 }
+
+double player::scoreMultiplier() const{
+	return 1;
+}

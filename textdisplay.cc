@@ -110,7 +110,7 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 	}
 }
 
-void textDisplay::render(std::ostream &out, player *p, int gld) const{
+void textDisplay::render(std::ostream &out, player *const p, const int gld) const{
 
 	//Renders the map
 	coord c = coord(0,0);
