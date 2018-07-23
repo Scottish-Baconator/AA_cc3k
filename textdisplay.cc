@@ -87,11 +87,11 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 				map[j][i] = '.';
 				coord pos{j, i};
 				obj* tem = type(c, pos);
-				if(tem == nullptr){
-					std::cout<<"Null ("<<j<<", "<<i<<") "<<c<<"\n";
-				}else{
-					std::cout<<tem->render()<<" ("<<j<<", "<<i<<") "<<c<<"\n";
-				}
+				//if(tem == nullptr){
+				//	std::cout<<"Null ("<<j<<", "<<i<<") "<<c<<"\n";
+				//}else{
+				//	std::cout<<tem->render()<<" ("<<j<<", "<<i<<") "<<c<<"\n";
+				//}
 				f->add(tem, pos);
 			}else{
 				if(c == '@'||c == '\\'||c == 'D'){

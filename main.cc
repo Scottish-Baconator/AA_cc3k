@@ -45,7 +45,7 @@ int main(int argc, char *argv[]){
 	}else{
 		file = std::string(argv[1]);
 	}
-	std::cout<<random<<"\n";
+	//std::cout<<random<<"\n";
 	game g{file, random};
 
 

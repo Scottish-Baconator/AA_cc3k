@@ -97,7 +97,7 @@ game::game(std::string fl, bool random): floorNum(1), a{new action()}, f(new lev
 	}else{
 		pC = find('@', file, floorNum);
 		stairs = find('\\', file, floorNum);
-		std::cout<<pC<<" "<<stairs<<"\n";
+		//std::cout<<pC<<" "<<stairs<<"\n";
 	}
 	switch (race){
 	case 's':
