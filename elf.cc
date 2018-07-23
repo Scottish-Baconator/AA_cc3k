@@ -12,6 +12,6 @@ char elf::render() const{
 	return 'E';
 }
 
-bool doubleAttack() const{
+bool elf::doubleAttack() const{
 	return true;
 }
