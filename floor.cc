@@ -9,6 +9,7 @@
 #include "textdisplay.h"
 #include <iostream>
 #include <cstdlib>
+#include <cmath>
 #include "human.h"
 #include "dwarf.h"
 #include "halfling.h"
@@ -61,7 +62,6 @@ void level::randGen(){
 		gold* g;
 
 		int goldrand = rand() % 8;
-		std::cout<<goldrand;
 		do{
 			chamberid= rand() % 5;
 			gc= chmbrs[chamberid]->random();
@@ -344,4 +344,29 @@ chamber* level::getChmbr(const int a) const {
 
 obj *level::getObj(const coord &c) const{
 	return grd[c.x][c.y];
+}
+
+//Returns the player character object
+character* level::getPC() const{
+	for(int i = 0;i < 30;i++){
+		for(int j = 0;j < 79;j++){
+			if(!empty(coord(j, i)) && getObj(coord(j, i))->render() == '@'){
+				return static_cast<character*> (getObj(coord(j,i)));
+			}
+		}
+	}
+	return nullptr;
+
+}
+
+
+bool level::close(const obj  *const obs, const obj  *const subj ) const{
+	for(int i = 0;i < 30;i++){
+		for(int j = 0;j < 79;j++){
+			if(!empty(coord(j, i)) && getObj(coord(j, i))==subj){
+				return (abs(j - obs->getPos().x) <= 1 && abs(i - obs->getPos().y) <= 1);
+			}
+		}
+	}
+	return false;
 }

@@ -56,6 +56,9 @@ public:
 
 	//Checks enemyStuck all 8 directions
 	bool enemyTrapped(const coord &c);
+
+	character* getPC() const;
+	bool close(const obj  *const obs, const obj  *const subj ) const;
 };
 
 
