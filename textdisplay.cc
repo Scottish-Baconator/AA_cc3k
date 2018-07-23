@@ -31,8 +31,7 @@ bool isIn(char a, char b[], int len){
 	return false;
 }
 
-obj* textDisplay::type(char c, coord pos, std::vector<coord> drgns){
-	coord d = drgns.front();
+obj* textDisplay::type(char c, coord pos){
 	switch(c){
 		case '0':
 			return new potion(pos, potion::RH);
@@ -53,8 +52,8 @@ obj* textDisplay::type(char c, coord pos, std::vector<coord> drgns){
 		case '8':
 			return new gold(pos, 4);
 		case '9':
-			drgns.erase(drgns.begin());
-			return new hoard(pos, f, d);
+			//drgns.erase(drgns.begin());
+			return new hoard(pos, f);
 		case 'M':
 			return new merchant(pos);
 		case 'E':
@@ -74,26 +73,12 @@ obj* textDisplay::type(char c, coord pos, std::vector<coord> drgns){
 textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},a{a}{
 	std::ifstream in;
 	std::ifstream dr;
-	std::vector<coord> dragons;
-	char accept[] = {'|', '-', '.', '#', '+', ' '};
-	int aLen = 6;
-	dr.open(file);
+	char accept[] = {'|', '-', '.', '#', '+', ' ', 'D', '@', '\\'};
+	int aLen = 9;
 	char c='.';
 
-	if(!rand){
-		for(int i = 0;i < 25;i++){
-			for(int j = 0;j < 79;j++){
-				dr.get(c);
-				if(c == 'D'){
-					coord ta{j, i};
-					dragons.emplace_back(ta);
-				}
-			}
-			in.ignore();
-		}
-	}
-
 	in.open(file);
+	in.ignore(1975 * (f->getFloorNum() - 1));
 	for(int i = 0;i < 25;i++){
 		for(int j = 0;j < 79;j++){
 			in.get(c);
@@ -101,9 +86,19 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 			if((!rand) && !isIn(c, accept, aLen)){
 				map[j][i] = '.';
 				coord pos{j, i};
-				f->add(type(c, pos, dragons), pos);
+				obj* tem = type(c, pos);
+				if(tem == nullptr){
+					std::cout<<"Null ("<<j<<", "<<i<<") "<<c<<"\n";
+				}else{
+					std::cout<<tem->render()<<" ("<<j<<", "<<i<<") "<<c<<"\n";
+				}
+				f->add(tem, pos);
 			}else{
-				map[j][i] = c;
+				if(c == '@'||c == '\\'||c == 'D'){
+					map[j][i] = '.';
+				}else{
+					map[j][i] = c;
+				}
 			}
 		}
 		in.ignore();

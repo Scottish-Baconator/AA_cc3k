@@ -11,6 +11,7 @@
 #include "chamber.h"
 #include "player.h"
 #include <iostream>
+#include <vector>
 
 class textDisplay;
 class action;
@@ -18,7 +19,7 @@ class action;
 class level{
 	int floorNum;
 	textDisplay *td = nullptr;
-	obj* grd[79][30];
+	std::vector<std::vector<obj*>> grd;
 	chamber *chmbrs[5];
 public:
 	enum Walk {All, PC, No};

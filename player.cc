@@ -30,7 +30,7 @@ coord player::step(level *f, action *a) {
 	return pos;
 }
 
-std::string player::getRace() const{
+std::string player::getRace(){
 	return race;
 }
 

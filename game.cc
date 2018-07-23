@@ -79,8 +79,8 @@ bool game::goodRace(){
 
 
 
-game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level{fl, a, floorNum, prov}){
-	provided = !prov;
+game::game(std::string fl, bool random): floorNum(1), a{new action()}, f(new level{fl, a, floorNum, random}){
+	provided = !random;
 	char races[] = {'s', 'd', 'v', 'g', 't'};
 	done = false;
 	do{
@@ -97,6 +97,7 @@ game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level
 	}else{
 		pC = find('@', file, floorNum);
 		stairs = find('\\', file, floorNum);
+		std::cout<<pC<<" "<<stairs<<"\n";
 	}
 	switch (race){
 	case 's':

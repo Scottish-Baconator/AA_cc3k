@@ -155,7 +155,6 @@ void level::randGen(){
 void level::setWalk(){
 	for(int i = 0;i < 79;i++){//rows
 		for(int j = 0;j < 30;j++){//cols
-			grd[i][j] = nullptr;
 			switch(td->get(coord(i, j))){
 			case '.':
 				can[i][j] = All;
@@ -216,15 +215,17 @@ void level::makeChambers(){
 
 
 //Reads map from file and determines the level layout
-level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floorNum}, td{new textDisplay(file, this, a, rand)}{
-	setWalk();
-
+level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floorNum}{
 	//Initializes every cell to be empty
+	grd.resize(79);
 	for(int i = 0;i < 79;i++){
+		grd[i].resize(30);
 		for(int j = 0;j < 30;j++){
 			grd[i][j]=nullptr;
 		}
 	}
+	td = new textDisplay(file, this, a, rand);
+	setWalk();
 
 	makeChambers();
 

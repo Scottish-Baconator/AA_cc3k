@@ -39,16 +39,14 @@ game::dir convert(std::string s){
 
 int main(int argc, char *argv[]){
 	std::string file;
-	bool provided = (argc < 2);
+	bool random = (argc < 2);
 	if(argc < 2){
-		//std::cerr<<"2 arguments required.";
-		//return 1;
 		file = "./cc3kblankfloor.txt";
 	}else{
 		file = std::string(argv[1]);
 	}
-
-	game g{file, provided};
+	std::cout<<random<<"\n";
+	game g{file, random};
 
 
 	if(!g.goodRace()){
@@ -62,17 +60,17 @@ int main(int argc, char *argv[]){
 	while(std::cin >> s){
 		bool comp = false;
 
-		if(s == 'u'){
+		if(s[0] == 'u'){
 			std::cin >> s;
 			comp = g.use(convert(s));
-		}else if(s == 'a'){
+		}else if(s[0] == 'a'){
 			std::cin >> s;
 			comp = g.attack(convert(s));
-		}else if(s == 'f'){
+		}else if(s[0] == 'f'){
 			g.stop();
-		}else if(s == 'r'){
-			g = game(file, provided);
-		}else if(s == 'q'){
+		}else if(s[0] == 'r'){
+			g = game(file, !random);
+		}else if(s[0] == 'q'){
 			break;
 		}else{
 			g.move(convert(s));

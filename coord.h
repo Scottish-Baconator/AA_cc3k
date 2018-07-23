@@ -7,7 +7,7 @@
 
 #ifndef COORD_H_
 #define COORD_H_
-
+#include <iostream>
 
 struct coord{
 	int x, y;
@@ -15,6 +15,11 @@ struct coord{
 
 	bool eq(const coord &a) const{
 		return (a.x == x && a.y == y);
+	}
+
+	friend std::ostream &operator<<(std::ostream &out, coord c){
+		out<<"("<<c.x<<", "<<c.y<<")";
+		return out;
 	}
 };
 
