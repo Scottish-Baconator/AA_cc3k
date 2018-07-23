@@ -30,6 +30,7 @@ coord find(char c, std::string file, int floorNum){
 				return coord(j, i);
 			}
 		}
+		in.ignore(1);
 	}
 	return coord(0,0);
 }
