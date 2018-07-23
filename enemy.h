@@ -13,7 +13,6 @@
 
 class enemy: public character{
 	coord move(level *f);
-	character* getPC(level *f);
 	
 protected:
 	bool isHostile;

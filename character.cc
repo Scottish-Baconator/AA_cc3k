@@ -103,7 +103,7 @@ int character::stealAmt() const{
 
 //Used by drow to double-attack most player races
 bool character::canDouble() const{
-	return false;
+	return true;
 }
 
 //Used by orcs do deal extra damage to goblins

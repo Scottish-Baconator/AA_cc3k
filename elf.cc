@@ -12,8 +12,6 @@ char elf::render() const{
 	return 'E';
 }
 
-int elf::atkEffect(character *subj, int dmg){
-	(void) subj;
-	return dmg;
+bool doubleAttack() const{
+	return true;
 }
-

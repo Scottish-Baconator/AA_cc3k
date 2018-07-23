@@ -7,38 +7,8 @@
 #include "enemy.h"
 #include "floor.h"
 #include "gold.h"
-#include <cmath>
 #include <iostream>
 
-//abs already included somewhere else (cmath?)
-/*int abs(int a){
-	return (a < 0 ? -a : a);
-}*/
-
-//Determines if the player is on a neighbouring tile
-bool enemy::closePC(const level  *const f) const{
-	for(int i = 0;i < 30;i++){
-		for(int j = 0;j < 79;j++){
-			if(!f->empty(coord(j, i)) && f->getObj(coord(j, i))->render() == '@'){
-				return (abs(j - pos.x) <= 1 && abs(i - pos.y) <= 1);
-			}
-		}
-	}
-	return false;
-}
-
-//Returns the player character object
-character* enemy::getPC(level *f){
-	for(int i = 0;i < 30;i++){
-		for(int j = 0;j < 79;j++){
-			if(!f->empty(coord(j, i)) && f->getObj(coord(j, i))->render() == '@'){
-				return (character*) f->getObj(coord(j,i));
-			}
-		}
-	}
-	return nullptr;
-
-}
 
 //Move to a random neighbouring tile
 coord enemy::move(level *f){
@@ -92,7 +62,7 @@ enemy::~enemy(){}
 //Runs enemy action.
 coord enemy::step(level *f, action *a){
 	if(closePC(f) && isHostile){
-		attack(getPC(f), a);
+		attack(f->getPC(), a);
 	}else if(!isStationary){
 		pos = move(f);
 	}
@@ -141,4 +111,9 @@ void enemy::spawn(level *f, const coord &pos, int val){
 //By default, enemies drop small or normal gold on their position
 void enemy::drop(level *f){
 	f->replace(new gold(pos, (rand()%2)*2),pos);
+}
+
+
+bool enemy::closePC(const level *const f) const{
+	return f->close(this,f->getPC());
 }

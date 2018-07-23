@@ -239,8 +239,8 @@ bool game::move(dir d){
 			if((f->getObj(temp)->render() == '\\')){
 				nextLevel();
 			}else if(f->getObj(temp)->render() == 'G'){
-				if(((gold*)f->getObj(temp))->getPick()){
-					int newgld = ((gold *) (f->getObj(temp)))->getVal();
+				if(static_cast<gold*> (f->getObj(temp))->getPick()){
+					int newgld = static_cast<gold*> ((f->getObj(temp)))->getVal();
 					gld += newgld;
 					a->addGold(newgld);
 					f->remove(temp);
@@ -285,7 +285,7 @@ bool game::use(dir d){
 	coord temp = getCoord(d, pC);
 
 	if(!f->empty(temp) && f->getObj(temp)->render() == 'P'){
-		potion *pot = (potion *) f->getObj(temp);
+		potion *pot = static_cast<potion*> (f->getObj(temp));
 		pp = pot->effect(pp);
 		pot->displayEffect(a);
 		f->update(pp, pC);
@@ -301,7 +301,7 @@ bool game::attack(dir d){
 	coord temp = getCoord(d, pC);
 
 	if(!f->empty(temp) && one(f->getObj(temp)->render(), enemies, 7)){
-		enemy* tAtk = (enemy*)f->getObj(temp);
+		enemy* tAtk = static_cast<enemy*> (f->getObj(temp));
 		pp->attack(tAtk, a);
 		a->showHP(tAtk->getName(), tAtk->getHP());
 
