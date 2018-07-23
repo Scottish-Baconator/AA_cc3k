@@ -8,7 +8,7 @@
 
 elf::elf(coord pos): enemy(pos, 140, 30, 10, "Elf", true, false){}
 
-char elf::render(){
+char elf::render() const{
 	return 'E';
 }
 

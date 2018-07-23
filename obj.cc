@@ -11,10 +11,7 @@
 		(void)a;
 		return pos;
 	}
-	coord obj::getPos(){return pos;}
-
-	char obj::render(){
-		return 'O';
+	coord obj::getPos() const{
+		return pos;
 	}
-
 

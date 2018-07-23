@@ -16,13 +16,13 @@ protected:
 public:
 	gold(coord pos, int v, bool pickable=true): item(pos), val(v), canPick{pickable}{
 	};
-	char render(){
+	char render() const override{
 		return 'G';
 	}
-	int getVal(){
+	int getVal() const{
 		return val;
 	}
-	bool getPick(){
+	bool getPick() const{
 		return canPick;
 	}
 };

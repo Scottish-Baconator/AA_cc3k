@@ -224,7 +224,7 @@ level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floo
 	}
 }
 
-bool level::empty(coord c){
+bool level::empty(coord c) const{
 	if(c.x>=79 || c.y >=30 || c.x < 0 || c.y<0){
 		return false;
 	}

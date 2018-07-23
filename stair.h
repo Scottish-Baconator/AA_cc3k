@@ -13,7 +13,7 @@
 class stair: public obj{
 public:
 	stair(coord pos);
-	char render();
+	char render() const override;
 };
 
 

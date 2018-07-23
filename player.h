@@ -21,12 +21,12 @@ class player : public character {
 public:
 	player(coord pos, int hp, double atk, double def, std::string race);
 	
-	char render();
+	char render() const override;
 	
 
 	//Player dodges half the time
-	int dodgeChance() override;
-	std::string getRace();
+	int dodgeChance() const override;
+	std::string getRace() const;
 	coord step(level *f, action *a) override;
 };
 

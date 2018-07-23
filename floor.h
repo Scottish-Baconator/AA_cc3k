@@ -37,8 +37,8 @@ public:
 	void replace(obj *toAdd, coord pos);
 	void render(std::ostream &out, player *p, int gld);
 	void step(action *a);
-	obj *getObj(coord c){return grd[c.x][c.y];}
-	bool empty(coord c);
+	obj *getObj(coord c) const{return grd[c.x][c.y];}
+	bool empty(coord c) const;
 	bool move(coord origin, coord target);
 	Walk canWalk(coord c);
 	void remove(coord c);

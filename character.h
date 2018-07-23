@@ -13,57 +13,71 @@
 
 class action;
 
+//Abstract class that encompasses players and enemies
+//Handles most of the combat-related mechanics
 class character: public obj{
 	int mhp, hp;
 	double atk, def;
 	std::string name;
+
 public:
 	character(coord pos, int hp, double atk, double def, std::string name);
-	virtual ~character(){}
 
-	//attack does not get overriden so "resolving combat" stays generalized
+	virtual ~character()=0;
+
+	//Attack does not get overriden so resolving combat stays generalized
+	//Enemies and players both call this same attack command when attacking the subject
 	void attack(character *subj, action *a);
 	
-	virtual int atkEffect(character *subj, int dmg); //both players and enemies can have an atkEffect (vampire; elf)
+	//Both players and enemies can have an atkEffect (vampire; elf)
+	virtual int atkEffect(character *const subj, const int dmg);
 	
-	void chngHP(int change);
+	//Changes HP by the given amount. Cannot exceed MHP unless the given flag is true
+	void chngHP(const int change);
+
+	//Used when a character gets attacked. Ex. When merchant gets attacked, they become hostile.
 	virtual void attacked();
 
-	
-	int getHP();
-	virtual double getAtk();
-	virtual double getDef();
-	std::string getName();
+	//Accessors
+	int getHP() const;
+	virtual double getAtk() const;
+	virtual double getDef() const;
+	std::string getName() const;
 	
 	//By default, enemies never dodge
-	virtual int dodgeChance();
+	virtual int dodgeChance() const;
 
 
-	//Special Effects:
+	//Special Effect Flags
+	//These get overriden by classes that use the effects
 
 	//Drain returns the health drain of a vamp
 		//Overriden by dwarf to -5
-	virtual int drain();
-	virtual bool doubleAttack();
-	virtual bool canSteal();
+	virtual int drain() const;
 
-	virtual double potionMulti();
+	//Allows character to attack twice
+	virtual bool doubleAttack() const;
 
-	//Allows vampire to not have max hp. This flag lets us generalize
-	virtual bool ignoreMHP();
+	//Steals upon killing an enemy
+	virtual bool canSteal() const;
+
+	//Multiplier to change potion effectiveness
+	virtual double potionMulti() const;
+
+	//Allows vampire to not have max HP.
+	virtual bool ignoreMHP() const;
 	
 	//Allows troll to regenerate HP
-	virtual int regen();
+	virtual int regen() const;
 
 	//Allows goblin to steal items
-	virtual int stealAmt();
+	virtual int stealAmt() const;
 
 	//Used by drow to double-attack most player races
-	virtual bool canDouble();
+	virtual bool canDouble() const;
 
 	//Used by orcs do deal extra damage to goblins (small creatures)
-	virtual bool smallWeakness();
-
+	virtual bool smallWeakness() const;
 
 };
 

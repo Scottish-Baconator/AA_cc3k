@@ -19,8 +19,9 @@ public:
 	obj(coord c): pos(c){}
 	virtual ~obj(){};
 	virtual coord step(level *f, action *a);
-	coord getPos();
-	virtual char render();
+	coord getPos() const;
+
+	virtual char render() const = 0;
 };
 
 

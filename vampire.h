@@ -18,10 +18,10 @@ public:
 
 	//void chngHP(int p);
 
-	int atkEffect(character *subj, int dmg) override;
+	int atkEffect(character *const subj, int dmg) override;
 
 	//Allows vampire to not have max hp
-	bool ignoreMHP() override;
+	bool ignoreMHP() const override;
 };
 
 

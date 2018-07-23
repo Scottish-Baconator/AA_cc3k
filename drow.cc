@@ -10,9 +10,9 @@
 drow::drow(coord pos): player(pos, 150, 25, 15, "Drow"){}
 
 
-double drow::potionMulti(){
+double drow::potionMulti() const{
 	return 1.5;
 }
-bool drow::canDouble(){
+bool drow::canDouble() const{
 	return false;
 }

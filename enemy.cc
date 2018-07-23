@@ -16,7 +16,7 @@
 }*/
 
 //Determines if the player is on a neighbouring tile
-bool enemy::closePC(level *f){
+bool enemy::closePC(const level  *const f) const{
 	for(int i = 0;i < 30;i++){
 		for(int j = 0;j < 79;j++){
 			if(!f->empty(coord(j, i)) && f->getObj(coord(j, i))->render() == '@'){
@@ -91,16 +91,15 @@ enemy::~enemy(){}
 
 //Runs enemy action.
 coord enemy::step(level *f, action *a){
-//	std::cerr << getName() << "START" << std::endl;
 	if(closePC(f) && isHostile){
 		attack(getPC(f), a);
 	}else if(!isStationary){
 		pos = move(f);
 	}
-	//	std::cerr << getName() << "END" << std::endl;
 	return pos;
 }
 
+//Spawns a gold of the specified val adjacent to pos on the given level
 void enemy::spawn(level *f, coord pos, int val){
 	coord to(pos);
 
@@ -142,5 +141,4 @@ void enemy::spawn(level *f, coord pos, int val){
 //By default, enemies drop small or normal gold on their position
 void enemy::drop(level *f){
 	f->replace(new gold(pos, (rand()%2)*2),pos);
-	//spawn(f, pos, (rand()%2)*2);
 }

@@ -14,8 +14,8 @@ class goblin: public player{
 public:
 	goblin(coord pos);
 
-	bool smallWeakness() override;
-	bool canSteal() override;
+	bool smallWeakness() const override;
+	bool canSteal() const override;
 };
 
 
