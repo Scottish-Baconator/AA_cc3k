@@ -71,7 +71,12 @@ int main(int argc, char *argv[]){
 		}else if(s[0] == 'f'){
 			g.stop();
 		}else if(s[0] == 'r'){
-			g = game(file, !random);
+			g = game{file, random};
+			if(!g.goodRace()){
+				return 0;
+			}
+			g.render(std::cout);
+			continue;
 		}else if(s[0] == 'q'){
 			break;
 		}else{

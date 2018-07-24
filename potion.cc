@@ -22,10 +22,10 @@ char potion::render() const {
 player* potion::effect(player *p){
 	switch(potionType){
 	case RH:
-		p->chngHP(10);
+		p->chngHP(10*p->potionMulti());
 		return p;
 	case PH:
-		p->chngHP(-10);
+		p->chngHP(-10*p->potionMulti());
 		return p;
 	case BA:
 		return new BAtk(p);
@@ -39,31 +39,31 @@ player* potion::effect(player *p){
 	return p;
 }
 
-void potion::displayEffect(action *a){
+void potion::displayEffect(action *a, player *p){
 	switch(potionType){
 		case RH:
 			a->usePot("Restore Health");
-			a->changeStat("HP","+",10);
+			a->changeStat("HP","+",10*p->potionMulti());
 			break;
 		case PH:
 			a->usePot("Poison Health");
-			a->changeStat("HP","-",10);
+			a->changeStat("HP","-",10*p->potionMulti());
 			break;
 		case BA:
 			a->usePot("Boost Attack");
-			a->changeStat("ATK","+",5);
+			a->changeStat("ATK","+",5*p->potionMulti());
 			break;
 		case BD:
 			a->usePot("Boost Defense");
-			a->changeStat("DEF","+",5);
+			a->changeStat("DEF","+",5*p->potionMulti());
 			break;
 		case WA:
 			a->usePot("Wound Attack");
-			a->changeStat("ATK","-",5);
+			a->changeStat("ATK","-",5*p->potionMulti());
 			break;
 		case WD:
 			a->usePot("Wound Defense");
-			a->changeStat("DEF","-",5);
+			a->changeStat("DEF","-",5*p->potionMulti());
 			break;
 	}
 }

@@ -100,6 +100,8 @@ game::game(std::string fl, bool randomize): randomize{randomize},file{fl},a{new 
 		pC = f->getChmbr(pCh)->random();
 	}else{
 		pC = find('@', file, floorNum);
+		coord sc = find('\\', file, floorNum);
+		f->add(new stair{sc},sc);
 	}
 	switch (race){
 		case 's':
@@ -121,8 +123,10 @@ game::game(std::string fl, bool randomize): randomize{randomize},file{fl},a{new 
 
 	pp = p;
 	f->add(pp, pC);
-	f->randGen(pCh);
-	//for testing purposes
+
+	if(randomize){
+		f->randGen(pCh);
+	}
 }
 
 void game::nextLevel(){
@@ -142,12 +146,17 @@ void game::nextLevel(){
 		pC = f->getChmbr(pCh)->random();
 	}else{
 		pC = find('@', file, floorNum);
+		coord sc = find('\\', file, floorNum);
+		f->add(new stair{sc},sc);
 	}
 	p->chngPos(pC);
 
 	pp = p;
 	f->add(pp, pC);
-	f->randGen(pCh);
+
+	if(randomize){
+		f->randGen(pCh);
+	}
 }
 
 void game::step(){
@@ -236,6 +245,7 @@ bool game::move(dir d){
 		if(!f->empty(temp)){
 			if((f->getObj(temp)->render() == '\\')){
 				nextLevel();
+				return false;
 			}else if(f->getObj(temp)->render() == 'G'){
 				if(static_cast<gold*> (f->getObj(temp))->getPick()){
 					int newgld = static_cast<gold*> ((f->getObj(temp)))->getVal();
@@ -288,8 +298,8 @@ bool game::use(dir d){
 
 	if(!f->empty(temp) && f->getObj(temp)->render() == 'P'){
 		potion *pot = static_cast<potion*> (f->getObj(temp));
+		pot->displayEffect(a, pp);
 		pp = pot->effect(pp);
-		pot->displayEffect(a);
 		f->update(pp, pC);
 		f->remove(temp);
 		return true;

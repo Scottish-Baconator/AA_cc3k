@@ -75,12 +75,11 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 	for(size_t i = 0;i < map.size();i++){
 		map[i].resize(30);
 	}
-	std::ifstream in;
+	std::ifstream in(file);
 	std::ifstream dr;
 	char accept[] = {'|', '-', '.', '#', '+', ' ', 'D', '@', '\\'};
 	int aLen = 9;
 	char c='.';
-	in.open(file);
 
 	for(int i = 0;i < 25;i++){
 		for(int j = 0;j < 79;j++){
@@ -89,20 +88,23 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 	}
 
 	if(!rand){
-		in.ignore(1975 * (f->getFloorNum() - 1));
+		in.ignore(2000 * (f->getFloorNum() - 1));
 	}
+
 	for(int i = 0;i < 25;i++){
+
 		for(int j = 0;j < 79;j++){
 			in.get(c);
 
+			//std::cerr << "("<<static_cast<int>(c)<<")";
 			if((!rand) && !isIn(c, accept, aLen)){
 				map[j][i] = '.';
 				coord pos{j, i};
 				obj* tem = type(c, pos);
 				if(tem == nullptr){
-					std::cout<<"Null ("<<j<<", "<<i<<") "<<c<<"\n";
+					//std::cout<<"Null ("<<j<<", "<<i<<") "<<c<<"\n";
 				}else{
-					std::cout<<tem->render()<<" ("<<j<<", "<<i<<") "<<c<<"\n";
+					//std::cout<<tem->render()<<" ("<<j<<", "<<i<<") "<<c<<"\n";
 				}
 				f->add(tem, pos);
 			}else{
@@ -113,8 +115,11 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 				}
 			}
 		}
+
 		in.ignore();
+		//std::cerr << std::endl;
 	}
+
 }
 
 void textDisplay::render(std::ostream &out, player *const p, const int gld) const{

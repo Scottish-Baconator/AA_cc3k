@@ -20,7 +20,7 @@ public:
 	potion(coord pos, type t);
 	char render() const;
 	player* effect(player *p);
-	void displayEffect(action *a);
+	void displayEffect(action *a, player *p);
 };
 
 
