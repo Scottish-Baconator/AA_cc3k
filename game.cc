@@ -80,45 +80,51 @@ bool game::goodRace(){
 
 
 
-game::game(std::string fl, bool randomize): randomize{randomize},file{fl},a{new action()},f{ new level{fl, a, floorNum, randomize}}{
+game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level{fl, a, floorNum, prov}){
+	provided = !prov;
 	char races[] = {'s', 'd', 'v', 'g', 't'};
-
+	done = false;
 	do{
 		race = racePick();
 		if(race == 'q'){
 			return;
 		}
 	}while(!inArr(race, races, 5));
-
-	int pCh;
-	if(randomize){
-		pCh = f->getRandomChamber();
+	file = fl;
+	if(!provided){
+		int pCh = rand()%5;
 		pC = f->getChmbr(pCh)->random();
+		stairs = f->getChmbr(pCh)->random();
 	}else{
 		pC = find('@', file, floorNum);
+		stairs = find('\\', file, floorNum);
 	}
 	switch (race){
-		case 's':
-			p = new shade(pC);
-			break;
-		case 'd':
-			p = new drow(pC);
-			break;
-		case 'v':
-			p = new vampire(pC);
-			break;
-		case 't':
-			p = new troll(pC);
-			break;
-		case 'g':
-			p = new goblin(pC);
-			break;
+	case 's':
+		p = new shade(pC);
+		break;
+	case 'd':
+		p = new drow(pC);
+		break;
+	case 'v':
+		p = new vampire(pC);
+		break;
+	case 't':
+		p = new troll(pC);
+		break;
+	case 'g':
+		p = new goblin(pC);
+		break;
 	}
-
 	pp = p;
+	gld = 0;
 	f->add(pp, pC);
-	f->randGen(pCh);
+	paused = false;
 	//for testing purposes
+//	stairs = f->getChmbr(4 - pCh)->random();
+	f->add(new stair(stairs), stairs);
+	tHoard = nullptr;
+	bHoard = false;
 }
 
 void game::nextLevel(){
@@ -130,20 +136,20 @@ void game::nextLevel(){
 	//must copy FIRST since delete f deletes our player!
 	p = new player{*p};
 	delete f;
-	f = new level{file,a, floorNum, randomize};
-
-	int pCh;
-	if(randomize){
-		pCh = f->getRandomChamber();
+	f = new level{file,a, floorNum, !provided};
+	if(!provided){
+		int pCh = rand()%5;
 		pC = f->getChmbr(pCh)->random();
+		stairs = f->getChmbr(4 - pCh)->random();
 	}else{
 		pC = find('@', file, floorNum);
+		stairs = find('\\', file, floorNum);
 	}
 	p->chngPos(pC);
-
 	pp = p;
 	f->add(pp, pC);
-	f->randGen(pCh);
+	paused = false;
+	f->add(new stair(stairs), stairs);
 }
 
 void game::step(){
@@ -232,7 +238,6 @@ bool game::move(dir d){
 		if(!f->empty(temp)){
 			if((f->getObj(temp)->render() == '\\')){
 				nextLevel();
-				return false;
 			}else if(f->getObj(temp)->render() == 'G'){
 				if(static_cast<gold*> (f->getObj(temp))->getPick()){
 					int newgld = static_cast<gold*> ((f->getObj(temp)))->getVal();
