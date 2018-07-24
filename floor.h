@@ -19,7 +19,7 @@ class action;
 class level{
 	int floorNum;
 	textDisplay *td = nullptr;
-	obj* grd[79][30];
+	std::vector<std::vector<obj*>> grd;
 	std::vector<chamber*> chmbrs;
 public:
 	enum Walk {All, PC, No};

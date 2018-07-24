@@ -26,7 +26,7 @@ public:
 
 	//Player dodges half the time
 	int dodgeChance() const override;
-	std::string getRace() const;
+	std::string getRace();
 	coord step(level *f, action *a) override;
 	virtual double scoreMultiplier() const;
 };

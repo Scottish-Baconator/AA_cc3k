@@ -31,6 +31,7 @@ coord find(char c, std::string file, int floorNum){
 				return coord(j, i);
 			}
 		}
+		in.ignore(1);
 	}
 	return coord(0,0);
 }
@@ -80,8 +81,8 @@ bool game::goodRace(){
 
 
 
-game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level{fl, a, floorNum, prov}){
-	provided = !prov;
+game::game(std::string fl, bool random): floorNum(1), a{new action()}, f(new level{fl, a, floorNum, random}){
+	provided = !random;
 	char races[] = {'s', 'd', 'v', 'g', 't'};
 	done = false;
 	do{
@@ -98,6 +99,7 @@ game::game(std::string fl, bool prov): floorNum(1), a{new action()}, f(new level
 	}else{
 		pC = find('@', file, floorNum);
 		stairs = find('\\', file, floorNum);
+		//std::cout<<pC<<" "<<stairs<<"\n";
 	}
 	switch (race){
 	case 's':
@@ -150,6 +152,8 @@ void game::nextLevel(){
 	f->add(pp, pC);
 	paused = false;
 	f->add(new stair(stairs), stairs);
+	tHoard = nullptr;
+	bHoard = false;
 }
 
 void game::step(){
@@ -258,10 +262,14 @@ bool game::move(dir d){
 
 		a->movePC(dirtext);
 
-		//std::cerr<<"a"<<std::endl;
 		if(f->move(pC, temp)){
-			//std::cerr<<"to"<<std::endl;
 			if(!bHoard && (tHoard != nullptr)){
+				//if(tHoard == nullptr){
+				//	std::cout<<"Ther be no dragons here!\n";
+				//}else{
+				//	std::cout<<"Thar be dragons\n";
+				//	std::cout<<"Here be dragons: "<<tHoard->getPos()<<"\n";
+				//}
 				f->add(tHoard, pC);
 				tHoard = nullptr;
 			}

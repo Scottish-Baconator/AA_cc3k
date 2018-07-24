@@ -9,7 +9,7 @@
 #include <vector>
 #include "time.h"
 
-coord chamber::random() const{
+coord chamber::random(){
 	int r = rand() % coords.size();
 	return coords[r];
 }

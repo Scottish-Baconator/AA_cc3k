@@ -9,6 +9,7 @@
 #include "textdisplay.h"
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 #include <cmath>
 #include "human.h"
 #include "dwarf.h"
@@ -31,15 +32,8 @@ bool level::is(const coord &c) const{
 	return false;
 }
 
-void level::randGen(int playerChamber){
-	int stairchmbr;
-	do{
-		stairchmbr = getRandomChamber();
-	}while(stairchmbr==playerChamber);
-
-	coord scoord = chmbrs[stairchmbr]->random();
-	add(new stair(scoord), scoord);
-
+void level::randGen(){
+	srand(time(0));
 	for(int i = 0;i < 10;i++){
 		coord tem = chmbrs[rand()%(chmbrs.size())]->random();
 		potion::type t;
@@ -165,7 +159,6 @@ void level::randGen(int playerChamber){
 void level::setWalk(){
 	for(int i = 0;i < 79;i++){//rows
 		for(int j = 0;j < 30;j++){//cols
-			grd[i][j] = nullptr;
 			switch(td->get(coord(i, j))){
 			case '.':
 				can[i][j] = All;
@@ -229,13 +222,16 @@ void level::makeChambers(){
 level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floorNum}{
 	td = new textDisplay(file, this, a, rand);
 	setWalk();
-
 	//Initializes every cell to be empty
+	grd.resize(79);
 	for(int i = 0;i < 79;i++){
+		grd[i].resize(30);
 		for(int j = 0;j < 30;j++){
 			grd[i][j]=nullptr;
 		}
 	}
+	td = new textDisplay(file, this, a, rand);
+	setWalk();
 
 	makeChambers();
 }
@@ -254,6 +250,7 @@ bool level::empty(const coord &c) const{
 //Notifies all objects on level to run their step
 //The use of ignore prevents enemies from moving multiple times
 void level::step(action *a){
+	srand(time(0));
 	bool ignore[79][30];
 
 	for(int i = 0;i < 79;i++){
@@ -294,6 +291,7 @@ bool level::move(const coord &origin, const coord &target){
 	if(empty(target)){
 		grd[target.x][target.y] = grd[origin.x][origin.y];
 		grd[origin.x][origin.y] = nullptr;
+		grd[target.x][target.y]->chngPos(target);
 		return true;
 	}
 	return false;
