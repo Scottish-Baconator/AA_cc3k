@@ -18,6 +18,7 @@
 #include "merchant.h"
 #include "potion.h"
 #include "hoard.h"
+#include "stair.h"
 
 //Checks if a chamber contains coordinate
 bool level::is(const coord &c) const{
@@ -30,7 +31,15 @@ bool level::is(const coord &c) const{
 	return false;
 }
 
-void level::randGen(){
+void level::randGen(int playerChamber){
+	int stairchmbr;
+	do{
+		stairchmbr = getRandomChamber();
+	}while(stairchmbr==playerChamber);
+
+	coord scoord = chmbrs[stairchmbr]->random();
+	add(new stair(scoord), scoord);
+
 	for(int i = 0;i < 10;i++){
 		coord tem = chmbrs[rand()%(chmbrs.size())]->random();
 		potion::type t;
@@ -229,10 +238,10 @@ level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floo
 	}
 
 	makeChambers();
+}
 
-	if(rand){
-		randGen();
-	}
+int level::getRandomChamber() const{
+	return rand()%(chmbrs.size());
 }
 
 bool level::empty(const coord &c) const{
