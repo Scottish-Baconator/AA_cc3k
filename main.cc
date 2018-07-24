@@ -7,6 +7,8 @@
 #include "game.h"
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 
 game::dir convert(std::string s){
 	if(s.length()!=2){
@@ -46,6 +48,7 @@ int main(int argc, char *argv[]){
 		file = std::string(argv[1]);
 	}
 	//std::cout<<random<<"\n";
+	srand(time(0));
 	game g{file, random};
 
 

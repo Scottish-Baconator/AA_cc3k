@@ -20,7 +20,7 @@ public:
 	virtual ~obj();
 	virtual coord step(level *f, action *a);
 	coord getPos() const;
-	void chngPos(coord c);
+	void chngPos(const coord &c);
 
 	virtual char render() const=0;
 };

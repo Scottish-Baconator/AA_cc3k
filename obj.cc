@@ -15,7 +15,7 @@
 		return pos;
 	}
 
-	void obj::chngPos(coord c){
+	void obj::chngPos(const coord &c){
 		pos = c;
 	}
 

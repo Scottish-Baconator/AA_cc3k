@@ -114,6 +114,6 @@ void enemy::drop(level *f){
 }
 
 
-bool enemy::closePC(const level *const f) const{
+bool enemy::closePC(level *const f) const{
 	return f->close(this,f->getPC());
 }

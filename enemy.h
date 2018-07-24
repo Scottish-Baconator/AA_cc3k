@@ -22,7 +22,7 @@ public:
 	enemy(coord pos, int hp, double atk, double def, std::string name, bool hostile, bool stationary);
 	
 	virtual void drop(level *f); 
-	virtual bool closePC(const level * const f) const;
+	virtual bool closePC(level * const f) const;
 	virtual ~enemy()=0;
 	coord step(level *f, action *a) override;
 	void spawn(level *f, const coord &pos, int val);

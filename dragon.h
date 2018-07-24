@@ -21,7 +21,7 @@ class dragon: public enemy{
 		char render() const override;
 
 		//Override because player is close enough to attack if they're beside the hoard
-		bool closePC(const level *const f) const override;
+		bool closePC(level *const f) const override;
 
 		//Doesn't actually drop to map, but this function will "unlock" the treasure horde
 		void drop(level *f) override;

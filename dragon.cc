@@ -26,6 +26,6 @@ void dragon::drop(level *f){
 }
 
 //Dragon can attack from range if the PC is beside its hoard
-bool dragon::closePC(const level  *const f) const{
+bool dragon::closePC(level  *const f) const{
 	return f->close(this,f->getPC()) ||  f->close(treasure,f->getPC());
 }

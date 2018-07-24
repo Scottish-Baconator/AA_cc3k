@@ -17,6 +17,7 @@
 #include "stair.h"
 #include "action.h"
 #include "floor.h"
+#include "obj.h"
 
 
 coord find(char c, std::string file, int floorNum){
@@ -82,7 +83,7 @@ bool game::goodRace(){
 
 
 game::game(std::string fl, bool random): floorNum(1), a{new action()}, f(new level{fl, a, floorNum, random}){
-	provided = !random;
+	provided = random;
 	char races[] = {'s', 'd', 'v', 'g', 't'};
 	done = false;
 	do{

@@ -20,6 +20,7 @@
 #include "potion.h"
 #include "hoard.h"
 #include "stair.h"
+#include "obj.h"
 
 //Checks if a chamber contains coordinate
 bool level::is(const coord &c) const{
@@ -220,8 +221,6 @@ void level::makeChambers(){
 
 //Reads map from file and determines the level layout
 level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floorNum}{
-	td = new textDisplay(file, this, a, rand);
-	setWalk();
 	//Initializes every cell to be empty
 	grd.resize(79);
 	for(int i = 0;i < 79;i++){
@@ -234,10 +233,10 @@ level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floo
 	setWalk();
 
 	makeChambers();
-}
 
-int level::getRandomChamber() const{
-	return rand()%(chmbrs.size());
+	if(rand){
+		randGen();
+	}
 }
 
 bool level::empty(const coord &c) const{
