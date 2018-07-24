@@ -19,20 +19,19 @@ class action;
 class obj;
 
 class game{
-	obj* tHoard;//stupid frekin hoards
-	bool bHoard;
-	bool provided;
-	bool done;
-	int floorNum;//starts from 1
+	bool randomize;
+	obj* tHoard=nullptr;
+	bool bHoard=false;
+	bool done=false;
+	int floorNum=1;//starts from 1
 	std::string file;
 	action *a;
 	level *f;
 	player *p = nullptr;
 	player *pp = nullptr;//potioned player
 	coord pC = coord(0,0);
-	coord stairs = coord (10, 10);
-	int gld;
-	bool paused;
+	int gld=0;
+	bool paused=false;
 	void nextLevel();
 	char racePick();
 	char race = 'I';

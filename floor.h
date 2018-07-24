@@ -26,7 +26,6 @@ public:
 
 private:
 	Walk can[79][30];
-	void randGen();
 	void setWalk();
 	void makeChambers();
 
@@ -61,6 +60,8 @@ public:
 	character* getPC() const;
 	bool close(const obj  *const obs, const obj  *const subj ) const;
 	bool is(const coord &c) const;
+	void randGen(int playerChamber);
+	int getRandomChamber() const;
 };
 
 

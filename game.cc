@@ -82,52 +82,47 @@ bool game::goodRace(){
 
 
 
-game::game(std::string fl, bool random): floorNum(1), a{new action()}, f(new level{fl, a, floorNum, random}){
-	provided = random;
+
+game::game(std::string fl, bool randomize): randomize{randomize},file{fl},a{new action()},f{ new level{fl, a, floorNum, randomize}}{
 	char races[] = {'s', 'd', 'v', 'g', 't'};
-	done = false;
+
 	do{
 		race = racePick();
 		if(race == 'q'){
 			return;
 		}
 	}while(!inArr(race, races, 5));
-	file = fl;
-	if(!provided){
-		int pCh = rand()%5;
+
+	int pCh;
+
+	if(randomize){
+		pCh = f->getRandomChamber();
 		pC = f->getChmbr(pCh)->random();
-		stairs = f->getChmbr(pCh)->random();
 	}else{
 		pC = find('@', file, floorNum);
-		stairs = find('\\', file, floorNum);
-		//std::cout<<pC<<" "<<stairs<<"\n";
 	}
 	switch (race){
-	case 's':
-		p = new shade(pC);
-		break;
-	case 'd':
-		p = new drow(pC);
-		break;
-	case 'v':
-		p = new vampire(pC);
-		break;
-	case 't':
-		p = new troll(pC);
-		break;
-	case 'g':
-		p = new goblin(pC);
-		break;
+		case 's':
+			p = new shade(pC);
+			break;
+		case 'd':
+			p = new drow(pC);
+			break;
+		case 'v':
+			p = new vampire(pC);
+			break;
+		case 't':
+			p = new troll(pC);
+			break;
+		case 'g':
+			p = new goblin(pC);
+			break;
 	}
+
 	pp = p;
-	gld = 0;
 	f->add(pp, pC);
-	paused = false;
+	f->randGen(pCh);
 	//for testing purposes
-//	stairs = f->getChmbr(4 - pCh)->random();
-	f->add(new stair(stairs), stairs);
-	tHoard = nullptr;
-	bHoard = false;
 }
 
 void game::nextLevel(){
@@ -139,22 +134,20 @@ void game::nextLevel(){
 	//must copy FIRST since delete f deletes our player!
 	p = new player{*p};
 	delete f;
-	f = new level{file,a, floorNum, !provided};
-	if(!provided){
-		int pCh = rand()%5;
+	f = new level{file,a, floorNum, randomize};
+
+	int pCh;
+	if(randomize){
+		pCh = f->getRandomChamber();
 		pC = f->getChmbr(pCh)->random();
-		stairs = f->getChmbr(4 - pCh)->random();
 	}else{
 		pC = find('@', file, floorNum);
-		stairs = find('\\', file, floorNum);
 	}
 	p->chngPos(pC);
+
 	pp = p;
 	f->add(pp, pC);
-	paused = false;
-	f->add(new stair(stairs), stairs);
-	tHoard = nullptr;
-	bHoard = false;
+	f->randGen(pCh);
 }
 
 void game::step(){

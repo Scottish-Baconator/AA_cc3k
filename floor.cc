@@ -32,9 +32,15 @@ bool level::is(const coord &c) const{
 	}
 	return false;
 }
+void level::randGen(int playerChamber){
+	int stairchmbr;
+	do{
+		stairchmbr = getRandomChamber();
+	}while(stairchmbr==playerChamber);
 
-void level::randGen(){
-	srand(time(0));
+	coord scoord = chmbrs[stairchmbr]->random();
+	add(new stair(scoord), scoord);
+
 	for(int i = 0;i < 10;i++){
 		coord tem = chmbrs[rand()%(chmbrs.size())]->random();
 		potion::type t;
@@ -156,7 +162,6 @@ void level::randGen(){
 		}
 	}
 }
-
 void level::setWalk(){
 	for(int i = 0;i < 79;i++){//rows
 		for(int j = 0;j < 30;j++){//cols
@@ -233,10 +238,6 @@ level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floo
 	setWalk();
 
 	makeChambers();
-
-	if(rand){
-		randGen();
-	}
 }
 
 bool level::empty(const coord &c) const{
@@ -249,7 +250,7 @@ bool level::empty(const coord &c) const{
 //Notifies all objects on level to run their step
 //The use of ignore prevents enemies from moving multiple times
 void level::step(action *a){
-	srand(time(0));
+	//srand(time(0));
 	bool ignore[79][30];
 
 	for(int i = 0;i < 79;i++){
@@ -266,6 +267,10 @@ void level::step(action *a){
 			}
 		}
 	}
+}
+
+int level::getRandomChamber() const{
+	return rand()%(chmbrs.size());
 }
 
 void level::add(obj *toAdd, const coord &pos){
