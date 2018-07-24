@@ -11,7 +11,7 @@
 #include "coord.h"
 
 const static int MAX_FLOORS = 5;
-const static int CHAR_IN_FLOOR = 1975;
+const static int CHAR_IN_FLOOR = 2000;
 
 class level;
 class player;

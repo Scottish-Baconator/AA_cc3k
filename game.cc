@@ -23,6 +23,8 @@
 coord find(char c, std::string file, int floorNum){
 	std::ifstream in;
 	in.open(file);
+
+	//2000 chars in a floor
 	in.ignore(CHAR_IN_FLOOR * (floorNum - 1));
 	char cur = '0';
 	for(int i = 0;i < 25;i++){
