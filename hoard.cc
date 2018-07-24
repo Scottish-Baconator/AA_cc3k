@@ -8,7 +8,9 @@
 #include "hoard.h"
 #include "floor.h"
 #include "dragon.h"
+#include "gold.h"
 #include <iostream>
+
 hoard::hoard(coord pos, level *f):gold{pos,6,false}{
 	coord dc(pos);
 

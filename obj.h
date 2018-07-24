@@ -22,7 +22,7 @@ public:
 	coord getPos() const;
 	void chngPos(coord c);
 
-	virtual char render() const = 0;
+	virtual char render() const=0;
 };
 
 
