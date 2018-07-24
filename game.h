@@ -11,6 +11,7 @@
 #include "coord.h"
 
 const static int MAX_FLOORS = 5;
+const static int CHAR_IN_FLOOR = 1975;
 
 class level;
 class player;
@@ -35,7 +36,6 @@ class game{
 	void nextLevel();
 	char racePick();
 	char race = 'I';
-
 public:
 	game(std::string);
 	game(std::string, bool);
@@ -52,6 +52,7 @@ public:
 	bool isWinner();
 	int getScore();
 	~game();
+	void gotoNext();
 };
 
 

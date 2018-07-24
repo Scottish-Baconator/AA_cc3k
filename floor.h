@@ -20,7 +20,7 @@ class level{
 	int floorNum;
 	textDisplay *td = nullptr;
 	std::vector<std::vector<obj*>> grd;
-	chamber *chmbrs[5];
+	std::vector<chamber*> chmbrs;
 public:
 	enum Walk {All, PC, No};
 
@@ -57,6 +57,10 @@ public:
 
 	//Checks enemyStuck all 8 directions
 	bool enemyTrapped(const coord &c);
+
+	character* getPC() const;
+	bool close(const obj  *const obs, const obj  *const subj ) const;
+	bool is(const coord &c) const;
 };
 
 

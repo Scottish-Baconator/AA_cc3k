@@ -23,7 +23,7 @@ class character: public obj{
 public:
 	character(coord pos, int hp, double atk, double def, std::string name);
 
-	virtual ~character()=0;
+	virtual ~character();
 
 	//Attack does not get overriden so resolving combat stays generalized
 	//Enemies and players both call this same attack command when attacking the subject
@@ -32,6 +32,8 @@ public:
 	//Both players and enemies can have an atkEffect (vampire; elf)
 	virtual int atkEffect(character *const subj, const int dmg);
 	
+	virtual char render() const=0;
+
 	//Changes HP by the given amount. Cannot exceed MHP unless the given flag is true
 	void chngHP(const int change);
 

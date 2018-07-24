@@ -18,10 +18,11 @@
 #include "action.h"
 #include "floor.h"
 
+
 coord find(char c, std::string file, int floorNum){
 	std::ifstream in;
 	in.open(file);
-	in.ignore(1975 * (floorNum - 1));
+	in.ignore(CHAR_IN_FLOOR * (floorNum - 1));
 	char cur = '0';
 	for(int i = 0;i < 25;i++){
 		for(int j = 0;j < 79;j++){
@@ -146,6 +147,7 @@ void game::nextLevel(){
 		pC = find('@', file, floorNum);
 		stairs = find('\\', file, floorNum);
 	}
+	p->chngPos(pC);
 	pp = p;
 	f->add(pp, pC);
 	paused = false;
@@ -241,8 +243,8 @@ bool game::move(dir d){
 			if((f->getObj(temp)->render() == '\\')){
 				nextLevel();
 			}else if(f->getObj(temp)->render() == 'G'){
-				if(((gold*)f->getObj(temp))->getPick()){
-					int newgld = ((gold *) (f->getObj(temp)))->getVal();
+				if(static_cast<gold*> (f->getObj(temp))->getPick()){
+					int newgld = static_cast<gold*> ((f->getObj(temp)))->getVal();
 					gld += newgld;
 					a->addGold(newgld);
 					f->remove(temp);
@@ -291,7 +293,7 @@ bool game::use(dir d){
 	coord temp = getCoord(d, pC);
 
 	if(!f->empty(temp) && f->getObj(temp)->render() == 'P'){
-		potion *pot = (potion *) f->getObj(temp);
+		potion *pot = static_cast<potion*> (f->getObj(temp));
 		pp = pot->effect(pp);
 		pot->displayEffect(a);
 		f->update(pp, pC);
@@ -307,7 +309,7 @@ bool game::attack(dir d){
 	coord temp = getCoord(d, pC);
 
 	if(!f->empty(temp) && one(f->getObj(temp)->render(), enemies, 7)){
-		enemy* tAtk = (enemy*)f->getObj(temp);
+		enemy* tAtk = static_cast<enemy*> (f->getObj(temp));
 		pp->attack(tAtk, a);
 		a->showHP(tAtk->getName(), tAtk->getHP());
 
@@ -342,8 +344,12 @@ int game::getScore(){
 	return gld*pp->scoreMultiplier();
 }
 
+void game::gotoNext(){
+	nextLevel();
+}
+
 game::~game(){
 	delete f;
 	delete a;
+	delete tHoard;
 }
-

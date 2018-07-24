@@ -15,7 +15,7 @@ class elf: public enemy{
 
 		char render() const override;
 
-		int atkEffect(character *subj, int dmg) override;
+		bool doubleAttack() const override;
 
 };
 

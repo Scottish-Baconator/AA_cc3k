@@ -71,12 +71,23 @@ obj* textDisplay::type(char c, coord pos){
 }
 
 textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},a{a}{
+	map.resize(79);
+	for(size_t i = 0;i < map.size();i++){
+		map[i].resize(30);
+	}
 	std::ifstream in;
 	std::ifstream dr;
 	char accept[] = {'|', '-', '.', '#', '+', ' ', 'D', '@', '\\'};
 	int aLen = 9;
 	char c='.';
 	in.open(file);
+
+	for(int i = 0;i < 25;i++){
+		for(int j = 0;j < 79;j++){
+			map[j][i] = '.';
+		}
+	}
+
 	if(!rand){
 		in.ignore(1975 * (f->getFloorNum() - 1));
 	}

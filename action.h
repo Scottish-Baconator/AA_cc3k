@@ -46,7 +46,7 @@ public:
 	void usePot(std::string name);
 
 	//Called when the PC's stat changes
-	void changeStat(std::string statname, const std::string change, int amt);
+	void changeStat(std::string statname, std::string change, int amt);
 };
 
 

@@ -10,6 +10,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 #include "human.h"
 #include "dwarf.h"
 #include "halfling.h"
@@ -18,11 +19,13 @@
 #include "merchant.h"
 #include "potion.h"
 #include "hoard.h"
+#include "stair.h"
 
 //Checks if a chamber contains coordinate
-bool is(chamber** chmbrs, const coord &c){
-	for(int i = 0;i < 5;i++){
-		if(chmbrs[i]->containsCoord(c)){
+bool level::is(const coord &c) const{
+
+	for (auto it = chmbrs.begin() ; it != chmbrs.end(); ++it) {
+		if((*it)->containsCoord(c)){
 			return true;
 		}
 	}
@@ -32,7 +35,7 @@ bool is(chamber** chmbrs, const coord &c){
 void level::randGen(){
 	srand(time(0));
 	for(int i = 0;i < 10;i++){
-		coord tem = chmbrs[rand()%5]->random();
+		coord tem = chmbrs[rand()%(chmbrs.size())]->random();
 		potion::type t;
 		switch (rand()%6) {
 		case 0:
@@ -63,9 +66,8 @@ void level::randGen(){
 		gold* g;
 
 		int goldrand = rand() % 8;
-
 		do{
-			chamberid= rand() % 5;
+			chamberid= rand() % chmbrs.size();
 			gc= chmbrs[chamberid]->random();
 		}while(!empty(gc));
 
@@ -77,7 +79,7 @@ void level::randGen(){
 			//Repeats finding a coordinate for gold until it can find one where
 			//it can also spawn a dragon beside it
 			while(enemyTrapped(gc)){
-				chamberid= rand() % 5;
+				chamberid= rand() % chmbrs.size();
 				gc= chmbrs[chamberid]->random();
 			}
 
@@ -126,7 +128,7 @@ void level::randGen(){
 	}
 
 	for(int i = 0;i < 20;i++){
-		int chm = rand()%5;
+		int chm = rand()%chmbrs.size();
 		coord a(0, 0);
 		do{
 			a = getChmbr(chm)->random();
@@ -193,14 +195,14 @@ bool oneOf(char a, char b[], int len){
 
 void level::makeChambers(){
 	for(int i=0;i<5;++i){
-		chmbrs[i] = new chamber();
+		chmbrs.emplace_back(new chamber());
 	}
 
 	int cur = 0;
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
 			if(td->get(coord(i, j)) == '.'){
-				if(!is(chmbrs, coord(i, j))){
+				if(!is(coord(i, j))){
 					td->chambFrom(coord(i,j), chmbrs[cur]);
 					cur++;
 				}
@@ -218,6 +220,8 @@ void level::makeChambers(){
 
 //Reads map from file and determines the level layout
 level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floorNum}{
+	td = new textDisplay(file, this, a, rand);
+	setWalk();
 	//Initializes every cell to be empty
 	grd.resize(79);
 	for(int i = 0;i < 79;i++){
@@ -230,10 +234,10 @@ level::level(std::string file, action *a, int floorNum, bool rand):floorNum{floo
 	setWalk();
 
 	makeChambers();
+}
 
-	if(rand){
-		randGen();
-	}
+int level::getRandomChamber() const{
+	return rand()%(chmbrs.size());
 }
 
 bool level::empty(const coord &c) const{
@@ -305,9 +309,10 @@ level::~level(){
 			grd[i][j]=nullptr;
 		}
 	}
-	for(int i = 0;i < 5;i++){
-		delete chmbrs[i];
-	}
+
+	for (auto it = chmbrs.begin() ; it != chmbrs.end(); ++it) {
+	 delete (*it);
+   }
 	delete td;
 }
 
@@ -348,4 +353,29 @@ chamber* level::getChmbr(const int a) const {
 
 obj *level::getObj(const coord &c) const{
 	return grd[c.x][c.y];
+}
+
+//Returns the player character object
+character* level::getPC() const{
+	for(int i = 0;i < 30;i++){
+		for(int j = 0;j < 79;j++){
+			if(!empty(coord(j, i)) && getObj(coord(j, i))->render() == '@'){
+				return static_cast<character*> (getObj(coord(j,i)));
+			}
+		}
+	}
+	return nullptr;
+
+}
+
+
+bool level::close(const obj  *const obs, const obj  *const subj ) const{
+	for(int i = 0;i < 30;i++){
+		for(int j = 0;j < 79;j++){
+			if(!empty(coord(j, i)) && getObj(coord(j, i))==subj){
+				return (abs(j - obs->getPos().x) <= 1 && abs(i - obs->getPos().y) <= 1);
+			}
+		}
+	}
+	return false;
 }
