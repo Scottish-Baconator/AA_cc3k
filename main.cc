@@ -41,13 +41,11 @@ int main(int argc, char *argv[]){
 	std::string file;
 	bool random = (argc < 2);
 	if(argc < 2){
-		//std::cerr<<"2 arguments required.";
-		//return 1;
 		file = "./cc3kblankfloor.txt";
 	}else{
 		file = std::string(argv[1]);
 	}
-
+	//std::cout<<random<<"\n";
 	game g{file, random};
 
 
@@ -57,11 +55,10 @@ int main(int argc, char *argv[]){
 
 	g.render(std::cout);
 
-	std::string s = "";
+	std::string s;
 
 	while(std::cin >> s){
 		bool comp = false;
-
 		if(s[0] == 'u'){
 			std::cin >> s;
 			comp = g.use(convert(s));
@@ -71,12 +68,9 @@ int main(int argc, char *argv[]){
 		}else if(s[0] == 'f'){
 			g.stop();
 		}else if(s[0] == 'r'){
-			g = game(file, random);
+			g = game(file, !random);
 		}else if(s[0] == 'q'){
 			break;
-		}else if(s[0] == '@'){
-			g.gotoNext();
-			comp = true;
 		}else{
 			g.move(convert(s));
 			comp = true;
@@ -101,5 +95,4 @@ int main(int argc, char *argv[]){
 		std::cout<<" as a "<<g.getRace() << std::endl;
 	}
 }
-
 
