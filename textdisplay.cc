@@ -76,9 +76,10 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 	char accept[] = {'|', '-', '.', '#', '+', ' ', 'D', '@', '\\'};
 	int aLen = 9;
 	char c='.';
-
 	in.open(file);
-	in.ignore(1975 * (f->getFloorNum() - 1));
+	if(!rand){
+		in.ignore(1975 * (f->getFloorNum() - 1));
+	}
 	for(int i = 0;i < 25;i++){
 		for(int j = 0;j < 79;j++){
 			in.get(c);
@@ -87,11 +88,11 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 				map[j][i] = '.';
 				coord pos{j, i};
 				obj* tem = type(c, pos);
-				//if(tem == nullptr){
-				//	std::cout<<"Null ("<<j<<", "<<i<<") "<<c<<"\n";
-				//}else{
-				//	std::cout<<tem->render()<<" ("<<j<<", "<<i<<") "<<c<<"\n";
-				//}
+				if(tem == nullptr){
+					std::cout<<"Null ("<<j<<", "<<i<<") "<<c<<"\n";
+				}else{
+					std::cout<<tem->render()<<" ("<<j<<", "<<i<<") "<<c<<"\n";
+				}
 				f->add(tem, pos);
 			}else{
 				if(c == '@'||c == '\\'||c == 'D'){

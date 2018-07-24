@@ -59,7 +59,6 @@ int main(int argc, char *argv[]){
 
 	while(std::cin >> s){
 		bool comp = false;
-
 		if(s[0] == 'u'){
 			std::cin >> s;
 			comp = g.use(convert(s));

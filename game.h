@@ -51,7 +51,7 @@ public:
 	bool isDone();
 	bool isWinner();
 	int getScore();
-	~game(){};
+	~game();
 };
 
 

@@ -124,6 +124,8 @@ game::game(std::string fl, bool random): floorNum(1), a{new action()}, f(new lev
 	//for testing purposes
 //	stairs = f->getChmbr(4 - pCh)->random();
 	f->add(new stair(stairs), stairs);
+	tHoard = nullptr;
+	bHoard = false;
 }
 
 void game::nextLevel(){
@@ -148,6 +150,8 @@ void game::nextLevel(){
 	f->add(pp, pC);
 	paused = false;
 	f->add(new stair(stairs), stairs);
+	tHoard = nullptr;
+	bHoard = false;
 }
 
 void game::step(){
@@ -236,7 +240,7 @@ bool game::move(dir d){
 		if(!f->empty(temp)){
 			if((f->getObj(temp)->render() == '\\')){
 				nextLevel();
-			}else if(f->getObj(temp)->render() == 'G' && ((gold*)f->getObj(temp))->getPick()){
+			}else if(f->getObj(temp)->render() == 'G'){
 				if(((gold*)f->getObj(temp))->getPick()){
 					int newgld = ((gold *) (f->getObj(temp)))->getVal();
 					gld += newgld;
@@ -256,10 +260,14 @@ bool game::move(dir d){
 
 		a->movePC(dirtext);
 
-		//std::cerr<<"a"<<std::endl;
 		if(f->move(pC, temp)){
-			//std::cerr<<"to"<<std::endl;
 			if(!bHoard && (tHoard != nullptr)){
+				//if(tHoard == nullptr){
+				//	std::cout<<"Ther be no dragons here!\n";
+				//}else{
+				//	std::cout<<"Thar be dragons\n";
+				//	std::cout<<"Here be dragons: "<<tHoard->getPos()<<"\n";
+				//}
 				f->add(tHoard, pC);
 				tHoard = nullptr;
 			}
@@ -332,5 +340,10 @@ bool game::isWinner(){
 
 int game::getScore(){
 	return gld*pp->scoreMultiplier();
+}
+
+game::~game(){
+	delete f;
+	delete a;
 }
 

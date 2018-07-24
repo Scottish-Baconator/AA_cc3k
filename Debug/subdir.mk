@@ -38,13 +38,17 @@ O_SRCS += \
 ../action.o \
 ../chamber.o \
 ../character.o \
+../dragon.o \
+../drow.o \
 ../dwarf.o \
 ../elf.o \
 ../enemy.o \
 ../floor.o \
 ../game.o \
+../goblin.o \
 ../gold.o \
 ../halfling.o \
+../hoard.o \
 ../human.o \
 ../main.o \
 ../merchant.o \
@@ -57,7 +61,8 @@ O_SRCS += \
 ../shade.o \
 ../stair.o \
 ../textdisplay.o \
-../troll.o 
+../troll.o \
+../vampire.o 
 
 CC_DEPS += \
 ./action.d \

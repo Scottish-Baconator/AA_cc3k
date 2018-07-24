@@ -15,6 +15,10 @@
 		return pos;
 	}
 
+	void obj::chngPos(coord c){
+		pos = c;
+	}
+
 	obj::obj(coord c):pos{c}{
 	}
 

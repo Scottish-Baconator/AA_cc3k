@@ -9,6 +9,7 @@
 #include "textdisplay.h"
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 #include "human.h"
 #include "dwarf.h"
 #include "halfling.h"
@@ -29,6 +30,7 @@ bool is(chamber** chmbrs, const coord &c){
 }
 
 void level::randGen(){
+	srand(time(0));
 	for(int i = 0;i < 10;i++){
 		coord tem = chmbrs[rand()%5]->random();
 		potion::type t;
@@ -244,6 +246,7 @@ bool level::empty(const coord &c) const{
 //Notifies all objects on level to run their step
 //The use of ignore prevents enemies from moving multiple times
 void level::step(action *a){
+	srand(time(0));
 	bool ignore[79][30];
 
 	for(int i = 0;i < 79;i++){
@@ -284,6 +287,7 @@ bool level::move(const coord &origin, const coord &target){
 	if(empty(target)){
 		grd[target.x][target.y] = grd[origin.x][origin.y];
 		grd[origin.x][origin.y] = nullptr;
+		grd[target.x][target.y]->chngPos(target);
 		return true;
 	}
 	return false;
