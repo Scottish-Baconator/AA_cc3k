@@ -84,7 +84,14 @@ int main(int argc, char *argv[]){
 		bool comp = false;
 		if(s[0] == 'u'){
 			std::cin >> s;
-			comp = g->use(convert(s));
+			if(extra && s[0] == 'i'){
+				comp = g->useInv();
+			}else{
+				comp = g->use(convert(s));
+			}
+		}else if(extra && s[0] == 'p'){
+			std::cin >> s;
+			comp = g->addToInv(convert(s));
 		}else if(s[0] == 'a'){
 			std::cin >> s;
 			comp = g->attack(convert(s));

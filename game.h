@@ -17,6 +17,7 @@ class level;
 class player;
 class action;
 class obj;
+class item;
 
 class game{
 	bool randomize;
@@ -30,11 +31,13 @@ class game{
 	level *f;
 	player *p = nullptr;
 	player *pp = nullptr;//potioned player
+	item *inventory = nullptr;
 	coord pC = coord(0,0);
 	int gld=0;
 	bool paused=false;
 	void nextLevel();
 	char racePick();
+	void shopping();
 	char race = 'I';
 public:
 	game(std::string);
@@ -42,6 +45,9 @@ public:
 	enum dir {no, so, ea, we, ne, nw, se, sw};
 	bool move(dir d);
 	bool use(dir d);
+	bool useInv();
+	bool addToInv(item*);
+	bool addToInv(dir);
 	bool attack(dir d);
 	void stop();
 	void step();

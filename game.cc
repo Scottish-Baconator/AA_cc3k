@@ -179,6 +179,48 @@ void game::step(){
 
 void game::render(std::ostream &out){
 	f->render(out, pp, gld, extra);
+
+	out<<"Inventory: ";
+	if(inventory == nullptr){
+		out<<"empty";
+	}else{
+		switch(inventory->render()){
+		case 'S':
+			out<<"sword";
+			break;
+		case 'A':
+			out<<"armour";
+			break;
+		case 'P':
+			out<<"unknown potion";
+			break;
+		}
+		out<<"\n";
+	}
+}
+
+bool game::useInv(){
+	switch (inventory->render()){
+	case 'S':
+		pp = ((sword *) inventory)->effect(pp);
+		return true;
+	case 'A':
+		pp = ((armour*) inventory)->effect(pp);
+		return true;
+	case 'P':
+		pp = ((potion*) inventory)->effect(pp);
+		return true;
+	}
+	return false;
+
+}
+
+bool game::addToInv(item * toAdd){
+	if(inventory != nullptr){
+		delete inventory;
+	}
+	inventory = toAdd;
+	return true;
 }
 
 coord getCoord(enum game::dir d, coord pC){
@@ -210,6 +252,20 @@ coord getCoord(enum game::dir d, coord pC){
 			break;
 		}
 	return tr;
+}
+
+bool game::addToInv(dir c){
+	obj *a = f->getObj(getCoord(c, pC));
+	char allow[] = {'P', 'S', 'A'};
+	if(!one(a->render(), allow, 3)){
+		return true;
+	}
+	item *i = (item*) a;
+	if(inventory != nullptr){
+		delete inventory;
+	}
+	inventory = i;
+	return true;
 }
 
 //Moves player in direction dir
@@ -301,6 +357,65 @@ bool game::move(dir d){
 	return false;
 }
 
+void game::shopping(){
+	std::cout<<"What would you like to buy?\n";
+	std::cout<<"s: Magic sword?    (5 gold)\n";
+	std::cout<<"a: Magic armour?   (15 gold)\n";
+	std::cout<<"h: Health potion?  (10 gold)\n";
+	std::cout<<"t: Attack potion?  (10 gold)\n";
+	std::cout<<"d: Defense potion? (10 gold)\n";
+	std::string s = "";
+	char c = 'z';
+	char ac[] = {'s', 'a', 'h', 't', 'd'};
+	do{
+		std::cout<<"Your selection:\n";
+		std::cin>>s;
+	}while(!one(s[0], ac, 5));
+	c = s[0];
+	switch(c){
+	case 's':
+		if(gld >= 5){
+			addToInv(new sword(coord(0,0), 3));
+			gld -= 5;
+		}else{
+			std::cout<<"You cannot afford this\n";
+		}
+		break;
+	case 'a':
+		if(gld >= 15){
+			addToInv((new armour(coord(0,0), 5)));
+			gld -= 15;
+		}else{
+			std::cout<<"You cannot afford this\n";
+		}
+		break;
+	case 'h':
+		if(gld >= 10){
+			addToInv(new potion(coord(0,0), potion::RH));
+			gld -= 10;
+		}else{
+			std::cout<<"You cannot afford this\n";
+		}
+		break;
+	case 't':
+		if(gld >= 10){
+			addToInv(new potion(coord(0,0), potion::BA));
+			gld -= 10;
+		}else{
+			std::cout<<"You cannot afford this\n";
+		}
+		break;
+	case 'd':
+		if(gld >= 10){
+			addToInv(new potion(coord(0,0), potion::BD));
+			gld -= 10;
+		}else{
+			std::cout<<"You cannot afford this\n";
+		}
+		break;
+	}
+}
+
 bool game::use(dir d){
 	coord temp = getCoord(d, pC);
 
@@ -326,73 +441,8 @@ bool game::use(dir d){
 		f->remove(temp);
 		return true;
 	}else if(!f->empty(temp) && f->getObj(temp)->render() == 'M'){
-		if(!(merchant::merchantHostile())){
-			std::cout<<"What would you like to buy?\n";
-			std::cout<<"s: Magic sword?    (5 gold)\n";
-			std::cout<<"a: Magic armour?   (15 gold)\n";
-			std::cout<<"h: Health potion?  (10 gold)\n";
-			std::cout<<"t: Attack potion?  (10 gold)\n";
-			std::cout<<"d: Defense potion? (10 gold)\n";
-			std::string s = "";
-			char c = 'z';
-			char ac[] = {'s', 'a', 'h', 't', 'd'};
-			do{
-				std::cout<<"Your selection:\n";
-				std::cin>>s;
-			}while(!one(s[0], ac, 5));
-			c = s[0];
-			switch(c){
-			case 's':
-				if(gld >= 5){
-					sword *s = new sword(coord(0,0), 3);
-					pp = s->effect(pp);
-					delete s;
-					gld -= 5;
-				}else{
-					std::cout<<"You cannot afford this\n";
-				}
-				break;
-			case 'a':
-				if(gld >= 15){
-					armour *a = new armour(coord(0,0), 5);
-					pp = a->effect(pp);
-					delete a;
-					gld -= 15;
-				}else{
-					std::cout<<"You cannot afford this\n";
-				}
-				break;
-			case 'h':
-				if(gld >= 10){
-					potion *p = new potion(coord(0,0), potion::RH);
-					pp = p->effect(pp);
-					delete p;
-					gld -= 10;
-				}else{
-					std::cout<<"You cannot afford this\n";
-				}
-				break;
-			case 't':
-				if(gld >= 10){
-					potion *p = new potion(coord(0,0), potion::BA);
-					pp = p->effect(pp);
-					delete p;
-					gld -= 10;
-				}else{
-					std::cout<<"You cannot afford this\n";
-				}
-				break;
-			case 'd':
-				if(gld >= 10){
-					potion *p = new potion(coord(0,0), potion::BD);
-					pp = p->effect(pp);
-					delete p;
-					gld -= 10;
-				}else{
-					std::cout<<"You cannot afford this\n";
-				}
-				break;
-			}
+		if(extra && !(merchant::merchantHostile())){
+			shopping();
 		}
 		return true;
 	}
