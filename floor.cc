@@ -46,7 +46,12 @@ void level::randGen(int playerChamber, bool extra){
 	add(new stair(scoord), scoord);
 
 	for(int i = 0;i < 10;i++){
-		coord tem = chmbrs[rand()%(chmbrs.size())]->random();
+		coord tem{0,0};
+
+		do{
+			tem = chmbrs[rand()%(chmbrs.size())]->random();
+		}while(!empty(tem));
+
 		potion::type t;
 		switch (rand()%6) {
 		case 0:
@@ -105,14 +110,16 @@ void level::randGen(int playerChamber, bool extra){
 			lootchmbr = getRandomChamber();
 		}while(lootchmbr==stairchmbr||lootchmbr==playerChamber);
 
-		coord aPos = chmbrs[lootchmbr]->random();
-		if(empty(aPos)){
-			add(new armour(aPos, 5), aPos);
-		}
-		aPos = chmbrs[lootchmbr]->random();
-		if(empty(aPos)){
-			add(new sword(aPos, 3), aPos);
-		}
+		coord aPos{0,0};
+		do{
+			aPos= chmbrs[lootchmbr]->random();
+		}while(!empty(aPos));
+
+		add(new armour(aPos, 5), aPos);
+		do{
+			aPos= chmbrs[lootchmbr]->random();
+		}while(!empty(aPos));
+		add(new sword(aPos, 3), aPos);
 	}
 
 
@@ -157,7 +164,8 @@ void level::randGen(int playerChamber, bool extra){
 		coord a(0, 0);
 		do{
 			a = getChmbr(chm)->random();
-		}while(canWalk(a) != level::All);
+		}while(!empty(a) || canWalk(a) != level::All);
+
 		switch (toSpwn[i]){
 		case 'H':
 			add(new human(a), a);
