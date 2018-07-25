@@ -22,6 +22,7 @@
 #include "hoard.h"
 #include "stair.h"
 #include "armour.h"
+#include "sword.h"
 #include "obj.h"
 
 //Checks if a chamber contains coordinate
@@ -99,9 +100,18 @@ void level::randGen(int playerChamber, bool extra){
 	}
 
 	if(extra){
-		coord aPos = chmbrs[stairchmbr]->random();
+		int lootchmbr;
+		do{
+			lootchmbr = getRandomChamber();
+		}while(lootchmbr==stairchmbr||lootchmbr==playerChamber);
+
+		coord aPos = chmbrs[lootchmbr]->random();
 		if(empty(aPos)){
 			add(new armour(aPos, 5), aPos);
+		}
+		aPos = chmbrs[lootchmbr]->random();
+		if(empty(aPos)){
+			add(new sword(aPos, 3), aPos);
 		}
 	}
 

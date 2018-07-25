@@ -18,6 +18,7 @@
 #include "stair.h"
 #include "action.h"
 #include "armour.h"
+#include "sword.h"
 #include "floor.h"
 #include "obj.h"
 
@@ -317,6 +318,13 @@ bool game::use(dir d){
 		armour *arm = static_cast<armour*> (f->getObj(temp));
 		arm->displayEffect(a, pp);
 		pp = arm->effect(pp);
+		f->update(pp, pC);
+		f->remove(temp);
+		return true;
+	}else if(!f->empty(temp) && f->getObj(temp)->render() == 'S'){
+		sword *swd = static_cast<sword*> (f->getObj(temp));
+		swd->displayEffect(a, pp);
+		pp = swd->effect(pp);
 		f->update(pp, pC);
 		f->remove(temp);
 		return true;

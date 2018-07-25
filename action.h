@@ -48,6 +48,9 @@ public:
 	//Called when PC uses armour
 	void addArmour(int val);
 
+	//Called when PC picks a sword up
+	void pickUp();
+
 	//Called when the PC's stat changes
 	void changeStat(std::string statname, std::string change, int amt);
 };

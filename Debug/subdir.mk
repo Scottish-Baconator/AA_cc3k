@@ -30,8 +30,10 @@ CC_SRCS += \
 ../player.cc \
 ../potion.cc \
 ../potions.cc \
+../sPlayer.cc \
 ../shade.cc \
 ../stair.cc \
+../sword.cc \
 ../test.cc \
 ../textdisplay.cc \
 ../troll.cc \
@@ -94,8 +96,10 @@ CC_DEPS += \
 ./player.d \
 ./potion.d \
 ./potions.d \
+./sPlayer.d \
 ./shade.d \
 ./stair.d \
+./sword.d \
 ./test.d \
 ./textdisplay.d \
 ./troll.d \
@@ -128,8 +132,10 @@ OBJS += \
 ./player.o \
 ./potion.o \
 ./potions.o \
+./sPlayer.o \
 ./shade.o \
 ./stair.o \
+./sword.o \
 ./test.o \
 ./textdisplay.o \
 ./troll.o \

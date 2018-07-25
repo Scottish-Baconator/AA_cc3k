@@ -69,5 +69,9 @@ void action::changeStat(std::string statname, std::string change, int amt){
 }
 
 void action::addArmour(int val){
-	addText("PC dons armour with protection: " + intToString(val));
+	addText("PC dons armour with protection: " + intToString(val) + ".");
+}
+
+void action::pickUp(){
+	addText("PC picks up a sword.");
 }
