@@ -10,7 +10,7 @@ sPlayer::sPlayer(player *play, int val): pPlayer(play){
 	bonus = val;
 }
 
-int sPlayer::getAtk(){
+double sPlayer::getAtk() const{
 	return plaer->getAtk() + bonus;
 }
 

@@ -13,7 +13,7 @@ class sPlayer: public pPlayer{
 	int bonus;
 public:
 	sPlayer(player*, int);
-	int getAtk();
+	double getAtk() const override;
 };
 
 

@@ -10,7 +10,7 @@ bugbear::bugbear(coord pos): player(pos, 150, 25, 25, "Bugbear"){
 
 }
 
-int bugbear::armour() const{
+double bugbear::armour() const{
 	return 5;
 }
 

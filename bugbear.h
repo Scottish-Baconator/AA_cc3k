@@ -12,7 +12,7 @@
 class bugbear: public player{
 public:
 	bugbear(coord pos);
-	int armour() const;
+	double armour() const;
 	double scoreMultiplier() const;
 };
 

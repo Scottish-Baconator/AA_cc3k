@@ -115,7 +115,6 @@ void level::randGen(int playerChamber, bool extra){
 		}
 	}
 
-	//God I don't want to spawn enemies.
 
 	char toSpwn[20];
 	for(int i = 0;i < 20;i++){

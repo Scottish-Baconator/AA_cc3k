@@ -10,7 +10,7 @@ aPlayer::aPlayer(player *play, int val): pPlayer(play){
 	protection = val;
 }
 
-int aPlayer::armour(){
+double aPlayer::armour() const{
 	return plaer->armour() + protection;
 }
 

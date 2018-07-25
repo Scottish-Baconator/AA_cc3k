@@ -20,37 +20,24 @@ game::dir convert(std::string s){
 			switch(s[1]){
 				case 'w':
 					return game::nw;
-					break;
 				case 'e':
 					return game::ne;
-					break;
-				default:
+				case 'o':
 					return game::no;
-					break;
 			}
-			break;
 		case 's':
 			switch(s[1]){
 			case 'w':
 				return game::sw;
-				break;
 			case 'e':
 				return game::se;
-				break;
-			default:
-				return game::no;
-				break;
+			case 'o':
+				return game::so;
 			}
-			break;
 		case 'w':
 			return game::we;
-			break;
 		case 'e':
 			return game::ea;
-			break;
-		default:
-			return game::no;
-			break;
 	}
 
 	return game::no;
@@ -58,11 +45,11 @@ game::dir convert(std::string s){
 
 int main(int argc, char *argv[]){
 	std::string file;
-	bool random = (argc < 2);
+	bool random = true;
 	bool extra = false;
-  int args = 2;
+	int args = 2;
   
-  if (std::string(argv[1])=="-e"){
+  if (argc > 1 && std::string(argv[1])=="-e"){
     extra = true;
     ++args;
   }
@@ -72,11 +59,13 @@ int main(int argc, char *argv[]){
 	}else if (std::string(argv[args-1])=="extra_big"){
 		std::cerr << "gello" << std::endl;
 		file = "./cc3kblankfloor2.txt";
-		random = true;
 	}else if (std::string(argv[args-1])=="extra_small"){
 		std::cerr << "gello" << std::endl;
 		file = "./cc3kblankfloor3.txt";
-		random = true;
+	} else {
+		file = std::string(argv[args-1]);
+		random = false;
+
 	}
   
 	srand(time(0));
@@ -119,8 +108,8 @@ int main(int argc, char *argv[]){
 		}
 		if(comp){
 			g->step();
-			g->render(std::cout);
 		}
+		g->render(std::cout);
 		if(g->isDone()){
 			break;
 		}

@@ -13,7 +13,7 @@ class aPlayer: public pPlayer{
 	int protection;
 public:
 	aPlayer(player*, int);
-	int armour();
+	double armour()  const override;
 };
 
 

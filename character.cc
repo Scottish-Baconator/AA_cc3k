@@ -112,8 +112,10 @@ bool character::smallWeakness() const{
 	return false;
 }
 
-int character::armour() const{
+double character::armour() const{
 	return 0;
 }
 
-
+void character::setHP(int h){
+	hp = h;
+}
