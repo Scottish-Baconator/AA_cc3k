@@ -138,7 +138,9 @@ void game::nextLevel(){
 	}
 	floorNum++;
 	//must copy FIRST since delete f deletes our player!
+	int HP = pp->getHP();
 	p = new player{*p};
+	p->setHP(HP);
 	delete f;
 	f = new level{file,a, floorNum, randomize};
 

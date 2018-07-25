@@ -111,7 +111,7 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 	}
 
 	if(!rand){
-		in.ignore(1975 * (f->getFloorNum() - 1));
+		in.ignore(2000 * (f->getFloorNum() - 1));
 	}
 
 	for(int i = 0;i < 25;i++){

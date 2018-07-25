@@ -37,3 +37,4 @@ std::string player::getRace(){
 double player::scoreMultiplier() const{
 	return 1;
 }
+
