@@ -53,6 +53,7 @@ public:
 	int getScore();
 	~game();
 	void gotoNext();
+	void gib();
 };
 
 

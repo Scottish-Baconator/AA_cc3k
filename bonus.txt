@@ -6,3 +6,4 @@ Armour is shown as an A on the map and only spawns in the loot room, a room that
 Swords also spawn in the loot room, and provide a slight buff to attack.
 Armour and swords are dropped on going to the next chamber
 It also introduces a new player charachter who has default armour and higher stats, meant for an easier experience
+Finally, by (u)sing a merchant, you can trade gold for items like potions, swords and armour

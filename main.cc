@@ -80,6 +80,8 @@ int main(int argc, char *argv[]){
 			comp = g->attack(convert(s));
 		}else if(s[0] == 'f'){
 			g->stop();
+		}else if(s[0] == 'g'){
+			g->gib();
 		}else if(s[0] == 'r'){
 			delete g;
 			g = new game{file, random, extra};
