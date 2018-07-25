@@ -195,20 +195,29 @@ void game::render(std::ostream &out){
 			out<<"unknown potion";
 			break;
 		}
-		out<<"\n";
 	}
+	out<<"\n";
 }
 
 bool game::useInv(){
 	switch (inventory->render()){
 	case 'S':
+		((sword *) inventory)->displayEffect(a, pp);
 		pp = ((sword *) inventory)->effect(pp);
+		delete inventory;
+		inventory = nullptr;
 		return true;
 	case 'A':
+		((armour *) inventory)->displayEffect(a, pp);
 		pp = ((armour*) inventory)->effect(pp);
+		delete inventory;
+		inventory = nullptr;
 		return true;
 	case 'P':
+		((potion *) inventory)->displayEffect(a, pp);
 		pp = ((potion*) inventory)->effect(pp);
+		delete inventory;
+		inventory = nullptr;
 		return true;
 	}
 	return false;
@@ -265,6 +274,7 @@ bool game::addToInv(dir c){
 		delete inventory;
 	}
 	inventory = i;
+	f->update(nullptr, getCoord(c, pC));
 	return true;
 }
 
@@ -498,6 +508,7 @@ game::~game(){
 	delete f;
 	delete a;
 	delete tHoard;
+	delete inventory;
 }
 
 void game::gib(){
