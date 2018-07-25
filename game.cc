@@ -17,6 +17,7 @@
 #include "gold.h"
 #include "stair.h"
 #include "action.h"
+#include "armour.h"
 #include "floor.h"
 #include "obj.h"
 
@@ -179,7 +180,7 @@ void game::step(){
 }
 
 void game::render(std::ostream &out){
-	f->render(out, pp, gld);
+	f->render(out, pp, gld, extra);
 }
 
 coord getCoord(enum game::dir d, coord pC){
@@ -309,6 +310,13 @@ bool game::use(dir d){
 		potion *pot = static_cast<potion*> (f->getObj(temp));
 		pot->displayEffect(a, pp);
 		pp = pot->effect(pp);
+		f->update(pp, pC);
+		f->remove(temp);
+		return true;
+	}else if(!f->empty(temp) && f->getObj(temp)->render() == 'A'){
+		armour *arm = static_cast<armour*> (f->getObj(temp));
+		arm->displayEffect(a, pp);
+		pp = arm->effect(pp);
 		f->update(pp, pC);
 		f->remove(temp);
 		return true;

@@ -45,6 +45,9 @@ public:
 	//Called when the PC uses a potion
 	void usePot(std::string name);
 
+	//Called when PC uses armour
+	void addArmour(int val);
+
 	//Called when the PC's stat changes
 	void changeStat(std::string statname, std::string change, int amt);
 };

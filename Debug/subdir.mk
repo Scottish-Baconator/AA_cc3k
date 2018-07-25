@@ -4,7 +4,9 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CC_SRCS += \
+../aPlayer.cc \
 ../action.cc \
+../armour.cc \
 ../bugbear.cc \
 ../chamber.cc \
 ../character.cc \
@@ -66,7 +68,9 @@ O_SRCS += \
 ../vampire.o 
 
 CC_DEPS += \
+./aPlayer.d \
 ./action.d \
+./armour.d \
 ./bugbear.d \
 ./chamber.d \
 ./character.d \
@@ -98,7 +102,9 @@ CC_DEPS += \
 ./vampire.d 
 
 OBJS += \
+./aPlayer.o \
 ./action.o \
+./armour.o \
 ./bugbear.o \
 ./chamber.o \
 ./character.o \

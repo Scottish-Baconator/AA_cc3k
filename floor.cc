@@ -21,6 +21,7 @@
 #include "potion.h"
 #include "hoard.h"
 #include "stair.h"
+#include "armour.h"
 #include "obj.h"
 
 //Checks if a chamber contains coordinate
@@ -97,6 +98,12 @@ void level::randGen(int playerChamber, bool extra){
 		grd[gc.x][gc.y]=g;
 	}
 
+	if(extra){
+		coord aPos = chmbrs[stairchmbr]->random();
+		if(empty(aPos)){
+			add(new armour(aPos, 5), aPos);
+		}
+	}
 
 	//God I don't want to spawn enemies.
 
@@ -304,8 +311,8 @@ bool level::move(const coord &origin, const coord &target){
 }
 
 //Gets the character of the object at coordinate c
-void level::render(std::ostream &out, player *const p, const int gld) const{
-	td->render(out, p, gld);
+void level::render(std::ostream &out, player *const p, const int gld, bool extra) const{
+	td->render(out, p, gld, extra);
 }
 
 void level::render(std::ostream &out) const{

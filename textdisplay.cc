@@ -146,7 +146,7 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 
 }
 
-void textDisplay::render(std::ostream &out, player *const p, const int gld) const{
+void textDisplay::render(std::ostream &out, player *const p, const int gld, bool extra) const{
 
 	//Renders the map
 	coord c = coord(0,0);
@@ -164,7 +164,11 @@ void textDisplay::render(std::ostream &out, player *const p, const int gld) cons
 	out << "Race: " << p->getRace() << "\t";
 	out << "Gold: " << gld << "\t";
 	out << "Floor: " << f->getFloorNum() << std::endl;
-	out << "HP: " << p->getHP() << std::endl;
+	out << "HP: " << p->getHP();
+	if(extra){
+		out<<" + Armour: " << p->armour();
+	}
+	out << std::endl;
 	out << "ATK: " << p->getAtk() << std::endl;
 	out << "DEF: " << p->getDef() << std::endl;
 	out << "Action: " <<  a->printText() << std::endl;

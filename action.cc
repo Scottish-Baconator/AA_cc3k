@@ -66,5 +66,8 @@ void action::usePot(std::string name){
 }
 void action::changeStat(std::string statname, std::string change, int amt){
 	addText(statname+" "+change+intToString(amt));
+}
 
+void action::addArmour(int val){
+	addText("PC dons armour with protection: " + intToString(val));
 }
