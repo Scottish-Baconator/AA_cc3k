@@ -49,6 +49,7 @@ int main(int argc, char *argv[]){
 		file = std::string(argv[1]);
 		if(file[0] == '-'){
 			extra = true;
+			random = false;
 			if(argc > 2){
 				file = std::string(argv[1]);
 			}else{
