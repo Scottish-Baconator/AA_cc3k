@@ -60,25 +60,28 @@ int main(int argc, char *argv[]){
 	std::string file;
 	bool random = (argc < 2);
 	bool extra = false;
-  int args = 2;
-  
-  if (std::string(argv[1])=="-e"){
-    extra = true;
-    ++args;
-  }
-  
-	if(argc < args){
+	int args = 2;
+	if(argc == 1){
+		random = true;
 		file = "./cc3kblankfloor.txt";
-	}else if (std::string(argv[args-1])=="extra_big"){
-		std::cerr << "gello" << std::endl;
-		file = "./cc3kblankfloor2.txt";
-		random = true;
-	}else if (std::string(argv[args-1])=="extra_small"){
-		std::cerr << "gello" << std::endl;
-		file = "./cc3kblankfloor3.txt";
-		random = true;
+	}else{
+		if (std::string(argv[1]) == "-e"){
+			extra = true;
+			++args;
+		}
+
+		if(argc < args){
+			file = "./cc3kblankfloor.txt";
+		}else if (std::string(argv[args-1])=="extra_big"){
+			std::cerr << "gello" << std::endl;
+			file = "./cc3kblankfloor2.txt";
+			random = true;
+		}else if (std::string(argv[args-1])=="extra_small"){
+			std::cerr << "gello" << std::endl;
+			file = "./cc3kblankfloor3.txt";
+			random = true;
+		}
 	}
-  
 	srand(time(0));
 	game *g = new game{file, random, extra};
 
@@ -136,5 +139,6 @@ int main(int argc, char *argv[]){
 		std::cout<<"You achieved a score of "<<g->getScore();
 		std::cout<<" as a "<<g->getRace() << std::endl;
 	}
+	delete g;
 }
 

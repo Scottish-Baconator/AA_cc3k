@@ -35,6 +35,7 @@ class game{
 	bool paused=false;
 	void nextLevel();
 	char racePick();
+	void shopping();
 	char race = 'I';
 public:
 	game(std::string);
