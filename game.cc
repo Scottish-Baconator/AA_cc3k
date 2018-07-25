@@ -89,8 +89,7 @@ bool game::goodRace(){
 	return inArr(race, races, 6);
 }
 
-game::game(std::string fl, bool randomize, bool ex): randomize{randomize},file{fl},a{new action()},f{ new level{fl, a, floorNum, randomize}}{
-	extra = ex;
+game::game(std::string fl, bool randomize, bool ex): randomize{randomize}, extra{ex}, file{fl},a{new action()},f{ new level{fl, a, floorNum, randomize}}{
 	do{
 		race = racePick();
 		if(race == 'q'){

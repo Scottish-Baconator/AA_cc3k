@@ -14,28 +14,45 @@ game::dir convert(std::string s){
 	if(s.length()!=2){
 		return game::no;
 	}
+
 	switch (s[0]){
-	case 'n':
-		switch(s[1]){
+		case 'n':
+			switch(s[1]){
+				case 'w':
+					return game::nw;
+					break;
+				case 'e':
+					return game::ne;
+					break;
+				default:
+					return game::no;
+					break;
+			}
+			break;
+		case 's':
+			switch(s[1]){
+			case 'w':
+				return game::sw;
+				break;
+			case 'e':
+				return game::se;
+				break;
+			default:
+				return game::no;
+				break;
+			}
+			break;
 		case 'w':
-			return game::nw;
+			return game::we;
+			break;
 		case 'e':
-			return game::ne;
-		}
-		return game::no;
-	case 's':
-		switch(s[1]){
-		case 'w':
-			return game::sw;
-		case 'e':
-			return game::se;
-		}
-		return game::so;
-	case 'w':
-		return game::we;
-	case 'e':
-		return game::ea;
+			return game::ea;
+			break;
+		default:
+			return game::no;
+			break;
 	}
+
 	return game::no;
 }
 
