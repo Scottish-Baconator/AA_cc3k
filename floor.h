@@ -44,7 +44,8 @@ public:
 	void remove(const coord &c);
 	void update(obj *toAdd, const coord &pos);
 
-	void render(std::ostream &out, player *const p, const int gld) const;
+	void render(std::ostream &out, player *const p, const int gld, bool extra) const;
+	void render(std::ostream &out) const;
 	void step(action *a);
 	bool move(const coord &origin, const coord &target);
 
@@ -60,7 +61,7 @@ public:
 	character* getPC() const;
 	bool close(const obj  *const obs, const obj  *const subj ) const;
 	bool is(const coord &c) const;
-	void randGen(int playerChamber);
+	void randGen(int playerChamber, bool extra);
 	int getRandomChamber() const;
 };
 

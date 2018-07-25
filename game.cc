@@ -9,6 +9,7 @@
 #include "shade.h"
 #include "drow.h"
 #include "vampire.h"
+#include "bugbear.h"
 #include "troll.h"
 #include "goblin.h"
 #include "potion.h"
@@ -16,6 +17,9 @@
 #include "gold.h"
 #include "stair.h"
 #include "action.h"
+#include "armour.h"
+#include "sword.h"
+#include "merchant.h"
 #include "floor.h"
 #include "obj.h"
 
@@ -57,6 +61,9 @@ char game::racePick(){
 	cout<<"v: Vampire (50,  25/25)  (5HP gained per atk, no max HP)\n";
 	cout<<"t: Troll   (120, 25/15)  (Recover 5HP per turn)\n";
 	cout<<"g: Goblin  (110, 15/20)  (5 gold per enemy killed)\n";
+	if(extra){
+	cout<<"b: Bugbear (150, 25/25)  (takes 5 less damage per attack) (score x0.75)\n";
+	}
 	char in;
 	if(cin>>in){
 		return in;
@@ -78,25 +85,19 @@ std::string game::getRace(){
 }
 
 bool game::goodRace(){
-	char races[] = {'s', 'd', 'v', 'g', 't'};
-	return inArr(race, races, 5);
+	char races[] = {'s', 'd', 'v', 'g', 't', 'b'};
+	return inArr(race, races, 6);
 }
 
-
-
-
-game::game(std::string fl, bool randomize): randomize{randomize},file{fl},a{new action()},f{ new level{fl, a, floorNum, randomize}}{
-	char races[] = {'s', 'd', 'v', 'g', 't'};
-
+game::game(std::string fl, bool randomize, bool ex): randomize{randomize}, extra{ex}, file{fl},a{new action()},f{ new level{fl, a, floorNum, randomize}}{
 	do{
 		race = racePick();
 		if(race == 'q'){
 			return;
 		}
-	}while(!inArr(race, races, 5));
+	}while(!goodRace());
 
 	int pCh;
-
 	if(randomize){
 		pCh = f->getRandomChamber();
 		pC = f->getChmbr(pCh)->random();
@@ -121,13 +122,16 @@ game::game(std::string fl, bool randomize): randomize{randomize},file{fl},a{new 
 		case 'g':
 			p = new goblin(pC);
 			break;
+		case 'b':
+			p = new bugbear(pC);
+			break;
 	}
 
 	pp = p;
 	f->add(pp, pC);
 
 	if(randomize){
-		f->randGen(pCh);
+		f->randGen(pCh, extra);
 	}
 }
 
@@ -159,7 +163,7 @@ void game::nextLevel(){
 	f->add(pp, pC);
 
 	if(randomize){
-		f->randGen(pCh);
+		f->randGen(pCh, extra);
 	}
 }
 
@@ -174,7 +178,7 @@ void game::step(){
 }
 
 void game::render(std::ostream &out){
-	f->render(out, pp, gld);
+	f->render(out, pp, gld, extra);
 }
 
 coord getCoord(enum game::dir d, coord pC){
@@ -307,6 +311,90 @@ bool game::use(dir d){
 		f->update(pp, pC);
 		f->remove(temp);
 		return true;
+	}else if(!f->empty(temp) && f->getObj(temp)->render() == 'A'){
+		armour *arm = static_cast<armour*> (f->getObj(temp));
+		arm->displayEffect(a, pp);
+		pp = arm->effect(pp);
+		f->update(pp, pC);
+		f->remove(temp);
+		return true;
+	}else if(!f->empty(temp) && f->getObj(temp)->render() == 'S'){
+		sword *swd = static_cast<sword*> (f->getObj(temp));
+		swd->displayEffect(a, pp);
+		pp = swd->effect(pp);
+		f->update(pp, pC);
+		f->remove(temp);
+		return true;
+	}else if(!f->empty(temp) && f->getObj(temp)->render() == 'M'){
+		if(!(merchant::merchantHostile())){
+			std::cout<<"What would you like to buy?\n";
+			std::cout<<"s: Magic sword?    (5 gold)\n";
+			std::cout<<"a: Magic armour?   (15 gold)\n";
+			std::cout<<"h: Health potion?  (10 gold)\n";
+			std::cout<<"t: Attack potion?  (10 gold)\n";
+			std::cout<<"d: Defense potion? (10 gold)\n";
+			std::string s = "";
+			char c = 'z';
+			char ac[] = {'s', 'a', 'h', 't', 'd'};
+			do{
+				std::cout<<"Your selection:\n";
+				std::cin>>s;
+			}while(!one(s[0], ac, 5));
+			c = s[0];
+			switch(c){
+			case 's':
+				if(gld >= 5){
+					sword *s = new sword(coord(0,0), 3);
+					pp = s->effect(pp);
+					delete s;
+					gld -= 5;
+				}else{
+					std::cout<<"You cannot afford this\n";
+				}
+				break;
+			case 'a':
+				if(gld >= 15){
+					armour *a = new armour(coord(0,0), 5);
+					pp = a->effect(pp);
+					delete a;
+					gld -= 15;
+				}else{
+					std::cout<<"You cannot afford this\n";
+				}
+				break;
+			case 'h':
+				if(gld >= 10){
+					potion *p = new potion(coord(0,0), potion::RH);
+					pp = p->effect(pp);
+					delete p;
+					gld -= 10;
+				}else{
+					std::cout<<"You cannot afford this\n";
+				}
+				break;
+			case 't':
+				if(gld >= 10){
+					potion *p = new potion(coord(0,0), potion::BA);
+					pp = p->effect(pp);
+					delete p;
+					gld -= 10;
+				}else{
+					std::cout<<"You cannot afford this\n";
+				}
+				break;
+			case 'd':
+				if(gld >= 10){
+					potion *p = new potion(coord(0,0), potion::BD);
+					pp = p->effect(pp);
+					delete p;
+					gld -= 10;
+				}else{
+					std::cout<<"You cannot afford this\n";
+				}
+				break;
+			}
+		}
+		return true;
 	}
 
 	return false;
@@ -360,4 +448,8 @@ game::~game(){
 	delete f;
 	delete a;
 	delete tHoard;
+}
+
+void game::gib(){
+	gld += 30;
 }

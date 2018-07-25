@@ -20,6 +20,7 @@ class obj;
 
 class game{
 	bool randomize;
+	bool extra;
 	obj* tHoard=nullptr;
 	bool bHoard=false;
 	bool done=false;
@@ -37,7 +38,7 @@ class game{
 	char race = 'I';
 public:
 	game(std::string);
-	game(std::string, bool);
+	game(std::string, bool random, bool extra);
 	enum dir {no, so, ea, we, ne, nw, se, sw};
 	bool move(dir d);
 	bool use(dir d);
@@ -52,6 +53,7 @@ public:
 	int getScore();
 	~game();
 	void gotoNext();
+	void gib();
 };
 
 

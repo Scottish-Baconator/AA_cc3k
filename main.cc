@@ -14,52 +14,73 @@ game::dir convert(std::string s){
 	if(s.length()!=2){
 		return game::no;
 	}
+
 	switch (s[0]){
-	case 'n':
-		switch(s[1]){
+		case 'n':
+			switch(s[1]){
+				case 'w':
+					return game::nw;
+					break;
+				case 'e':
+					return game::ne;
+					break;
+				default:
+					return game::no;
+					break;
+			}
+			break;
+		case 's':
+			switch(s[1]){
+			case 'w':
+				return game::sw;
+				break;
+			case 'e':
+				return game::se;
+				break;
+			default:
+				return game::no;
+				break;
+			}
+			break;
 		case 'w':
-			return game::nw;
+			return game::we;
+			break;
 		case 'e':
-			return game::ne;
-		}
-		return game::no;
-	case 's':
-		switch(s[1]){
-		case 'w':
-			return game::sw;
-		case 'e':
-			return game::se;
-		}
-		return game::so;
-	case 'w':
-		return game::we;
-	case 'e':
-		return game::ea;
+			return game::ea;
+			break;
+		default:
+			return game::no;
+			break;
 	}
+
 	return game::no;
 }
 
 int main(int argc, char *argv[]){
 	std::string file;
 	bool random = (argc < 2);
-
-	if(argc < 2){
+	bool extra = false;
+  int args = 2;
+  
+  if (std::string(argv[1])=="-e"){
+    extra = true;
+    ++args;
+  }
+  
+	if(argc < args){
 		file = "./cc3kblankfloor.txt";
-	}else if (std::string(argv[1])=="extra_big"){
+	}else if (std::string(argv[args-1])=="extra_big"){
 		std::cerr << "gello" << std::endl;
 		file = "./cc3kblankfloor2.txt";
 		random = true;
-	}else if (std::string(argv[1])=="extra_small"){
+	}else if (std::string(argv[args-1])=="extra_small"){
 		std::cerr << "gello" << std::endl;
 		file = "./cc3kblankfloor3.txt";
 		random = true;
-	}else{
-		file = std::string(argv[1]);
 	}
-
-	//std::cout<<random<<"\n";
+  
 	srand(time(0));
-	game *g = new game{file, random};
+	game *g = new game{file, random, extra};
 
 
 	if(!g->goodRace()){
@@ -80,9 +101,11 @@ int main(int argc, char *argv[]){
 			comp = g->attack(convert(s));
 		}else if(s[0] == 'f'){
 			g->stop();
+		}else if(s[0] == 'g'){
+			g->gib();
 		}else if(s[0] == 'r'){
 			delete g;
-			g = new game{file, random};
+			g = new game{file, random, extra};
 			if(!g->goodRace()){
 				return 0;
 			}

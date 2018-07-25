@@ -81,6 +81,8 @@ public:
 	//Used by orcs do deal extra damage to goblins (small creatures)
 	virtual bool smallWeakness() const;
 
+	virtual int armour() const;
+
 	void setHP(int h){
 		hp = h;
 	}
