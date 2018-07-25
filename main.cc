@@ -42,11 +42,21 @@ game::dir convert(std::string s){
 int main(int argc, char *argv[]){
 	std::string file;
 	bool random = (argc < 2);
+
 	if(argc < 2){
 		file = "./cc3kblankfloor.txt";
+	}else if (std::string(argv[1])=="extra_big"){
+		std::cerr << "gello" << std::endl;
+		file = "./cc3kblankfloor2.txt";
+		random = true;
+	}else if (std::string(argv[1])=="extra_small"){
+		std::cerr << "gello" << std::endl;
+		file = "./cc3kblankfloor3.txt";
+		random = true;
 	}else{
 		file = std::string(argv[1]);
 	}
+
 	//std::cout<<random<<"\n";
 	srand(time(0));
 	game *g = new game{file, random};
