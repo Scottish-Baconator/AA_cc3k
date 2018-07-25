@@ -99,7 +99,6 @@ game::game(std::string fl, bool randomize, bool ex): randomize{randomize},file{f
 	}while(!goodRace());
 
 	int pCh;
-
 	if(randomize){
 		pCh = f->getRandomChamber();
 		pC = f->getChmbr(pCh)->random();

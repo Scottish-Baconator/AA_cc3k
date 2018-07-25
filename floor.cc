@@ -308,6 +308,10 @@ void level::render(std::ostream &out, player *const p, const int gld) const{
 	td->render(out, p, gld);
 }
 
+void level::render(std::ostream &out) const{
+	td->render(out);
+}
+
 level::~level(){
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){

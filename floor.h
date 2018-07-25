@@ -45,6 +45,7 @@ public:
 	void update(obj *toAdd, const coord &pos);
 
 	void render(std::ostream &out, player *const p, const int gld) const;
+	void render(std::ostream &out) const;
 	void step(action *a);
 	bool move(const coord &origin, const coord &target);
 

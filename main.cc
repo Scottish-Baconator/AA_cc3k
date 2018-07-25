@@ -53,6 +53,7 @@ int main(int argc, char *argv[]){
 			if(argc > 2){
 				file = std::string(argv[1]);
 			}else{
+				file = "./cc3kblankfloor.txt";
 				random = true;
 			}
 		}

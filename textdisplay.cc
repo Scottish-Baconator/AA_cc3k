@@ -171,6 +171,22 @@ void textDisplay::render(std::ostream &out, player *const p, const int gld) cons
 
 }
 
+void textDisplay::render(std::ostream &out) const{
+
+	//Renders the map
+	coord c = coord(0,0);
+	for(c.y=0;c.y < 25;(c.y)++){
+		for(c.x = 0;c.x < 79;(c.x)++){
+			if(f->empty(c)){
+				out << map[c.x][c.y];
+			}else {
+				out << (f->getObj(c))->render();
+			}
+		}
+		out << '\n';
+	}
+}
+
 void textDisplay::chambFrom(coord c, chamber *ch){
 	if(c.x < 0 || c.x >= 79 || c.y < 0 || c.y >= 30 || map[c.x][c.y] != '.' || ch->containsCoord(c)){
 		return;
