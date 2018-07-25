@@ -125,5 +125,7 @@ int main(int argc, char *argv[]){
 		std::cout<<"You achieved a score of "<<g->getScore();
 		std::cout<<" as a "<<g->getRace() << std::endl;
 	}
+
+	delete g;
 }
 

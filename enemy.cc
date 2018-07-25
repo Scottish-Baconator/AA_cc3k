@@ -13,6 +13,7 @@
 //Move to a random neighbouring tile
 coord enemy::move(level *f){
 	coord to(pos);
+	int guard;
 
 	if(f->enemyTrapped(pos))
 		{
@@ -22,29 +23,36 @@ coord enemy::move(level *f){
 	do{
 		to = pos;
 		switch(rand()%8){
-		case 0:
-			to.x++;
-			break;
-		case 1:
-			to.x++;to.y++;
-			break;
-		case 2:
-			to.y++;
-			break;
-		case 3:
-			to.x--;to.y++;
-			break;
-		case 4:
-			to.x--;
-			break;
-		case 5:
-			to.x--;to.y--;
-			break;
-		case 6:
-			to.y++;
-			break;
-		case 7:
-			to.x++;to.y--;
+			case 0:
+				to.x++;
+				break;
+			case 1:
+				to.x++;to.y++;
+				break;
+			case 2:
+				to.y++;
+				break;
+			case 3:
+				to.x--;to.y++;
+				break;
+			case 4:
+				to.x--;
+				break;
+			case 5:
+				to.x--;to.y--;
+				break;
+			case 6:
+				to.y++;
+				break;
+			case 7:
+				to.x++;to.y--;
+				break;
+			default:
+				return pos;
+		}
+		++guard;
+		if(guard>50){
+			return pos;
 		}
 
 	}while(f->enemyStuck(to));
