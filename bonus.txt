@@ -1,0 +1,5 @@
+This project includes a couple bonuses. In order to use them, simply run the game like this:
+./cc3k -e [file name]
+where [file name] is the optional file you want to load from
+These extras are entirely based around a new item: armour, which reduces the damage taken from an attack
+It also introduces a new player charachter who has default armour and higher stats, meant for an easier experience
