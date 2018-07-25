@@ -2,4 +2,5 @@ This project includes a couple bonuses. In order to use them, simply run the gam
 ./cc3k -e [file name]
 where [file name] is the optional file you want to load from
 These extras are entirely based around a new item: armour, which reduces the damage taken from an attack
+Armour is shown as an A on the map and only spawns in the stair room. It provides 5 dmg resistance, to a minimum of 1 damage
 It also introduces a new player charachter who has default armour and higher stats, meant for an easier experience
