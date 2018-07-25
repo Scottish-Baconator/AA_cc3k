@@ -60,21 +60,25 @@ int main(int argc, char *argv[]){
 	std::string file;
 	bool random = (argc < 2);
 	bool extra = false;
-	if(argc < 2){
+  int args = 2;
+  
+  if (std::string(argv[1])=="-e"){
+    extra = true;
+    ++args;
+  }
+  
+	if(argc < args){
 		file = "./cc3kblankfloor.txt";
-	}else{
-		file = std::string(argv[1]);
-		if(file[0] == '-'){
-			extra = true;
-			if(argc > 2){
-				file = std::string(argv[2]);
-				random = false;
-			}else{
-				file = "./cc3kblankfloor.txt";
-				random = true;
-			}
-		}
+	}else if (std::string(argv[args-1])=="extra_big"){
+		std::cerr << "gello" << std::endl;
+		file = "./cc3kblankfloor2.txt";
+		random = true;
+	}else if (std::string(argv[args-1])=="extra_small"){
+		std::cerr << "gello" << std::endl;
+		file = "./cc3kblankfloor3.txt";
+		random = true;
 	}
+  
 	srand(time(0));
 	game *g = new game{file, random, extra};
 

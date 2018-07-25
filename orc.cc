@@ -7,7 +7,7 @@
 
 #include "orc.h"
 
-orc::orc(coord pos): enemy(pos, 180, 30, 25, "orc", true, false){}
+orc::orc(coord pos): enemy(pos, 180, 30, 25, "Orc", true, false){}
 
 char orc::render() const{
 	return 'O';

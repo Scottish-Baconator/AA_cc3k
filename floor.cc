@@ -219,25 +219,15 @@ bool oneOf(char a, char b[], int len){
 }
 
 void level::makeChambers(){
-	for(int i=0;i<5;++i){
-		chmbrs.emplace_back(new chamber());
-	}
 
-	int cur = 0;
 	for(int i = 0;i < 79;i++){
 		for(int j = 0;j < 30;j++){
 			if(td->get(coord(i, j)) == '.'){
 				if(!is(coord(i, j))){
-					td->chambFrom(coord(i,j), chmbrs[cur]);
-					cur++;
+					chmbrs.emplace_back(new chamber());
+					td->chambFrom(coord(i,j), chmbrs.back());
 				}
 			}
-			if(cur > 4){
-				break;
-			}
-		}
-		if(cur > 4){
-			break;
 		}
 	}
 }
