@@ -20,6 +20,7 @@ class player : public character {
 
 public:
 	player(coord pos, int hp, double atk, double def, std::string race);
+	virtual ~player(){};
 	
 	char render() const override;
 	
