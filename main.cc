@@ -49,9 +49,9 @@ int main(int argc, char *argv[]){
 		file = std::string(argv[1]);
 		if(file[0] == '-'){
 			extra = true;
-			random = false;
 			if(argc > 2){
-				file = std::string(argv[1]);
+				file = std::string(argv[2]);
+				random = false;
 			}else{
 				file = "./cc3kblankfloor.txt";
 				random = true;
