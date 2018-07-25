@@ -12,7 +12,7 @@
 class item: public obj{
 public:
 	item(coord pos): obj(pos){};
-	virtual ~item(){}; //Virtual dtor just so item becomes abstract
+	virtual ~item(){};
 
 };
 
