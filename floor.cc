@@ -17,6 +17,7 @@
 #include "elf.h"
 #include "orc.h"
 #include "merchant.h"
+#include "bugbear.h"
 #include "potion.h"
 #include "hoard.h"
 #include "stair.h"
@@ -32,7 +33,8 @@ bool level::is(const coord &c) const{
 	}
 	return false;
 }
-void level::randGen(int playerChamber){
+void level::randGen(int playerChamber, bool extra){
+	(void)extra;
 	int stairchmbr;
 	do{
 		stairchmbr = getRandomChamber();

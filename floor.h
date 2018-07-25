@@ -60,7 +60,7 @@ public:
 	character* getPC() const;
 	bool close(const obj  *const obs, const obj  *const subj ) const;
 	bool is(const coord &c) const;
-	void randGen(int playerChamber);
+	void randGen(int playerChamber, bool extra);
 	int getRandomChamber() const;
 };
 

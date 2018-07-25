@@ -19,6 +19,7 @@
 #include "elf.h"
 #include "orc.h"
 #include "merchant.h"
+#include "bugbear.h"
 #include <iostream>
 #include <string>
 #include <vector>

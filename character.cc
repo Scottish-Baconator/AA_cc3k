@@ -24,6 +24,7 @@ void character::attack(character *subj, action *a){
 		}else {
 			dmg = ceil((100/(100+subj->getDef()))*(this->getAtk()));
 			dmg = atkEffect(subj, dmg);
+			dmg -= subj->armour();
 			subj->chngHP(-dmg);
 			a->attack(getName(), subj->getName(), dmg);
 		}
@@ -111,6 +112,8 @@ bool character::smallWeakness() const{
 	return false;
 }
 
-
+int character::armour() const{
+	return 0;
+}
 
 

@@ -9,6 +9,7 @@
 #include "shade.h"
 #include "drow.h"
 #include "vampire.h"
+#include "bugbear.h"
 #include "troll.h"
 #include "goblin.h"
 #include "potion.h"
@@ -57,6 +58,9 @@ char game::racePick(){
 	cout<<"v: Vampire (50,  25/25)  (5HP gained per atk, no max HP)\n";
 	cout<<"t: Troll   (120, 25/15)  (Recover 5HP per turn)\n";
 	cout<<"g: Goblin  (110, 15/20)  (5 gold per enemy killed)\n";
+	if(extra){
+	cout<<"b: Bugbear (150, 25/25)  (takes 5 less damage per attack) (score x0.75)\n";
+	}
 	char in;
 	if(cin>>in){
 		return in;
@@ -78,22 +82,21 @@ std::string game::getRace(){
 }
 
 bool game::goodRace(){
-	char races[] = {'s', 'd', 'v', 'g', 't'};
-	return inArr(race, races, 5);
+	char races[] = {'s', 'd', 'v', 'g', 't', 'b'};
+	return inArr(race, races, 6);
 }
 
 
 
 
-game::game(std::string fl, bool randomize): randomize{randomize},file{fl},a{new action()},f{ new level{fl, a, floorNum, randomize}}{
-	char races[] = {'s', 'd', 'v', 'g', 't'};
-
+game::game(std::string fl, bool randomize, bool ex): randomize{randomize},file{fl},a{new action()},f{ new level{fl, a, floorNum, randomize}}{
+	extra = ex;
 	do{
 		race = racePick();
 		if(race == 'q'){
 			return;
 		}
-	}while(!inArr(race, races, 5));
+	}while(!goodRace());
 
 	int pCh;
 
@@ -121,13 +124,16 @@ game::game(std::string fl, bool randomize): randomize{randomize},file{fl},a{new 
 		case 'g':
 			p = new goblin(pC);
 			break;
+		case 'b':
+			p = new bugbear(pC);
+			break;
 	}
 
 	pp = p;
 	f->add(pp, pC);
 
 	if(randomize){
-		f->randGen(pCh);
+		f->randGen(pCh, extra);
 	}
 }
 
@@ -159,7 +165,7 @@ void game::nextLevel(){
 	f->add(pp, pC);
 
 	if(randomize){
-		f->randGen(pCh);
+		f->randGen(pCh, extra);
 	}
 }
 

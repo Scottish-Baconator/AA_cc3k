@@ -42,14 +42,22 @@ game::dir convert(std::string s){
 int main(int argc, char *argv[]){
 	std::string file;
 	bool random = (argc < 2);
+	bool extra = false;
 	if(argc < 2){
 		file = "./cc3kblankfloor.txt";
 	}else{
 		file = std::string(argv[1]);
+		if(file[0] == '-'){
+			extra = true;
+			if(argc > 2){
+				file = std::string(argv[1]);
+			}else{
+				random = true;
+			}
+		}
 	}
-	//std::cout<<random<<"\n";
 	srand(time(0));
-	game *g = new game{file, random};
+	game *g = new game{file, random, extra};
 
 
 	if(!g->goodRace()){
@@ -72,7 +80,7 @@ int main(int argc, char *argv[]){
 			g->stop();
 		}else if(s[0] == 'r'){
 			delete g;
-			g = new game{file, random};
+			g = new game{file, random, extra};
 			if(!g->goodRace()){
 				return 0;
 			}

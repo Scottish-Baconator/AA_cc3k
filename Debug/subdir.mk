@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CC_SRCS += \
 ../action.cc \
+../bugbear.cc \
 ../chamber.cc \
 ../character.cc \
 ../dragon.cc \
@@ -66,6 +67,7 @@ O_SRCS += \
 
 CC_DEPS += \
 ./action.d \
+./bugbear.d \
 ./chamber.d \
 ./character.d \
 ./dragon.d \
@@ -97,6 +99,7 @@ CC_DEPS += \
 
 OBJS += \
 ./action.o \
+./bugbear.o \
 ./chamber.o \
 ./character.o \
 ./dragon.o \
