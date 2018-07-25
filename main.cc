@@ -49,14 +49,14 @@ int main(int argc, char *argv[]){
 	}
 	//std::cout<<random<<"\n";
 	srand(time(0));
-	game g{file, random};
+	game *g = new game{file, random};
 
 
-	if(!g.goodRace()){
+	if(!g->goodRace()){
 		return 0;
 	}
 
-	g.render(std::cout);
+	g->render(std::cout);
 
 	std::string s;
 
@@ -64,43 +64,44 @@ int main(int argc, char *argv[]){
 		bool comp = false;
 		if(s[0] == 'u'){
 			std::cin >> s;
-			comp = g.use(convert(s));
+			comp = g->use(convert(s));
 		}else if(s[0] == 'a'){
 			std::cin >> s;
-			comp = g.attack(convert(s));
+			comp = g->attack(convert(s));
 		}else if(s[0] == 'f'){
-			g.stop();
+			g->stop();
 		}else if(s[0] == 'r'){
-			g = game{file, random};
-			if(!g.goodRace()){
+			delete g;
+			g = new game{file, random};
+			if(!g->goodRace()){
 				return 0;
 			}
-			g.render(std::cout);
+			g->render(std::cout);
 			continue;
 		}else if(s[0] == 'q'){
 			break;
 		}else{
-			g.move(convert(s));
+			g->move(convert(s));
 			comp = true;
 		}
 		if(comp){
-			g.step();
-			g.render(std::cout);
+			g->step();
+			g->render(std::cout);
 		}
-		if(g.isDone()){
+		if(g->isDone()){
 			break;
 		}
 	}
 
 
-	if(g.isDone()){
-		if(g.isWinner()){
+	if(g->isDone()){
+		if(g->isWinner()){
 			std::cout<<"Good job! You survived the dungeon."<<std::endl;
 		}else{
 			std::cout<<"Bad luck. You were killed in the dungeon."<<std::endl;
 		}
-		std::cout<<"You achieved a score of "<<g.getScore();
-		std::cout<<" as a "<<g.getRace() << std::endl;
+		std::cout<<"You achieved a score of "<<g->getScore();
+		std::cout<<" as a "<<g->getRace() << std::endl;
 	}
 }
 

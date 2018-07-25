@@ -12,6 +12,7 @@
 #include "potion.h"
 #include "gold.h"
 #include "hoard.h"
+#include "dragon.h"
 #include "human.h"
 #include "dwarf.h"
 #include "halfling.h"
@@ -22,6 +23,29 @@
 #include <string>
 #include <vector>
 
+bool close(coord a, coord b){
+	return ((abs(a.x - b.x) <= 1) && (abs(a.y - b.y) <= 1));
+}
+
+coord findNearestDragon(coord c, std::string file){
+	std::ifstream in(file);
+	char ch = '.';
+	coord cur(0,0);
+	for(cur.y = 0;cur.y < 25;cur.y++){
+		for(cur.x = 0;cur.x < 79;cur.x++){
+			in.get(ch);
+			if(close(cur, c)){
+				if(ch == 'D'){
+					return cur;
+				}
+			}
+		}
+		in.ignore();
+	}
+	return coord(0,0);
+
+}
+
 bool isIn(char a, char b[], int len){
 	for(int i = 0;i < len;i++){
 		if(a == b[i]){
@@ -31,7 +55,7 @@ bool isIn(char a, char b[], int len){
 	return false;
 }
 
-obj* textDisplay::type(char c, coord pos){
+obj* textDisplay::type(char c, coord pos, std::string file){
 	switch(c){
 		case '0':
 			return new potion(pos, potion::RH);
@@ -52,8 +76,7 @@ obj* textDisplay::type(char c, coord pos){
 		case '8':
 			return new gold(pos, 4);
 		case '9':
-			//drgns.erase(drgns.begin());
-			return new hoard(pos, f);
+			return new hoard(pos, f, findNearestDragon(pos, file));
 		case 'M':
 			return new merchant(pos);
 		case 'E':
@@ -88,7 +111,7 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 	}
 
 	if(!rand){
-		in.ignore(2000 * (f->getFloorNum() - 1));
+		in.ignore(1975 * (f->getFloorNum() - 1));
 	}
 
 	for(int i = 0;i < 25;i++){
@@ -100,7 +123,7 @@ textDisplay::textDisplay(std::string file, level *f, action *a, bool rand):f{f},
 			if((!rand) && !isIn(c, accept, aLen)){
 				map[j][i] = '.';
 				coord pos{j, i};
-				obj* tem = type(c, pos);
+				obj* tem = type(c, pos, file);
 				if(tem == nullptr){
 					//std::cout<<"Null ("<<j<<", "<<i<<") "<<c<<"\n";
 				}else{
