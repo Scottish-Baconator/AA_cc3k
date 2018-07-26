@@ -8,10 +8,10 @@ Swords also spawn in the loot room, and provide a slight buff to attack.
 Armour and swords are dropped on going to the next chamber
 It also introduces a new player charachter who has default armour and higher stats, meant for an easier experience
 Finally, by (u)sing a merchant, you can trade gold for items like potions, swords and armour
-These items will be placed into the players inventory, a reusable, permanant storage of one item. 
-Items can be added to the inventory by p [direction] for pickinging up an obejct from that direction
-Items can be used from inventory by u i which will use the item in inventory
-if inventory is full, adding another item will delete whatever is in inventory
+These items will be placed into the players inventory, a reusable, permanant storage of five item. 
+Items can be added to the inventory by p [direction] for picking up an obejct from that direction and adding it to the first unsued slot (or the last slot if all are used)
+Items can be used from inventory by u i[n] which will use the nth item in inventory (1 to 5)
+if inventory is full, adding another item will delete whatever is the last item in the inventory
 
 If [file name] is specified to be "extra_big", then the floors of the chamber will have 8 chambers in a new layout. Similarly, "extra_small" has floors with 3 chambers in a new layout.These layouts are read from the "cc3kblankfloor.txt" files, where the floor without a number is the originnal floor.
 
