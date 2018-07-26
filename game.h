@@ -31,7 +31,7 @@ class game{
 	level *f;
 	player *p = nullptr;
 	player *pp = nullptr;//potioned player
-	item *inventory = nullptr;
+	item *inventory[5];
 	coord pC = coord(0,0);
 	int gld=0;
 	bool paused=false;
@@ -45,9 +45,10 @@ public:
 	enum dir {no, so, ea, we, ne, nw, se, sw};
 	bool move(dir d);
 	bool use(dir d);
-	bool useInv();
-	bool addToInv(item*);
-	bool addToInv(dir);
+	bool useInv(int i);
+	bool addToInv(item*, int i);
+	bool addToInv(dir, int i);
+	int getFirstUnused();
 	bool attack(dir d);
 	void stop();
 	void step();
