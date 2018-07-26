@@ -90,6 +90,9 @@ bool game::goodRace(){
 }
 
 game::game(std::string fl, bool randomize, bool ex): randomize{randomize}, extra{ex}, file{fl},a{new action()},f{ new level{fl, a, floorNum, randomize}}{
+	for(int i = 0;i < 5;i++){
+		inventory[i] = nullptr;
+	}
 	do{
 		race = racePick();
 		if(race == 'q'){
@@ -179,6 +182,70 @@ void game::step(){
 
 void game::render(std::ostream &out){
 	f->render(out, pp, gld, extra);
+
+	if(extra){
+		out<<"Inventory: ";
+		for(int i = 0;i < 5;i++){
+			if(inventory[i] == nullptr){
+				out<<"empty";
+			}else{
+				switch(inventory[i]->render()){
+				case 'S':
+					out<<"sword";
+					break;
+				case 'A':
+					out<<"armour";
+					break;
+				case 'P':
+					out<<"unknown potion";
+					break;
+				}
+			}
+			out<<"     ";
+		}
+		out<<"\n";
+	}
+}
+
+bool game::useInv(int i){
+	switch (inventory[i]->render()){
+	case 'S':
+		((sword *) inventory[i])->displayEffect(a, pp);
+		pp = ((sword *) inventory[i])->effect(pp);
+		delete inventory[i];
+		inventory[i] = nullptr;
+		return true;
+	case 'A':
+		((armour *) inventory[i])->displayEffect(a, pp);
+		pp = ((armour*) inventory[i])->effect(pp);
+		delete inventory[i];
+		inventory[i] = nullptr;
+		return true;
+	case 'P':
+		((potion *) inventory[i])->displayEffect(a, pp);
+		pp = ((potion*) inventory[i])->effect(pp);
+		delete inventory[i];
+		inventory[i] = nullptr;
+		return true;
+	}
+	return false;
+
+}
+
+bool game::addToInv(item * toAdd, int i){
+	if(inventory[i] != nullptr){
+		delete inventory[i];
+	}
+	inventory[i] = toAdd;
+	return true;
+}
+
+int game::getFirstUnused(){
+	int i = 0;
+	while(i < 4 && inventory[i] != nullptr){
+		i++;
+	}
+	return i;
 }
 
 coord getCoord(enum game::dir d, coord pC){
@@ -210,6 +277,21 @@ coord getCoord(enum game::dir d, coord pC){
 			break;
 		}
 	return tr;
+}
+
+bool game::addToInv(dir c, int i){
+	obj *a = f->getObj(getCoord(c, pC));
+	char allow[] = {'P', 'S', 'A'};
+	if(!one(a->render(), allow, 3)){
+		return true;
+	}
+	item *in = (item*) a;
+	if(inventory[i] != nullptr){
+		delete inventory[i];
+	}
+	inventory[i] = in;
+	f->update(nullptr, getCoord(c, pC));
+	return true;
 }
 
 //Moves player in direction dir
@@ -301,6 +383,65 @@ bool game::move(dir d){
 	return false;
 }
 
+void game::shopping(){
+	std::cout<<"What would you like to buy?\n";
+	std::cout<<"s: Magic sword?    (5 gold)\n";
+	std::cout<<"a: Magic armour?   (15 gold)\n";
+	std::cout<<"h: Health potion?  (10 gold)\n";
+	std::cout<<"t: Attack potion?  (10 gold)\n";
+	std::cout<<"d: Defense potion? (10 gold)\n";
+	std::string s = "";
+	char c = 'z';
+	char ac[] = {'s', 'a', 'h', 't', 'd'};
+	do{
+		std::cout<<"Your selection:\n";
+		std::cin>>s;
+	}while(!one(s[0], ac, 5));
+	c = s[0];
+	switch(c){
+	case 's':
+		if(gld >= 5){
+			addToInv(new sword(coord(0,0), 3), getFirstUnused());
+			gld -= 5;
+		}else{
+			std::cout<<"You cannot afford this\n";
+		}
+		break;
+	case 'a':
+		if(gld >= 15){
+			addToInv((new armour(coord(0,0), 5)), getFirstUnused());
+			gld -= 15;
+		}else{
+			std::cout<<"You cannot afford this\n";
+		}
+		break;
+	case 'h':
+		if(gld >= 10){
+			addToInv(new potion(coord(0,0), potion::RH), getFirstUnused());
+			gld -= 10;
+		}else{
+			std::cout<<"You cannot afford this\n";
+		}
+		break;
+	case 't':
+		if(gld >= 10){
+			addToInv(new potion(coord(0,0), potion::BA), getFirstUnused());
+			gld -= 10;
+		}else{
+			std::cout<<"You cannot afford this\n";
+		}
+		break;
+	case 'd':
+		if(gld >= 10){
+			addToInv(new potion(coord(0,0), potion::BD), getFirstUnused());
+			gld -= 10;
+		}else{
+			std::cout<<"You cannot afford this\n";
+		}
+		break;
+	}
+}
+
 bool game::use(dir d){
 	coord temp = getCoord(d, pC);
 
@@ -326,73 +467,8 @@ bool game::use(dir d){
 		f->remove(temp);
 		return true;
 	}else if(!f->empty(temp) && f->getObj(temp)->render() == 'M'){
-		if(!(merchant::merchantHostile())){
-			std::cout<<"What would you like to buy?\n";
-			std::cout<<"s: Magic sword?    (5 gold)\n";
-			std::cout<<"a: Magic armour?   (15 gold)\n";
-			std::cout<<"h: Health potion?  (10 gold)\n";
-			std::cout<<"t: Attack potion?  (10 gold)\n";
-			std::cout<<"d: Defense potion? (10 gold)\n";
-			std::string s = "";
-			char c = 'z';
-			char ac[] = {'s', 'a', 'h', 't', 'd'};
-			do{
-				std::cout<<"Your selection:\n";
-				std::cin>>s;
-			}while(!one(s[0], ac, 5));
-			c = s[0];
-			switch(c){
-			case 's':
-				if(gld >= 5){
-					sword *s = new sword(coord(0,0), 3);
-					pp = s->effect(pp);
-					delete s;
-					gld -= 5;
-				}else{
-					std::cout<<"You cannot afford this\n";
-				}
-				break;
-			case 'a':
-				if(gld >= 15){
-					armour *a = new armour(coord(0,0), 5);
-					pp = a->effect(pp);
-					delete a;
-					gld -= 15;
-				}else{
-					std::cout<<"You cannot afford this\n";
-				}
-				break;
-			case 'h':
-				if(gld >= 10){
-					potion *p = new potion(coord(0,0), potion::RH);
-					pp = p->effect(pp);
-					delete p;
-					gld -= 10;
-				}else{
-					std::cout<<"You cannot afford this\n";
-				}
-				break;
-			case 't':
-				if(gld >= 10){
-					potion *p = new potion(coord(0,0), potion::BA);
-					pp = p->effect(pp);
-					delete p;
-					gld -= 10;
-				}else{
-					std::cout<<"You cannot afford this\n";
-				}
-				break;
-			case 'd':
-				if(gld >= 10){
-					potion *p = new potion(coord(0,0), potion::BD);
-					pp = p->effect(pp);
-					delete p;
-					gld -= 10;
-				}else{
-					std::cout<<"You cannot afford this\n";
-				}
-				break;
-			}
+		if(extra && !(merchant::merchantHostile())){
+			shopping();
 		}
 		return true;
 	}
@@ -448,6 +524,11 @@ game::~game(){
 	delete f;
 	delete a;
 	delete tHoard;
+	for(int i = 0;i < 5;i++){
+		if(inventory[i] != nullptr){
+			delete inventory[i];
+		}
+	}
 }
 
 void game::gib(){
