@@ -12,6 +12,7 @@
 #include <string>
 
 class level;
+class action;
 
 class player : public character {
 	int maxHP;
@@ -19,14 +20,16 @@ class player : public character {
 
 public:
 	player(coord pos, int hp, double atk, double def, std::string race);
+	virtual ~player(){};
 	
-	char render();
+	char render() const override;
 	
 
 	//Player dodges half the time
-	int dodgeChance() override;
+	int dodgeChance() const override;
 	std::string getRace();
-	coord step(level *f) override;
+	coord step(level *f, action *a) override;
+	virtual double scoreMultiplier() const;
 };
 
 

@@ -14,17 +14,18 @@ player::player(coord pos, int hp, double atk, double def, std::string race):char
 	maxHP = hp;
 }
 
-char player::render(){
+char player::render() const{
 	return '@';
 }
 
 //Player dodges half the time
-int player::dodgeChance(){
+int player::dodgeChance() const{
 	return 50;
 }
 
-coord player::step(level *f) {
+coord player::step(level *f, action *a) {
 	(void)f;
+	(void)a;
 	chngHP(regen());
 	return pos;
 }
@@ -32,3 +33,8 @@ coord player::step(level *f) {
 std::string player::getRace(){
 	return race;
 }
+
+double player::scoreMultiplier() const{
+	return 1;
+}
+

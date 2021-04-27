@@ -6,14 +6,22 @@
  */
 #include "obj.h"
 
-	coord obj::step(level *f){
+	coord obj::step(level *f, action *a){
 		(void)f;
+		(void)a;
 		return pos;
 	}
-	coord obj::getPos(){return pos;}
-
-	char obj::render(){
-		return 'O';
+	coord obj::getPos() const{
+		return pos;
 	}
 
+	void obj::chngPos(const coord &c){
+		pos = c;
+	}
 
+	obj::obj(coord c):pos{c}{
+	}
+
+	obj::~obj(){
+
+	}

@@ -14,9 +14,8 @@ class goblin: public player{
 public:
 	goblin(coord pos);
 
-	int atkEffect(character *subj, int dmg) override;
-
-	bool smallWeakness() override;
+	bool smallWeakness() const override;
+	bool canSteal() const override;
 };
 
 

@@ -13,9 +13,9 @@ class elf: public enemy{
 	public:
 		elf(coord pos); //calls enemy constructor with required params
 
-		char render() override;
+		char render() const override;
 
-		int atkEffect(character *subj, int dmg) override;
+		bool doubleAttack() const override;
 
 };
 

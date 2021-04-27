@@ -1,7 +1,7 @@
 game.o: ../game.cc ../game.h ../coord.h ../shade.h ../player.h \
- ../character.h ../obj.h ../drow.h ../vampire.h ../troll.h ../goblin.h \
- ../potion.h ../item.h ../enemy.h ../floor.h ../chamber.h ../gold.h \
- ../stair.h ../action.h
+ ../character.h ../obj.h ../drow.h ../vampire.h ../bugbear.h ../enemy.h \
+ ../floor.h ../chamber.h ../gold.h ../item.h ../troll.h ../goblin.h \
+ ../potion.h ../stair.h ../action.h ../armour.h ../sword.h ../merchant.h
 
 ../game.h:
 
@@ -19,13 +19,7 @@ game.o: ../game.cc ../game.h ../coord.h ../shade.h ../player.h \
 
 ../vampire.h:
 
-../troll.h:
-
-../goblin.h:
-
-../potion.h:
-
-../item.h:
+../bugbear.h:
 
 ../enemy.h:
 
@@ -35,6 +29,20 @@ game.o: ../game.cc ../game.h ../coord.h ../shade.h ../player.h \
 
 ../gold.h:
 
+../item.h:
+
+../troll.h:
+
+../goblin.h:
+
+../potion.h:
+
 ../stair.h:
 
 ../action.h:
+
+../armour.h:
+
+../sword.h:
+
+../merchant.h:

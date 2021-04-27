@@ -4,9 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CC_SRCS += \
+../aPlayer.cc \
 ../action.cc \
+../armour.cc \
+../bugbear.cc \
 ../chamber.cc \
 ../character.cc \
+../dragon.cc \
 ../drow.cc \
 ../dwarf.cc \
 ../elf.cc \
@@ -16,6 +20,7 @@ CC_SRCS += \
 ../goblin.cc \
 ../gold.cc \
 ../halfling.cc \
+../hoard.cc \
 ../human.cc \
 ../main.cc \
 ../merchant.cc \
@@ -25,8 +30,10 @@ CC_SRCS += \
 ../player.cc \
 ../potion.cc \
 ../potions.cc \
+../sPlayer.cc \
 ../shade.cc \
 ../stair.cc \
+../sword.cc \
 ../test.cc \
 ../textdisplay.cc \
 ../troll.cc \
@@ -36,13 +43,17 @@ O_SRCS += \
 ../action.o \
 ../chamber.o \
 ../character.o \
+../dragon.o \
+../drow.o \
 ../dwarf.o \
 ../elf.o \
 ../enemy.o \
 ../floor.o \
 ../game.o \
+../goblin.o \
 ../gold.o \
 ../halfling.o \
+../hoard.o \
 ../human.o \
 ../main.o \
 ../merchant.o \
@@ -55,12 +66,17 @@ O_SRCS += \
 ../shade.o \
 ../stair.o \
 ../textdisplay.o \
-../troll.o 
+../troll.o \
+../vampire.o 
 
 CC_DEPS += \
+./aPlayer.d \
 ./action.d \
+./armour.d \
+./bugbear.d \
 ./chamber.d \
 ./character.d \
+./dragon.d \
 ./drow.d \
 ./dwarf.d \
 ./elf.d \
@@ -70,6 +86,7 @@ CC_DEPS += \
 ./goblin.d \
 ./gold.d \
 ./halfling.d \
+./hoard.d \
 ./human.d \
 ./main.d \
 ./merchant.d \
@@ -79,17 +96,23 @@ CC_DEPS += \
 ./player.d \
 ./potion.d \
 ./potions.d \
+./sPlayer.d \
 ./shade.d \
 ./stair.d \
+./sword.d \
 ./test.d \
 ./textdisplay.d \
 ./troll.d \
 ./vampire.d 
 
 OBJS += \
+./aPlayer.o \
 ./action.o \
+./armour.o \
+./bugbear.o \
 ./chamber.o \
 ./character.o \
+./dragon.o \
 ./drow.o \
 ./dwarf.o \
 ./elf.o \
@@ -99,6 +122,7 @@ OBJS += \
 ./goblin.o \
 ./gold.o \
 ./halfling.o \
+./hoard.o \
 ./human.o \
 ./main.o \
 ./merchant.o \
@@ -108,8 +132,10 @@ OBJS += \
 ./player.o \
 ./potion.o \
 ./potions.o \
+./sPlayer.o \
 ./shade.o \
 ./stair.o \
+./sword.o \
 ./test.o \
 ./textdisplay.o \
 ./troll.o \

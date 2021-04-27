@@ -1,0 +1,18 @@
+This project includes a couple bonuses. In order to use them, simply run the game like this:
+./cc3k -e [file name]
+where [file name] is the optional file you want to load from
+
+These extras are almost entirely based around a new item: armour, which reduces the damage taken from an attack
+Armour is shown as an A on the map and only spawns in the loot room, a room that doesnt spawn the player or have stairs in it. It provides 5 dmg resistance, to a minimum of 1 damage
+Swords also spawn in the loot room, and provide a slight buff to attack.
+Armour and swords are dropped on going to the next chamber
+It also introduces a new player charachter who has default armour and higher stats, meant for an easier experience
+Finally, by (u)sing a merchant, you can trade gold for items like potions, swords and armour
+These items will be placed into the players inventory, a reusable, permanant storage of five item. 
+Items can be added to the inventory by p [direction] for picking up an obejct from that direction and adding it to the first unsued slot (or the last slot if all are used)
+Items can be used from inventory by u i[n] which will use the nth item in inventory (1 to 5)
+if inventory is full, adding another item will delete whatever is the last item in the inventory
+
+If [file name] is specified to be "extra_big", then the floors of the chamber will have 8 chambers in a new layout. Similarly, "extra_small" has floors with 3 chambers in a new layout.These layouts are read from the "cc3kblankfloor.txt" files, where the floor without a number is the originnal floor.
+
+cc3kfloor2.txt is a predefined layout which uses the extra_big floor layout to show that it also works for the premade maps.

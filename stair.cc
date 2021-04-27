@@ -8,7 +8,7 @@
 
 stair::stair(coord pos): obj(pos){}
 
-char stair::render(){
+char stair::render() const{
 	return '\\';
 }
 

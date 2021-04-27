@@ -6,13 +6,13 @@
  */
 #include "halfling.h"
 
-halfling::halfling(coord pos): enemy(pos, 100, 15, 20, "halfling", true, false){}
+halfling::halfling(coord pos): enemy(pos, 100, 15, 20, "Halfling", true, false){}
 
-char halfling::render(){
+char halfling::render() const{
 	return 'L';
 }
 
-int halfling::dodgeChance(){
+int halfling::dodgeChance() const{
 	return 50;
 }
 

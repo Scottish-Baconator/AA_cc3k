@@ -10,16 +10,19 @@
 #include "coord.h"
 
 class level;
+class action;
 
 class obj{
 protected:
 	coord pos;
 public:
-	obj(coord c): pos(c){}
-	virtual ~obj(){};
-	virtual coord step(level *f);
-	coord getPos();
-	virtual char render();
+	obj(coord c);
+	virtual ~obj();
+	virtual coord step(level *f, action *a);
+	coord getPos() const;
+	void chngPos(const coord &c);
+
+	virtual char render() const=0;
 };
 
 

@@ -7,41 +7,60 @@
 
 #ifndef GAME_H_
 #define GAME_H_
-#include <iostream>
 #include <string>
 #include "coord.h"
+
+const static int MAX_FLOORS = 5;
+const static int CHAR_IN_FLOOR = 2000;
 
 class level;
 class player;
 class action;
+class obj;
+class item;
 
 class game{
-	int floorNum=1;
+	bool randomize;
+	bool extra;
+	obj* tHoard=nullptr;
+	bool bHoard=false;
+	bool done=false;
+	int floorNum=1;//starts from 1
 	std::string file;
 	action *a;
 	level *f;
 	player *p = nullptr;
 	player *pp = nullptr;//potioned player
+	item *inventory[5];
 	coord pC = coord(0,0);
-	coord stairs = coord (10, 10);
-	int gld;
-	bool paused;
+	int gld=0;
+	bool paused=false;
 	void nextLevel();
 	char racePick();
+	void shopping();
 	char race = 'I';
 public:
 	game(std::string);
-	game(std::string, bool);
+	game(std::string, bool random, bool extra);
 	enum dir {no, so, ea, we, ne, nw, se, sw};
 	bool move(dir d);
 	bool use(dir d);
+	bool useInv(int i);
+	bool addToInv(item*, int i);
+	bool addToInv(dir, int i);
+	int getFirstUnused();
 	bool attack(dir d);
 	void stop();
 	void step();
 	void render(std::ostream &out);
-	char getRace();
+	std::string getRace();
 	bool goodRace();
-	~game(){};
+	bool isDone();
+	bool isWinner();
+	int getScore();
+	~game();
+	void gotoNext();
+	void gib();
 };
 
 

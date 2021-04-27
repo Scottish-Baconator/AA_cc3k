@@ -14,8 +14,8 @@ class human: public enemy{
 protected:
 public:
 	human(coord pos); //calls enemy constructor with required params
-	char render() override;
-	void drop(level *f) override;//drop 2 gold
+	char render() const override;
+	void drop(level *f) override;//drop 2 gold twice
 };
 
 

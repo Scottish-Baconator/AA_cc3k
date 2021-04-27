@@ -14,19 +14,12 @@ coord chamber::random(){
 	return coords[r];
 }
 
-void chamber::addCoord(coord a){
+void chamber::addCoord(const coord &a){
 	coords.emplace_back(a);
 }
 
-bool chamber::containsCoord(coord a){
+bool chamber::containsCoord(const coord &a) const{
 	bool result=false;
-	/*
-	for(size_t i=0; i<coords.size(); ++i){
-		if(a.eq(coords[i])){
-			result=true;
-			break;
-		}
-	}*/
 
 	for(auto it = coords.begin(); it != coords.end(); it++){
 		if(a.eq(*it)){

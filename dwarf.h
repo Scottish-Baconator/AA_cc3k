@@ -15,10 +15,10 @@ class dwarf: public enemy{
 public:
 	dwarf(coord pos); //calls enemy constructor with required params
 
-	char render() override;
+	char render() const override;
 
 	//overrides to a negative drain
-	int drain() override;
+	int drain() const override;
 };
 
 

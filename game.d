@@ -1,2 +1,3 @@
-game.o: game.cc game.h floor.h obj.h coord.h chamber.h player.h \
- character.h potion.h item.h shade.h enemy.h gold.h stair.h action.h
+game.o: game.cc game.h coord.h shade.h player.h character.h obj.h drow.h \
+ vampire.h troll.h goblin.h potion.h item.h enemy.h floor.h chamber.h \
+ gold.h stair.h action.h

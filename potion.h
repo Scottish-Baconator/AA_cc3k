@@ -17,10 +17,10 @@ public:
 private:
 	type potionType;
 public:
-	potion(coord pos, type t): item(pos), potionType(t){};
-	char render(){return 'P';}
+	potion(coord pos, type t);
+	char render() const;
 	player* effect(player *p);
-	void displayEffect(action *a);
+	void displayEffect(action *a, player *p);
 };
 
 
